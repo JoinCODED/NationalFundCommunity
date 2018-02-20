@@ -27,18 +27,12 @@
 </div>
   <div class="container">
     <div class="row">
-      <div class="col-sm">
-        <h1> Article 1</h1>
-          <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="{% url 'article' 1 %}">Read More</a> </p>
+      {% for article in articles %}
+      <div class="col-sm-3">
+        <h1> {{ article.title}} </h1>
+          <p> {{ article.content}} <a href="{% url 'article' article.id %}">Read More</a> </p>
       </div>
-      <div class="col-sm">
-        <h1> Article 2</h1>
-          <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="{% url 'article' 2 %}">Read More</a> </p>
-      </div>
-      <div class="col-sm">
-        <h1> Article 3</h1>
-          <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="{% url 'article' 3 %}">Read More</a> </p>
-      </div>
+     {% endfor %}
     </div>
   </div>
   <div class="card-footer text-muted footer">
