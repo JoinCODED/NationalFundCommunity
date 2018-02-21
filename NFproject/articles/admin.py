@@ -4,7 +4,7 @@ from django.contrib import admin
 from .models import Article
 
 class articleAdmin (admin.ModelAdmin):
-  list_display= ('Title','Author','Date_created')
+  list_display= ('title','author','created_at')
 
 
 admin.site.register(Article,articleAdmin)

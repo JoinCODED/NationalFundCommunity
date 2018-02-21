@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container">
-  <h1> {{article.Title}}</h1>
+  <h1> {{article.title}}</h1>
   <p>
 {{article.content}}
 </p>
 
-<h3>{{article.Author}}</h3>
-<h4>{{article.Date_created}}</h4>
-<img src={{article.pic}}>
+<h3>{{article.author}}</h3>
+<h4>{{article.created_at}}</h4>
+<img src={{article.picture}}>
 </div>
 {% endblock %}
