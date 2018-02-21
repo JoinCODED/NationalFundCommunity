@@ -103,3 +103,4 @@ nfenv
 
 db.sqlite3
 media/
+.vscode/
