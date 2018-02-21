@@ -8,6 +8,8 @@
 
 <h3>{{article.author}}</h3>
 <h4>{{article.created_at}}</h4>
+{% if article.picture %}
 <img src={{article.picture.url}}>
+{% endif %}
 </div>
 {% endblock %}
