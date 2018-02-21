@@ -8,7 +8,7 @@ class Article(models. Model):
     featured = models.BooleanField()
     tags= models.CharField(max_length=20)
     content= models.TextField()
-    picture = models.ImageField()
+    picture = models.ImageField(upload_to='article_pictures', blank= True)
 
     def __str__(self):
         return self.title
