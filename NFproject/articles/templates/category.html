@@ -1,0 +1,17 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+<h1> {{category.name}}</h1>
+  <div class="container">
+    <div class="row">
+      {% for article in category.belongsTo.all %}
+      <div class="col-sm-3">
+        <h1> {{ article.title}} </h1>
+        <p> {{article.author}}</p>
+          <p> <a href="{% url 'article' article.id %}">View Article</a> </p>
+      </div>
+     {% endfor %}
+    </div>
+  </div>
+{% endblock %}
