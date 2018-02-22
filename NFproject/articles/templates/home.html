@@ -1,15 +1,38 @@
 
 {% extends 'base.html' %}
+{% load article_card %}
 {% block content %}
-  <div class="container">
+
+    <div class="container">
+      <h1> Featured </h1>
+     <div class="row">
+      <div class="col-sm-6">
+        <h1> {{featured_articles.0.title}}</h1>
+      </div>
+      <div class="col-sm-6">
+        <div class="row">
+          <div class="col-sm-12">
+              <h1> {{featured_articles.1.title}}</h1>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+              <h1> {{featured_articles.2.title}}</h1>
+          </div>
+          <div class="col-sm-6">
+              <h1> {{featured_articles.3.title}}</h1>
+          </div>
+          </div>
+      </div>
+  
+    </div>
+    </div>
+    <div class="container">
+      <h1>All Articles</h1>
     <div class="row">
       {% for article in articles %}
-      <div class="col-sm-3">
-        <h1> {{ article.title}} </h1>
-        <p> {{article.author}}</p>
-          <p> <a href="{% url 'article' article.id %}">View Article</a> </p>
-      </div>
+      {% article_card article %}
      {% endfor %}
     </div>
-  </div>
+    </div>
 {% endblock %}

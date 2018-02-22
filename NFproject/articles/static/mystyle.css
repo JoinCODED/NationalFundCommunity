@@ -1,9 +1,25 @@
-.footer {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  padding: 1rem;
-  background-color: #efefef;
-  text-align: center;
+.featured_articles
+{
+
+
+
+}
+
+.navbar {
+  background-color: rgb(0, 57, 99);
+}
+
+.navbar a, .navbar-collapse {
+  color: white;
+  text-decoration: none;
+  padding-bottom: 0
+}
+
+.navbar a.nav-link:hover {
+  color: #a1a1a1;
+  border-bottom: 3px solid #febb36;
+}
+
+a.navbar-brand img {
+  height: 50px;
 }

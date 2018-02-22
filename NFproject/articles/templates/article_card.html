@@ -1,0 +1,13 @@
+
+        <div class="col-sm-4 mb-5">
+        <div class="card" style="width: 18rem;">
+            {% if article.picture %}
+            <img class="card-img-top"  height="200vh" src={{article.picture.url}} alt="">
+            {% endif %}
+          <div class="card-body">
+            <h5 class="card-title">{{ article.title}}</h5>
+            <p class="card-text">Written by: {{article.author}}</p>
+            <a href="{% url 'article' article.id %}" class="btn btn-primary">View Article</a>
+          </div>
+        </div>
+      </div>
