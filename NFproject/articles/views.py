@@ -8,7 +8,8 @@ def get_categories ():
 
 def home (request):
     articleList = Article.objects.all()
-    return render(request,"home.html",context={'articles':articleList,'categories':get_categories()})
+    featured_articles = Article.objects.filter(featured = True)
+    return render(request,"home.html",context={'articles':articleList,'categories':get_categories(), 'featured_articles': featured_articles})
 
 def article (request,article_id):
     _article = get_object_or_404(Article, id = article_id)

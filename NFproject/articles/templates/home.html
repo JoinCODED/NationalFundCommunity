@@ -6,11 +6,25 @@
     <div class="container">
       <h1> Featured </h1>
      <div class="row">
-      {% for article in articles %}
-        {% if article.featured == True %}
-          {% article_card article %}
-        {% endif %}
-     {% endfor %}
+      <div class="col-sm-6">
+        <h1> {{featured_articles.0.title}}</h1>
+      </div>
+      <div class="col-sm-6">
+        <div class="row">
+          <div class="col-sm-12">
+              <h1> {{featured_articles.1.title}}</h1>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+              <h1> {{featured_articles.2.title}}</h1>
+          </div>
+          <div class="col-sm-6">
+              <h1> {{featured_articles.3.title}}</h1>
+          </div>
+          </div>
+      </div>
+  
     </div>
     </div>
     <div class="container">
