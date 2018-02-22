@@ -1,7 +1,6 @@
 from django.db import models
 
 
-
 # Create your models here.
 class Category (models.Model):
     name = models.CharField(max_length=30)
@@ -18,5 +17,9 @@ class Article(models.Model):
     content= models.TextField()
     picture = models.ImageField(upload_to='article_pictures', blank= True)
 
+   
+
     def __str__(self):
         return self.title
+
+
