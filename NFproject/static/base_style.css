@@ -1,9 +1,4 @@
-.featured_articles
-{
-
-
-
-}
+/* Shared site-wide styles */
 
 .navbar {
   background-color: rgb(0, 57, 99);
@@ -13,6 +8,10 @@
   color: white;
   text-decoration: none;
   padding-bottom: 0
+}
+
+.navbar a.dropdown-item {
+  color: black;
 }
 
 .navbar a.nav-link:hover {
