@@ -1,0 +1,13 @@
+
+{% extends 'base.html' %}
+{% load event_card %}
+{% block content %}
+<h1> {{type.name}}</h1>
+  <div class="container">
+    <div class="row">
+      {% for event in type.belongsTo.all %}
+      {% event_card event %}
+     {% endfor %}
+    </div>
+  </div>
+{% endblock %}
