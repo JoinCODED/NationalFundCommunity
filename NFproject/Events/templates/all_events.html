@@ -1,0 +1,19 @@
+
+{% extends 'base.html' %}
+{% load event_card %}
+{% block content %}
+  <div class="container">
+    <h1>Up Coming Events</h1>
+    <div class="row">
+        {% for event in upcoming_events %}
+            {% event_card event %}
+        {% endfor %}
+    </div>
+    <h1>Past Events</h1>
+    <div class="row">
+          {% for event in past_events %}
+              {% event_card event %}
+          {% endfor %}
+      </div>
+  </div>
+{% endblock %}

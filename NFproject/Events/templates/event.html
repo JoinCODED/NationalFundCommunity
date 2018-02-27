@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+  <h1> {{event.title}}</h1>
+  <p>
+{{event.content}}
+</p>
+
+<h3>{{event.organizer}}</h3>
+<h4>{{event.date}}</h4>
+<h4>{{event.event_type}}</h4>
+<a href="{{event.location_url}}">{{event.location_name}}</a>
+{% if event.picture %}
+<img src={{event.picture.url}}>
+{% endif %}
+</div>
+{% endblock %}
