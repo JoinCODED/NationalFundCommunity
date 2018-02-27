@@ -35,11 +35,21 @@
 
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Categories
+              Articles Categories
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               {%for category in categories %}
                 <a class="dropdown-item" href="{%url 'category' category.id%}">{{category.name}}</a>
+              {%endfor%}
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Events Types
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              {%for type in types %}
+                <a class="dropdown-item" href="{%url 'type' type.id%}">{{type.name}}</a>
               {%endfor%}
             </div>
           </li>
