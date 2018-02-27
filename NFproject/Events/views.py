@@ -17,7 +17,10 @@ def event(request, event_id):
     context['event'] = get_object_or_404(Events, id=event_id)
     return render(request, "event.html", context=context)
 
+
 def types (request, type_id):
+    _type = get_object_or_404(Types, id=type_id)
     context ={}
-    context['type'] = get_object_or_404(Types, id=type_id)
+    context['type'] = _type
+    context['belongs_to'] = _type.belongsTo.all() 
     return render(request, "types.html", context=context)

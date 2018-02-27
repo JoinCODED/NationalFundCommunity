@@ -5,7 +5,7 @@
 <h1> {{type.name}}</h1>
   <div class="container">
     <div class="row">
-      {% for event in type.belongsTo.all %}
+      {% for event in belongs_to %}
       {% event_card event %}
      {% endfor %}
     </div>
