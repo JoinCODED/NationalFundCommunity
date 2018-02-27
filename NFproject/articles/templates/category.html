@@ -5,7 +5,7 @@
 <h1> {{category.name}}</h1>
   <div class="container">
     <div class="row">
-      {% for article in category.belongsTo.all %}
+      {% for article in categoriesOfArticles %}
       {% article_card article %}
      {% endfor %}
     </div>
