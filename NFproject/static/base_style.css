@@ -1,5 +1,14 @@
 /* Shared site-wide styles */
 
+/* CSS Variables */
+:root {
+  --primary: #ddd;
+  --dark: #333;
+  --light: #fff;
+  --shadow: 0 1px 5px rgba(104, 104, 104, 0.8);
+}
+
+/* NavBar */
 .navbar {
   background-color: rgb(0, 57, 99);
 }
@@ -22,3 +31,54 @@
 a.navbar-brand img {
   height: 50px;
 }
+
+
+  /* Top Container */
+  .top-container {
+    display: grid;
+    grid-gap: 2px;
+    grid-template-areas:
+      'featured featured top-box-a'
+      'featured featured top-box-b';
+  }
+  
+  /* featured */
+  .featured {
+    grid-area: featured;
+    min-height: 400px;
+    background-size: 100%;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: left;
+    box-shadow: var(--shadow);
+  }
+  
+  .featured h1 {
+    font-size: 4rem;
+    margin-bottom: 0;
+    color: var(--light);
+  }
+  
+  
+  /* Top Box */
+  .top-box {
+    display: grid;
+    align-items: left;
+    justify-items: left;
+    box-shadow: var(--shadow);
+    padding: 1.5rem;
+  }
+  
+  .top-box-a {
+    grid-area: top-box-a;
+    color: var(--light);
+  }
+  
+  .top-box-b {
+    grid-area: top-box-b;
+    color: var(--light);
+    
+  }
+  
