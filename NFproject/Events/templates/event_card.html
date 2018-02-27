@@ -1,0 +1,15 @@
+<a href="{% url 'event' event.id %}">
+  <div class="col-sm-4 mb-5">
+<div class="card" style="width: 18rem;">
+    {% if event.picture %}
+    <img class="card-img-top"  height="200vh" src={{event.picture.url}} alt="">
+    {% endif %}
+  <div class="card-body">
+    <h5 class="card-title">{{ event.title}}</h5>
+    <p class="card-text">{{event.date}}</p>
+    <p class="card-text">Organized by: {{event.organizer}}</p>
+    <p class="card-text">{{event.location_name}}</p>
+  </div>
+</div>
+</div>
+</a>
