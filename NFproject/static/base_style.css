@@ -82,9 +82,10 @@ a.navbar-brand img {
 
   }
   .events_advertisments{
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
-    height: 50vh !important;
+    background-position: center;
+    height: 80px;
 
   }
   .events_advertisments a{
