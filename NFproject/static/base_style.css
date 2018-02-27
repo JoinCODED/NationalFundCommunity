@@ -41,7 +41,7 @@ a.navbar-brand img {
       'featured featured top-box-a'
       'featured featured top-box-b';
   }
-  
+
   /* featured */
   .featured {
     grid-area: featured;
@@ -54,14 +54,14 @@ a.navbar-brand img {
     justify-content: left;
     box-shadow: var(--shadow);
   }
-  
+
   .featured h1 {
     font-size: 4rem;
     margin-bottom: 0;
     color: var(--light);
   }
-  
-  
+
+
   /* Top Box */
   .top-box {
     display: grid;
@@ -70,15 +70,23 @@ a.navbar-brand img {
     box-shadow: var(--shadow);
     padding: 1.5rem;
   }
-  
+
   .top-box-a {
     grid-area: top-box-a;
     color: var(--light);
   }
-  
+
   .top-box-b {
     grid-area: top-box-b;
     color: var(--light);
-    
+
   }
-  
+  .events_advertisments{
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 50vh !important;
+
+  }
+  .events_advertisments a{
+    text-decoration: none;
+  }
