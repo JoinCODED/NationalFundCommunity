@@ -14,9 +14,7 @@ class Article(models.Model):
     title = models.CharField(max_length=30)
     created_at = models.DateTimeField(auto_now_add=True)
     featured = models.BooleanField()
-    category = models.ForeignKey(
-        Category, blank=True, null=True,
-        on_delete=models.SET_NULL, related_name='belongsTo')
+    category = models.ManyToManyField(Category, related_name="categoriesOfArticles")
     content = models.TextField()
     picture = models.ImageField(upload_to='article_pictures', blank=True)
 

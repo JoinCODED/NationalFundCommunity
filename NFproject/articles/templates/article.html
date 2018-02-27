@@ -8,9 +8,9 @@
 
 <h3>{{article.author}}</h3>
 <h4>{{article.created_at}}</h4>
-{% if article.category%}
-<a href="{% url 'category' article.category_id %}"<h4>{{article.category.name}}</h4>
-  {% endif %}
+{%for category in article_categories %}
+<a href="{% url 'category' category.id %}"<h4>{{category.name}}</h4>
+  {%endfor%}
 {% if article.picture %}
 <img src={{article.picture.url}}>
 {% endif %}
