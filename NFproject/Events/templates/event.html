@@ -9,7 +9,7 @@
 <h3>{{event.organizer}}</h3>
 <h4>{{event.date}}</h4>
 {% if event.event_type%}
-<a href="{% url 'type' event.event_type.id %}"<h3>Type: {{event.event_type.name}}</h3>
+<a href="{% url 'type' event.event_type.slug %}"<h3>Type: {{event.event_type.name}}</h3>
   {% endif %}
 <a href="{{event.location_url}}">{{event.location_name}}</a>
 <img src={{event.image_url}}>

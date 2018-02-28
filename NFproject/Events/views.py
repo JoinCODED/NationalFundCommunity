@@ -12,14 +12,14 @@ def events_list(request):
     return render(request, "all_events.html", context=context)
 
 
-def event(request, event_id):
+def event(request, event_slug):
     context = {}
-    context['event'] = get_object_or_404(Events, id=event_id)
+    context['event'] = get_object_or_404(Events, slug=event_slug)
     return render(request, "event.html", context=context)
 
 
-def types (request, type_id):
-    _type = get_object_or_404(Types, id=type_id)
+def types (request, type_slug):
+    _type = get_object_or_404(Types, slug=type_slug)
     context ={}
     context['type'] = _type
     context['belongs_to'] = _type.belongsTo.all()
