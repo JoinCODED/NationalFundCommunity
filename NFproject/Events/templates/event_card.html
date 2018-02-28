@@ -1,9 +1,7 @@
 <a href="{% url 'event' event.id %}">
   <div class="col-sm-4 mb-5">
 <div class="card" style="width: 18rem;">
-    {% if event.picture %}
-    <img class="card-img-top"  height="200vh" src={{event.picture.url}} alt="">
-    {% endif %}
+    <img class="card-img-top"  height="200vh" src={{event.image_url}} alt="">
   <div class="card-body">
     <h5 class="card-title">{{ event.title}}</h5>
     <p class="card-text">{{event.date}}</p>

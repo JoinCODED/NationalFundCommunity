@@ -11,8 +11,8 @@
 {%for category in article_categories %}
 <a href="{% url 'category' category.id %}"<h4>{{category.name}}</h4>
   {%endfor%}
-{% if article.picture %}
-<img src={{article.picture.url}}>
-{% endif %}
+
+<img src={{article.image_url}}>
+
 </div>
 {% endblock %}

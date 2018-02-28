@@ -12,8 +12,6 @@
 <a href="{% url 'type' event.event_type.id %}"<h3>Type: {{event.event_type.name}}</h3>
   {% endif %}
 <a href="{{event.location_url}}">{{event.location_name}}</a>
-{% if event.picture %}
-<img src={{event.picture.url}}>
-{% endif %}
+<img src={{event.image_url}}>
 </div>
 {% endblock %}
