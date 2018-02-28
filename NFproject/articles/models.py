@@ -7,7 +7,7 @@ from django.dispatch import receiver
 # Create your models here.
 class Category (models.Model):
     name = models.CharField(max_length=30)
-    slug= models.SlugField(blank=True)
+    slug= models.SlugField(blank=True, unique =True)
 
     def __str__(self):
         return self.name
@@ -21,7 +21,7 @@ class Article(models.Model):
     category = models.ManyToManyField(Category, related_name="categoriesOfArticles")
     content = models.TextField()
     picture = models.ImageField(upload_to='article_pictures', blank=True)
-    slug= models.SlugField(blank=True)
+    slug= models.SlugField(blank=True, unique =True)
 
     def __str__(self):
         return self.title

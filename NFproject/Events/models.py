@@ -6,7 +6,7 @@ from django.dispatch import receiver
 
 class Types (models.Model):
     name = models.CharField(max_length=30)
-    slug= models.SlugField(blank=True)
+    slug= models.SlugField(blank=True, unique =True)
 
     def __str__(self):
         return self.name
@@ -22,7 +22,7 @@ class Events(models.Model):
     location_url = models.URLField()
     location_name= models.CharField(max_length=400)
     picture = models.ImageField(upload_to='event_pictures', blank=True)
-    slug= models.SlugField(blank=True)
+    slug= models.SlugField(blank=True, unique =True)
 
     def __str__(self):
         return self.title
