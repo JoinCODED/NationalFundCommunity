@@ -20,3 +20,9 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
+    
+    def image_url (self):
+        if self.picture and hasattr(self.picture , 'url'):
+            return self.picture.url
+        else:
+            return "/static/img.png"
