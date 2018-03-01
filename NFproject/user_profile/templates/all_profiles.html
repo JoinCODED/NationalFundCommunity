@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load profile_card %}
+{% block content %}
+  <div class="container">
+      <div>
+          {% for y in x %}
+              {% profile_card y %}
+          {% endfor %}
+      </div>
+  </div>
+{% endblock %}
