@@ -1,7 +1,19 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect,get_object_or_404
 
 from .models import Article, Category
+from .forms import ArticleForm
 
+
+
+def add_article(request):
+    if request.method == "POST":
+        form = ArticleForm(request.POST)
+        if form.is_valid():
+            new_article = form.save()
+            return redirect(new_article)
+    form = ArticleForm()
+    context = {"form": form}
+    return render(request,"add_article.html",context)
 
 
 def article_list(request):

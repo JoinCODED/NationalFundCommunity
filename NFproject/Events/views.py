@@ -1,9 +1,21 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render,redirect,get_object_or_404
 from datetime import date
 
 # Create your views here.
 from .models import Events, Types
+from .forms import EventForm
 
+def add_event(request):
+    if request.method =='POST':
+        form= EventForm(request.POST)
+        if form.is_valid():
+            new_event= form.save()
+            return redirect(new_event)
+    else:
+
+        form = EventForm()
+        context = {"form": form}
+        return render (request,"add_event.html",context)
 
 def events_list(request):
     context = {}

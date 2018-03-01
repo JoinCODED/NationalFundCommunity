@@ -2,7 +2,7 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
-
+from django.urls import reverse
 
 # Create your models here.
 class Category (models.Model):
@@ -25,6 +25,9 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('article', args=[self.slug])
 
     def image_url (self):
         if self.picture and hasattr(self.picture , 'url'):
