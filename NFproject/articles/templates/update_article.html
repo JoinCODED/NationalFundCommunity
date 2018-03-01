@@ -1,0 +1,6 @@
+
+{% extends "add_article.html" %}
+
+{% block card_header %}update {{article.title}}{% endblock %}</h4>
+{% block form_action %}{% url 'update_article' article.slug %}{% endblock %}
+{% block button_text %}update {{article.title}}{% endblock %}

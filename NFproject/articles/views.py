@@ -15,6 +15,21 @@ def add_article(request):
     context = {"form": form}
     return render(request,"add_article.html",context)
 
+def update_article(request, article_slug):
+    article = Article.objects.get(slug=article_slug)
+
+    if request.method == 'POST':
+        form = ArticleForm(request.POST, instance=article)
+        if form.is_valid():
+            form.save()
+            return redirect(article)
+    else:
+        form = ArticleForm(instance=article)
+        context = {
+            "article": article,
+            "form": form
+        }
+        return render(request, "update_article.html", context)
 
 def article_list(request):
     context = {}

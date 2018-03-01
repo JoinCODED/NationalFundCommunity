@@ -3,6 +3,9 @@
 {% load article_card %}
 {% block content %}
   <div class="container">
+        <a class="btn btn-primary" href="{% url 'add_article' %}">
+                Add New article
+              </a>
       <div class="row">
           {% for article in articles %}
               {% article_card article %}

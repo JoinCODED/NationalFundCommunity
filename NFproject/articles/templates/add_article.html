@@ -5,12 +5,12 @@
   <div class="container d-flex justify-content-center">
     <div class="col-6">
       <div class="card">
-        <h4 class="card-header">Add an Article</h4>
+        <h4 class="card-header">{% block card_header %}Add an Article{% endblock %}</h4>
         <div class="card-body">
-          <form action="{% url 'add_article' %}" method="POST">
+          <form action="{% block form_action %}{% url 'add_article' %}{% endblock %}" method="POST">
             {% csrf_token %}
             {{form|crispy}}
-            <input class="btn btn-primary" type="submit" name="" value="Add Article">
+            <input class="btn btn-primary" type="submit" name="" value="{% block button_text %}Add Article{% endblock %}">
           </form>
         </div>
       </div>
