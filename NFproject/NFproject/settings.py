@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'articles.apps.ArticlesConfig',
     'Events.apps.EventsConfig',
     'user_profile.apps.UserProfileConfig',
+    'crispy_forms'
 ]
 
 MIDDLEWARE = [
@@ -104,7 +105,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+CRISPY_TEMPLATE_PACK ='bootstrap4'
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
