@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h1> Hello, {{profile.user.username}}</h1>
+  
+
+    <table>
+        <tr>
+            <td>First Name:</td>
+            <td>{{profile.user.first_name}}</td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td>{{profile.user.email}}</td>
+        </tr>
+        <tr>
+            <td>Age:</td>
+            <td>{{profile.age}}</td>
+        </tr>
+        <tr>
+            <td>Type: </td>
+            <td>{{profile.get_type_display}}</td>
+        </tr>
+        <tr>
+            <td>Website: </td>
+            <td>{{profile.my_website}}</td>
+        </tr>
+    </table>
+    <hr>
+    <p>Bio: </p>
+    <p> {{ profile.bio }} </p>
+
+
+  </div>
+
+{% endblock %}
