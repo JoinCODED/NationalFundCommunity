@@ -9,6 +9,10 @@ def profile(request, user_slug):
     return render(request, "profile.html", context=context)
 
 def profile_list(request):
+    _profile_list = Profile.objects.all()
+    type_filter= request.GET.get('type')
+    if type_filter is not None:
+        _profile_list=_profile_list.filter(type=type_filter)
     context = {}
-    context['x'] = Profile.objects.all()
+    context['x'] = _profile_list
     return render(request, "all_profiles.html", context=context)

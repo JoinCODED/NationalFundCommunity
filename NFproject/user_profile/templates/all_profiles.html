@@ -1,11 +1,35 @@
 {% extends 'base.html' %}
 {% load profile_card %}
+{% load static %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{% static 'profile.css' %}">
+{% endblock %}
+
 {% block content %}
-  <div class="container">
+<div class="row">
+
+
+<div class="wrapper col-2">
+
+      <nav id="sidebar">
+
+          <ul class="list-unstyled components">
+              <li class="active"><a href="{%url 'profile_list' %}">All</a></li>
+              <li><a href="{%url 'profile_list' %}?type=O">Orginization</a></li>
+                <li><a href="{%url 'profile_list' %}?type=I">Individuals</a></li>
+              </nav>
+</div>
+
+
+
+  <div class="container col-10">
+
       <div>
           {% for y in x %}
               {% profile_card y %}
           {% endfor %}
       </div>
+  </div>
   </div>
 {% endblock %}
