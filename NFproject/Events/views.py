@@ -34,8 +34,8 @@ def update_event(request, event_slug):
         return render(request, "update_event.html", context)
 
 def delete_event(request, event_id):
-    Events.objects.filter(id = event_id).delete()
-    return redirect(events_list)
+    Events.objects.get(id = event_id).delete()
+    return redirect('events_list')
 
 def events_list(request):
     context = {}

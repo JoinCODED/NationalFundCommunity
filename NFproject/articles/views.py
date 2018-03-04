@@ -32,8 +32,8 @@ def update_article(request, article_slug):
         return render(request, "update_article.html", context)
 
 def delete_article(request, article_id):
-    Article.objects.filter(id = article_id).delete()
-    return redirect(article_list)
+    Article.objects.get(id = article_id).delete()
+    return redirect('article_list')
 
 def article_list(request):
     context = {}
