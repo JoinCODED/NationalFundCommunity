@@ -7,12 +7,12 @@
   <div class="container d-flex justify-content-center">
     <div class="col-6">
       <div class="card">
-        <h4 class="card-header">Add an Event</h4>
+        <h4 class="card-header">{% block card_header %}Add an Event{% endblock %}</h4>
         <div class="card-body">
-          <form action="{% url 'add_event' %}" method="POST">
+          <form action="{% block form_action %}{% url 'add_event' %}{% endblock %}"method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{form|crispy}}
-            <input class="btn btn-primary" type="submit" name="" value="Add Event">
+            <input class="btn btn-primary" type="submit" name="" value="{% block button_text %}Add Event{% endblock %}">
           </form>
         </div>
       </div>

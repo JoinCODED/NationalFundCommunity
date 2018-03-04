@@ -1,0 +1,5 @@
+{% extends "add_event.html" %}
+
+{% block card_header %}Update Event{% endblock %}</h4>
+{% block form_action %}{% url 'update_event' event.slug %}{% endblock %}
+{% block button_text %}Save{% endblock %}

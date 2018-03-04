@@ -3,6 +3,7 @@
 {% load event_card %}
 {% block content %}
   <div class="container">
+        <a class="btn btn-primary" href="{% url 'add_event' %}"> Add New Event</a>
     <h1>Up Coming Events</h1>
     <div class="row">
         {% for event in upcoming_events %}
