@@ -40,6 +40,7 @@ a.navbar-brand img {
     grid-template-areas:
       'featured featured top-box-a'
       'featured featured top-box-b';
+    border-bottom:#febb36 10px solid;
   }
 
   /* featured */
