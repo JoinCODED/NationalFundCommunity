@@ -4,3 +4,6 @@
 {% block card_header %}Update Article{% endblock %}</h4>
 {% block form_action %}{% url 'update_article' article.slug %}{% endblock %}
 {% block button_text %}Save{% endblock %}
+{% block delete_btn %}        
+<a class="btn btn-danger" href="{% url 'delete_article' article.id %}">Delete</a>
+{% endblock %}

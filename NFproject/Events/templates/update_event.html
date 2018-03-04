@@ -3,3 +3,6 @@
 {% block card_header %}Update Event{% endblock %}</h4>
 {% block form_action %}{% url 'update_event' event.slug %}{% endblock %}
 {% block button_text %}Save{% endblock %}
+{% block delete_btn %}        
+<a class="btn btn-danger" href="{% url 'delete_event' event.id %}">Delete</a>
+{% endblock %}
