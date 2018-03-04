@@ -13,6 +13,7 @@
             {% csrf_token %}
             {{form|crispy}}
             <input class="btn btn-primary" type="submit" name="" value="{% block button_text %}Add Event{% endblock %}">
+            {% block delete_btn%} {% endblock%}
           </form>
         </div>
       </div>
