@@ -7,7 +7,7 @@ from .forms import EventForm
 
 def add_event(request):
     if request.method =='POST':
-        form= EventForm(request.POST)
+        form= EventForm(request.POST,request.FILES)
         if form.is_valid():
             new_event= form.save()
             return redirect(new_event)
@@ -16,6 +16,22 @@ def add_event(request):
         form = EventForm()
         context = {"form": form}
         return render (request,"add_event.html",context)
+
+def update_event(request, event_slug):
+    event = Events.objects.get(slug=event_slug)
+
+    if request.method == 'POST':
+        form = EventForm(request.POST,request.FILES , instance=event)
+        if form.is_valid():
+            form.save()
+            return redirect(event)
+    else:
+        form = EventForm(instance=event)
+        context = {
+            "event": event,
+            "form": form
+        }
+        return render(request, "update_event.html", context)
 
 def events_list(request):
     context = {}

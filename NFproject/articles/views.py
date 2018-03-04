@@ -7,7 +7,7 @@ from .forms import ArticleForm
 
 def add_article(request):
     if request.method == "POST":
-        form = ArticleForm(request.POST)
+        form = ArticleForm(request.POST, request.FILES)
         if form.is_valid():
             new_article = form.save()
             return redirect(new_article)
@@ -19,7 +19,7 @@ def update_article(request, article_slug):
     article = Article.objects.get(slug=article_slug)
 
     if request.method == 'POST':
-        form = ArticleForm(request.POST, instance=article)
+        form = ArticleForm(request.POST,request.FILES, instance=article)
         if form.is_valid():
             form.save()
             return redirect(article)
