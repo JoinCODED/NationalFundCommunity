@@ -1,6 +1,25 @@
 /* Styles specific to the articles app */
 
-.featured_articles
-{
+.jumbotron {
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+height: 50vh;
+margin: 0;
+padding: 0;
+border-radius: 0;
 
+}
+
+
+.jumbotron h1{
+    color:white;
+   
+
+}
+
+.jumbotron .overlay {
+    background-color: rgba(0,0,0,0.5);
+    height: 100%;
+    width: 100%;
 }
