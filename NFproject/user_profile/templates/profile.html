@@ -2,7 +2,7 @@
 {% block content %}
 <div class="container">
     <h1> Hello, {{profile.user.username}}</h1>
-  
+
 
     <table>
         <tr>
@@ -29,8 +29,9 @@
     <hr>
     <p>Bio: </p>
     <p> {{ profile.bio }} </p>
-
-
+    {% if  current_user %}
+     <a href="/" class="btn btn-primary">Edit Profile</a>
+     {% endif %}
   </div>
 
 {% endblock %}
