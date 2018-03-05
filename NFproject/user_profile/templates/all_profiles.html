@@ -26,8 +26,11 @@
   <div class="container col-10">
 
       <div>
-          {% for y in x %}
-              {% profile_card y %}
+          {% for i in x %}
+              {% profile_card i %}
+          {% endfor %}
+          {% for i in y %}
+              {% profile_card i %}
           {% endfor %}
       </div>
   </div>
