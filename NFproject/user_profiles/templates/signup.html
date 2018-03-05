@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <div class="container d-flex justify-content-center">
+    <div class="col-6">
+      <div class="card">
+        <h4 class="card-header">Signup</h4>
+        <div class="card-body">
+          <h1>Sign up for a free account</h1>
+          <p>Select the type of account you want to create</p>
+          <a class="btn btn-primary" href="{% url 'individual_signup' %}">Individual</a>
+          <a class="btn btn-warning" href="{% url 'organization_signup' %}">Organization</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

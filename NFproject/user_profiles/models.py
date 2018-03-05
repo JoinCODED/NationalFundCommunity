@@ -1,23 +1,21 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 from django.utils.text import slugify
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.urls import reverse
 
 
+class User(AbstractUser):
+    is_individual = models.BooleanField('individual status', default=False)
+    is_organization = models.BooleanField('organization status', default=False)
+
+
 class Profile(models.Model):
-
-    PROFILE_TYPE_CHOICES = (
-        ("I", "individual"),
-        ("O", "orginization"),
-    )
-
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(blank=True)
     slug = models.SlugField(blank=True)
     website = models.URLField(blank=True)
-    profile_type = models.CharField(max_length=1, choices=PROFILE_TYPE_CHOICES)
 
     def get_absolute_url(self):
         return reverse('profile', args=[self.user.username])
@@ -25,13 +23,16 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
 
+    class Meta:
+        abstract = True
 
-class IndividualProfile(Profile):
+
+class Individual(Profile):
     age = models.IntegerField()  # individual
     interest = models.CharField(max_length=200)  # individual
 
 
-class OrginizationProfile (Profile):
+class Orginization(Profile):
     company_name = models.CharField(max_length=200)  # orginization
     location_URL = models.URLField()  # orgn
 

@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'articles.apps.ArticlesConfig',
     'Events.apps.EventsConfig',
-    'user_profile.apps.UserProfileConfig',
+    'user_profiles.apps.UserProfileConfig',
     'crispy_forms'
 ]
 
@@ -104,6 +104,8 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+AUTH_USER_MODEL = "user_profiles.User"
 
 CRISPY_TEMPLATE_PACK ='bootstrap4'
 # Internationalization
