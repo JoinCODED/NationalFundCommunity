@@ -52,6 +52,26 @@
             <a class="nav-link" href="{% url "profile_list" %}">Profiles<span class="sr-only"></span></a>
           </li>
         </ul>
+          <ul class="navbar-nav  ml-auto">
+          {% if user.username%}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{user.username}}
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{% url "profile" user.profile.slug %}">My Profile</a>
+                <a class="dropdown-item" href="{% url "logout" %}">Logout</a>
+            </div>
+          </li>
+          {% else %}
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url "login" %}">login<span class="sr-only"></span></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url "signup" %}">Signup<span class="sr-only"></span></a>
+          </li>
+          {% endif %}
+        </ul>
       </div>
     </nav>
   </div>

@@ -52,7 +52,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
+LOGIN_REDIRECT_URL='home'
 ROOT_URLCONF = 'NFproject.urls'
 
 TEMPLATES = [
