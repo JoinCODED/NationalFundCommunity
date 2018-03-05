@@ -1,21 +1,23 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login,authenticate
-from .forms import IndividualProfileForm, OrginizationProfileForm
+from django.contrib.auth import login, authenticate
 from django.urls import reverse
 from django.contrib.auth.models import User
-# Create your views here.
-from .models import Individual_Profile,Orginization_Profile
+
+from .models import IndividualProfile, OrginizationProfile, Profile
+from .forms import ProfileForm, IndividualProfileForm, OrginizationProfileForm
+
 
 def profile(request, username):
     context = {}
     user = get_object_or_404(User, username=username)
-    context['current_user'] = request.user.username == username
-    if hasattr(user,'individual_profile'):
-        context['profile'] = user.individual_profile
-    else:
-        context['profile'] = user.orginization_profile
+    context['current_user'] = request.user.id == user.id
+    # if hasattr(user, 'individual_profile'):
+    #     context['profile'] = user.individual_profile
+    # else:
+    #     context['profile'] = user.orginization_profile
     return render(request, "profile.html", context=context)
+
 
 def profile_list(request):
     context = {}
@@ -33,41 +35,46 @@ def profile_list(request):
         context['y']= orgi_profile_list
     return render(request, "all_profiles.html", context=context)
 
-def signup (request):
-    user_form=UserCreationForm(request.POST)
-    if user_form.is_valid():
-        user=user_form.save()
+
+def signup(request):
+    user_form = UserCreationForm(request.POST)
+    profile_form = ProfileForm(request.POST)
+    if user_form.is_valid() and profile_form.is_valid():
+        user = user_form.save()
+
+        profile = profile_form.save(commit=False)
+        profile.user = user
+        profile.save()
+
         password = user_form.cleaned_data.get('password1')
         user = authenticate(username=user.username, password=password)
         login(request, user)
-        type_choice=request.POST.get('type')
-        if type_choice=="O":
-            return redirect('orgin_form')
-        else:
-            return redirect('indi_form')
+
+        return redirect('complete_profile')
     else:
-        return render (request,'signup.html',{"user_form":user_form})
+        return render(request,
+                      'signup.html',
+                      {
+                          "user_form": user_form,
+                          "profile_form": profile_form
+                      })
 
 
-def orgin_form (request):
-    orginization_form= OrginizationProfileForm(request.POST)
+def complete_profile(request):
+    profile = request.user.profile
 
-    if orginization_form.is_valid():
-        profile=orginization_form.save(commit=False)
-        profile.user=request.user
-        profile.save()
-        return redirect('home')
-        #return redirect(reverse('profile',orginization_form.slug))
-    else:
-        return render (request,'orgin_form.html',{"orginization_form":orginization_form})
+    if profile.profile_type == "I":
+        instance = IndividualProfile()
+        instance.profile_ptr = profile
+        form = IndividualProfileForm(request.POST, instance=instance)
+    elif profile.profile_type == "O":
+        instance = OrginizationProfile()
+        instance.profile_ptr = profile
+        form = OrginizationProfileForm(request.POST, instance=instance)
 
-def indi_form (request):
-    individual_form= IndividualProfileForm(request.POST)
-    if individual_form.is_valid():
-        profile=individual_form.save(commit=False)
-        profile.user=request.user
-        profile.save()
-        return redirect ('home')
-        #return redirect(reverse('profile',individual_form.slug))
-    else:
-        return render (request,'indi_form.html',{"individual_form":individual_form})
+    if form.is_valid():
+        instance.user = request.user
+        sub_profile = form.save()
+        return redirect(sub_profile)
+
+    return render(request, 'complete_profile.html', {"form": form})

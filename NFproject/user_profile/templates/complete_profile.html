@@ -5,16 +5,16 @@
   <div class="container d-flex justify-content-center">
     <div class="col-6">
       <div class="card">
-        <h4 class="card-header">Orginization Information</h4>
+        <h4 class="card-header">Complete Profile</h4>
         <div class="card-body">
-          <form action="{% url 'orgin_form' %}" method="POST" enctype="multipart/form-data">
+          <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            {% if orginization_form.errors%}
+            {% if form.errors%}
               <div class="form-group has-error">
-                <span class="help-block">{{orginization_form.text.errors}}</span>
+                <span class="help-block">{{form.text.errors}}</span>
               </div>
              {% endif %}
-             {{orginization_form|crispy}}
+             {{form|crispy}}
             <input class="btn btn-primary" type="submit" name="" value="Save">
           </form>
         </div>

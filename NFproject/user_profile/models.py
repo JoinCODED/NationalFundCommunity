@@ -1,33 +1,42 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.template.defaultfilters import slugify
+from django.utils.text import slugify
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
-# Create your models here.
-class Individual_Profile (models.Model):
-    user = models.OneToOneField(User,on_delete=models.CASCADE)
-    bio = models.TextField()
-    my_website = models.URLField()
-    age = models.IntegerField()#individual
-    interest=models.CharField(max_length=200)#individual
-    slug= models.SlugField(blank=True)
+from django.urls import reverse
 
 
-class Orginization_Profile (models.Model):
-    user = models.OneToOneField(User,on_delete=models.CASCADE)
-    bio = models.TextField()
-    my_website = models.URLField()
-    slug= models.SlugField(blank=True)
-    location_name=models.CharField(max_length=200)#orginization
-    location_URL=models.URLField()#orgn
+class Profile(models.Model):
+
+    PROFILE_TYPE_CHOICES = (
+        ("I", "individual"),
+        ("O", "orginization"),
+    )
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    bio = models.TextField(blank=True)
+    slug = models.SlugField(blank=True)
+    website = models.URLField(blank=True)
+    profile_type = models.CharField(max_length=1, choices=PROFILE_TYPE_CHOICES)
+
+    def get_absolute_url(self):
+        return reverse('profile', args=[self.user.username])
+
+    def __str__(self):
+        return self.user.username
 
 
-@receiver (pre_save, sender= Individual_Profile)
-def add_slug_to_Individual_Profile (sender, instance, **kwargs):
+class IndividualProfile(Profile):
+    age = models.IntegerField()  # individual
+    interest = models.CharField(max_length=200)  # individual
+
+
+class OrginizationProfile (Profile):
+    company_name = models.CharField(max_length=200)  # orginization
+    location_URL = models.URLField()  # orgn
+
+
+@receiver(pre_save, sender=Profile)
+def add_slug_to_profile(sender, instance, **kwargs):
     if not instance.slug:
-        instance.slug = slugify(instance.user.username)
-
-@receiver (pre_save, sender=  Orginization_Profile)
-def add_slug_to_Orginization_Profile (sender, instance, **kwargs):
-    if not instance.slug:
-        instance.slug = slugify(instance.user.username)
+        instance.slug = slugify(instance.user.username, allow_unicode=True)
