@@ -20,11 +20,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from .views import home
+import user_profile.views # from user_profile import views
 
 urlpatterns = [
     path('', home, name='home'),
     path('articles/', include('articles.urls')),
     path('events/', include('Events.urls')),
     path('profiles/', include('user_profile.urls')),
+    path('signup/',user_profile.views.signup,name='signup'), # ,views.signup,
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
