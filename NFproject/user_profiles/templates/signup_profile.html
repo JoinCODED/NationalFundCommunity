@@ -7,7 +7,7 @@
       <div class="card">
         <h4 class="card-header">Signup</h4>
         <div class="card-body">
-          <form action="{% url 'signup' %}" method="POST" enctype="multipart/form-data">
+          <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {% if user_form.errors%}
               <div class="form-group has-error">

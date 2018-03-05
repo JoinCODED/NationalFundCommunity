@@ -32,12 +32,14 @@ class Individual(Profile):
     interest = models.CharField(max_length=200)  # individual
 
 
-class Orginization(Profile):
-    company_name = models.CharField(max_length=200)  # orginization
+class Organization(Profile):
+    company_name = models.CharField(max_length=200)  # organization
     location_URL = models.URLField()  # orgn
 
 
-@receiver(pre_save, sender=Profile)
+@receiver(pre_save)
 def add_slug_to_profile(sender, instance, **kwargs):
+    if not issubclass(sender, Profile):
+        return
     if not instance.slug:
         instance.slug = slugify(instance.user.username, allow_unicode=True)

@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
             new_name='Individual',
         ),
         migrations.RenameModel(
-            old_name='OrginizationProfile',
-            new_name='Orginization',
+            old_name='OrganizationProfile',
+            new_name='Organization',
         ),
     ]
