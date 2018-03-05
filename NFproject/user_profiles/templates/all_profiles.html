@@ -14,8 +14,8 @@
       <nav id="sidebar">
           <ul class="list-unstyled components">
               <li class="active"><a href="{%url 'profile_list' %}">All</a></li>
-              <li><a href="{%url 'profile_list' %}?type=O">Organization</a></li>
-              <li><a href="{%url 'profile_list' %}?type=I">Individuals</a></li>
+              <li><a href="{%url 'profile_list' %}?type=organization">Organization</a></li>
+              <li><a href="{%url 'profile_list' %}?type=individual">Individuals</a></li>
           </ul>
       </nav>
 </div>
@@ -24,11 +24,8 @@
 
   <div class="container col-10">
       <div>
-          {% for i in x %}
-              {% profile_card i %}
-          {% endfor %}
-          {% for i in y %}
-              {% profile_card i %}
+          {% for profile in profiles %}
+              {% profile_card profile %}
           {% endfor %}
       </div>
   </div>

@@ -1,6 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import login, authenticate
 
+from itertools import chain
+from operator import attrgetter
+
 from .models import User, Individual, Organization
 from .forms import CustomUserCreationForm, IndividualSignupForm, OrganizationSignupForm
 
@@ -17,21 +20,22 @@ def profile(request, username):
 
 
 def profile_list(request):
-    pass
-    # context = {}
-    # indi_profile_list = Individual_Profile.objects.all()
-    # orgi_profile_list= Organization_Profile.objects.all()
-    # type_filter= request.GET.get('type')
-    # if type_filter is not None and type_filter=='O':
-    #     context['x']= orgi_profile_list
-    #     context['y']= None
-    # elif type_filter is not None and type_filter=='I':
-    #     context['x']= indi_profile_list
-    #     context['y']= None
-    # else:
-    #     context['x']= indi_profile_list
-    #     context['y']= orgi_profile_list
-    # return render(request, "all_profiles.html", context=context)
+    users = User.objects.all()
+
+    type = request.GET.get('type')
+    if type is not None:
+        filter_dictionary = {f'is_{type}': True}
+        users = users.filter(**filter_dictionary)
+
+    profiles = []
+
+    for user in users:
+        if user.is_individual:
+            profiles.append(user.individual)
+        elif user.is_organization:
+            profiles.append(user.organization)
+
+    return render(request, 'all_profiles.html', {'profiles': profiles})
 
 
 def create_profile(request, profile_form_class, type):
