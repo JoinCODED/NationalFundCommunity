@@ -14,13 +14,12 @@
                 <span class="help-block">{{user_form.text.errors}}</span>
               </div>
              {% endif %}
-             {%if profile_form.errors%}
-                <div class="form-group has-error">
-                  <span class="help-block">{{profile_form.text.errors}}</span>
-                </div>
-             {% endif %}
+
              {{user_form|crispy}}
-             {{profile_form|crispy}}
+             <h5> Select Profile Type: </h5><select name='type'>
+               <option value="O">Organization</option>
+               <option value="I">Individual</option>
+             </select>
             <input class="btn btn-primary" type="submit" name="" value="Signup">
           </form>
         </div>
