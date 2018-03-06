@@ -44,6 +44,7 @@
     {% if  current_user %}
       <a href="/" class="btn btn-primary">Edit Profile</a>
     {% endif %}
+    <a href="{%url 'user_articles' profile.user.username %}" class="btn btn-primary">View Articles</a>
   </div>
 
 {% endblock %}
