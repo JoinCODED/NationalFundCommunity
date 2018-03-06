@@ -4,7 +4,7 @@
             <img class="card-img-top"  height="200vh" src={{article.image_url}} alt="">
           <div class="card-body">
             <h5 class="card-title">{{ article.title}}</h5>
-            <p class="card-text">Written by: {{article.author}}</p>
+            <p class="card-text">Written by: {{article.author.username}}</p>
             <a href="{% url 'article' article.slug %}" class="btn btn-primary">View Article</a>
           </div>
         </div>

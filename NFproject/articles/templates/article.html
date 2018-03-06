@@ -20,7 +20,7 @@
         Author
       </div>
       <div class="row">
-          {{article.author}}
+          {{article.author.username}}
       </div>
     </div>
     <div class="col-sm-3">
@@ -43,7 +43,7 @@
         </div>
         <div class="col-sm-3">
           <div class= "align-middle">
-              {% if user.is_authenticated%}
+              {% if showUpdateBtn %}
             <a class="btn btn-primary" href="{% url 'update_article' article.slug %}">
                     Edit
                  </a>

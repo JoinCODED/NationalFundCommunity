@@ -11,6 +11,8 @@ def add_article(request):
             form = ArticleForm(request.POST, request.FILES)
             if form.is_valid():
                 new_article = form.save()
+                new_article.author = request.user
+                new_article.save()
                 return redirect(new_article)
         form = ArticleForm()
         context = {"form": form}
@@ -18,23 +20,23 @@ def add_article(request):
     else:
         raise PermissionDenied
 def update_article(request, article_slug):
-    if request.user.is_authenticated:
         article = Article.objects.get(slug=article_slug)
+        if article.author == request.user:
 
-        if request.method == 'POST':
-            form = ArticleForm(request.POST,request.FILES, instance=article)
-            if form.is_valid():
-                form.save()
-                return redirect(article)
+            if request.method == 'POST':
+                form = ArticleForm(request.POST,request.FILES, instance=article)
+                if form.is_valid():
+                    form.save()
+                    return redirect(article)
+            else:
+                form = ArticleForm(instance=article)
+                context = {
+                    "article": article,
+                    "form": form
+                }
+                return render(request, "update_article.html", context)
         else:
-            form = ArticleForm(instance=article)
-            context = {
-                "article": article,
-                "form": form
-            }
-            return render(request, "update_article.html", context)
-    else:
-        raise PermissionDenied
+          raise PermissionDenied
 
 def delete_article(request, article_id):
     Article.objects.get(id = article_id).delete()
@@ -49,6 +51,7 @@ def article_list(request):
 def article(request, article_slug):
     _article= get_object_or_404(Article, slug=article_slug)
     context = {}
+    context['showUpdateBtn'] = _article.author == request.user
     context['article'] = _article
     context ['article_categories']= _article.category.all()
     return render(request, "article.html", context=context)

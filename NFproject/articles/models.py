@@ -3,8 +3,11 @@ from django.utils.text import slugify
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.urls import reverse
+from django.contrib.auth import get_user_model
 
 # Create your models here.
+User= get_user_model()
+
 class Category (models.Model):
     name = models.CharField(max_length=30)
     slug= models.SlugField(blank=True)
@@ -14,15 +17,15 @@ class Category (models.Model):
 
 
 class Article(models.Model):
-    author = models.CharField(max_length=20)
+    author =models.ForeignKey(User,on_delete=models.CASCADE,blank=True, null=True)
     title = models.CharField(max_length=30)
     created_at = models.DateTimeField(auto_now_add=True)
-    featured = models.BooleanField()
+    featured = models.BooleanField(default=False)
     category = models.ManyToManyField(Category, related_name="categoriesOfArticles")
     content = models.TextField()
     picture = models.ImageField(upload_to='article_pictures', blank=True)
     slug= models.SlugField(blank=True)
-
+    
     def __str__(self):
         return self.title
 
