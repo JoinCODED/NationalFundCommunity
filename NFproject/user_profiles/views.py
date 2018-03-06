@@ -1,7 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import login, authenticate
 
-from itertools import chain
 from operator import attrgetter
 
 from .models import User, Individual, Organization
@@ -43,7 +42,14 @@ def create_profile(request, profile_form_class, type):
     profile_form = profile_form_class(request.POST)
     if user_form.is_valid() and profile_form.is_valid():
         user = user_form.save(commit=False)
+
+        # if type == 'individual':
+        #     user.is_individual = True
+        # elif type == 'organization':
+        #     user.is_organization = True
+
         setattr(user, f'is_{type}', True)
+
         user.save()
         profile = profile_form.save(commit=False)
         profile.user = user

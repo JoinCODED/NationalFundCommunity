@@ -52,8 +52,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-LOGIN_REDIRECT_URL='home'
+
 ROOT_URLCONF = 'NFproject.urls'
+
+LOGIN_REDIRECT_URL = 'home'
 
 TEMPLATES = [
     {
@@ -108,6 +110,7 @@ AUTH_PASSWORD_VALIDATORS = [
 AUTH_USER_MODEL = "user_profiles.User"
 
 CRISPY_TEMPLATE_PACK ='bootstrap4'
+
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
