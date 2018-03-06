@@ -43,6 +43,12 @@ def events_list(request):
     context['upcoming_events'] = Events.objects.all().filter(date__gte=date.today()).order_by('date')
     return render(request, "all_events.html", context=context)
 
+def register_to_event(request,event_slug):
+    event = Events.objects.get(slug=event_slug)
+    event.attendees.add(request.user) 
+    return redirect('events_list')
+
+
 
 def event(request, event_slug):
     context = {}
