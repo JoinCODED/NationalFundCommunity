@@ -3,7 +3,10 @@ from django.utils.text import slugify
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.urls import reverse
+from django.contrib.auth import get_user_model
+
 # Create your models here.
+User= get_user_model()
 
 class Types (models.Model):
     name = models.CharField(max_length=30)
@@ -23,6 +26,7 @@ class Events(models.Model):
     location_url = models.URLField()
     location_name= models.CharField(max_length=400)
     picture = models.ImageField(upload_to='event_pictures', blank=True)
+    attendees = models.ManyToManyField(User, related_name="events")
     slug= models.SlugField(blank=True)
 
     def __str__(self):
