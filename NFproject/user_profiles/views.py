@@ -43,14 +43,15 @@ def create_profile(request, profile_form_class, type):
     if user_form.is_valid() and profile_form.is_valid():
         user = user_form.save(commit=False)
 
-        # if type == 'individual':
-        #     user.is_individual = True
-        # elif type == 'organization':
-        #     user.is_organization = True
-
-        setattr(user, f'is_{type}', True)
+        if type == 'individual':
+            user.is_individual = True
+            user.first_name = request.POST.get('first_name')
+            user.last_name = request.POST.get('last_name')
+        elif type == 'organization':
+            user.is_organization = True
 
         user.save()
+
         profile = profile_form.save(commit=False)
         profile.user = user
         profile.save()

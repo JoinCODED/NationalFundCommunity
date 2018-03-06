@@ -6,8 +6,14 @@
 
     <table>
         <tr>
-            <td>First Name:</td>
-            <td>{{profile.user.first_name}}</td>
+            <td>Name:</td>
+            <td>
+              {% if profile.user.is_individual %}
+                {{profile.user.full_name}}
+              {% else %}
+                {{profile.company_name}}
+              {% endif %}
+            </td>
         </tr>
         <tr>
             <td>Email:</td>

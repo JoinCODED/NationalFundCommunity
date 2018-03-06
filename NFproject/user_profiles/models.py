@@ -10,6 +10,9 @@ class User(AbstractUser):
     is_individual = models.BooleanField('individual status', default=False)
     is_organization = models.BooleanField('organization status', default=False)
 
+    def full_name(self):
+        return f'{self.first_name} {self.last_name}'
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

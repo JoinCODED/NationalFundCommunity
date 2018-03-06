@@ -10,9 +10,12 @@ class CustomUserCreationForm(UserCreationForm):
 
 
 class IndividualSignupForm(forms.ModelForm):
+    first_name = forms.CharField(required=True)
+    last_name = forms.CharField(required=True)
+
     class Meta:
         model = Individual
-        fields = ['age', 'interest', 'bio', 'website']
+        fields = ['first_name', 'last_name', 'age', 'interest', 'bio', 'website']
 
 
 class OrganizationSignupForm(forms.ModelForm):
