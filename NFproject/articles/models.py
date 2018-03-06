@@ -10,7 +10,7 @@ User= get_user_model()
 
 class Category (models.Model):
     name = models.CharField(max_length=30)
-    slug= models.SlugField(blank=True)
+    slug= models.SlugField(blank=True, allow_unicode=True)
 
     def __str__(self):
         return self.name
@@ -24,8 +24,8 @@ class Article(models.Model):
     category = models.ManyToManyField(Category, related_name="categoriesOfArticles")
     content = models.TextField()
     picture = models.ImageField(upload_to='article_pictures', blank=True)
-    slug= models.SlugField(blank=True)
-    
+    slug= models.SlugField(blank=True, allow_unicode=True)
+
     def __str__(self):
         return self.title
 
@@ -38,8 +38,18 @@ class Article(models.Model):
         else:
             return "/static/img.png"
 
+    def author_name(self):
+        author = self.author
+        if author:
+            if author.is_individual:
+                return author.full_name()
+            else:
+                return author.organization.company_name
+        else:
+            return "Staff"
+
 def create_slug (instance,Model,field_name,new_slug=None):
-    slug=new_slug or slugify(getattr(instance,field_name),allow_unicode = True)
+    slug=new_slug or slugify(getattr(instance,field_name), allow_unicode = True)
     qs= Model.objects.filter(slug=slug).order_by('-id')
     if qs.exists():
         new_slug=f'{slug}-{qs.first().id}'

@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block stylesheets %} 
+{% block stylesheets %}
   <link rel="stylesheet" href="{% static 'articles/css/articles_style.css' %}">
 {% endblock %}
 {% block content %}
 
-  
+
   <div class="jumbotron" style="background-image:url({{article.image_url}}) ">
     <div class="overlay   d-flex align-items-end">
     <div class="container">
@@ -20,7 +20,7 @@
         Author
       </div>
       <div class="row">
-          {{article.author.username}}
+          {{article.author_name}}
       </div>
     </div>
     <div class="col-sm-3">
