@@ -7,19 +7,22 @@
       <div class="card">
         <h4 class="card-header">Signup</h4>
         <div class="card-body">
-          <form action="{% url 'signup' %}" method="POST" enctype="multipart/form-data">
+          <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {% if user_form.errors%}
               <div class="form-group has-error">
                 <span class="help-block">{{user_form.text.errors}}</span>
               </div>
-             {% endif %}
+            {% endif %}
+            {% if profile_form.errors%}
+              <div class="form-group has-error">
+                <span class="help-block">{{profile_form.text.errors}}</span>
+              </div>
+            {% endif %}
 
              {{user_form|crispy}}
-             <h5> Select Profile Type: </h5><select name='type'>
-               <option value="O">Organization</option>
-               <option value="I">Individual</option>
-             </select>
+             {{profile_form|crispy}}
+
             <input class="btn btn-primary" type="submit" name="" value="Signup">
           </form>
         </div>

@@ -20,20 +20,31 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from .views import home
-import user_profile.views # from user_profile import views
+import user_profiles.views as profile_views  # from user_profile import views
 import django.contrib.auth.views as auth_views
 
 urlpatterns = [
     path('', home, name='home'),
     path('articles/', include('articles.urls')),
     path('events/', include('Events.urls')),
-    path('profiles/', include('user_profile.urls')),
-    path('signup/',user_profile.views.signup,name='signup'), # ,views.signup,
-    path ('login/',auth_views.login,{
-    'template_name':'login.html'
-    },name="login"),
-    path('logout/',auth_views.logout,{
-    'next_page':'/'
-    },name='logout'),
+    path('profiles/', include('user_profiles.urls')),
+    path('signup/', profile_views.signup, name='signup'),  # ,views.signup,
+
+    path('signup/individual',
+         profile_views.individual_signup,
+         name='individual_signup'),
+
+    path('signup/organization',
+         profile_views.organization_signup,
+         name='organization_signup'),
+
+    path('login/', auth_views.login, {
+        'template_name': 'login.html'
+    }, name="login"),
+
+    path('logout/', auth_views.logout, {
+        'next_page': '/'
+    }, name='logout'),
+
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -19,19 +19,25 @@
         </tr>
         <tr>
             <td>Type: </td>
-            <td>{{profile.get_type_display}}</td>
+            <td>
+              {% if profile.user.is_individual %}
+                individual
+              {% else %}
+                organization
+              {% endif %}
+            </td>
         </tr>
         <tr>
             <td>Website: </td>
-            <td>{{profile.my_website}}</td>
+            <td>{{profile.website}}</td>
         </tr>
     </table>
     <hr>
     <p>Bio: </p>
     <p> {{ profile.bio }} </p>
     {% if  current_user %}
-     <a href="/" class="btn btn-primary">Edit Profile</a>
-     {% endif %}
+      <a href="/" class="btn btn-primary">Edit Profile</a>
+    {% endif %}
   </div>
 
 {% endblock %}
