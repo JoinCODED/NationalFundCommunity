@@ -1,35 +1,40 @@
 from django.shortcuts import render, redirect,get_object_or_404
-
+from django.core.exceptions import PermissionDenied
 from .models import Article, Category
 from .forms import ArticleForm
 
 
 
 def add_article(request):
-    if request.method == "POST":
-        form = ArticleForm(request.POST, request.FILES)
-        if form.is_valid():
-            new_article = form.save()
-            return redirect(new_article)
-    form = ArticleForm()
-    context = {"form": form}
-    return render(request,"add_article.html",context)
-
-def update_article(request, article_slug):
-    article = Article.objects.get(slug=article_slug)
-
-    if request.method == 'POST':
-        form = ArticleForm(request.POST,request.FILES, instance=article)
-        if form.is_valid():
-            form.save()
-            return redirect(article)
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            form = ArticleForm(request.POST, request.FILES)
+            if form.is_valid():
+                new_article = form.save()
+                return redirect(new_article)
+        form = ArticleForm()
+        context = {"form": form}
+        return render(request,"add_article.html",context)
     else:
-        form = ArticleForm(instance=article)
-        context = {
-            "article": article,
-            "form": form
-        }
-        return render(request, "update_article.html", context)
+        raise PermissionDenied
+def update_article(request, article_slug):
+    if request.user.is_authenticated:
+        article = Article.objects.get(slug=article_slug)
+
+        if request.method == 'POST':
+            form = ArticleForm(request.POST,request.FILES, instance=article)
+            if form.is_valid():
+                form.save()
+                return redirect(article)
+        else:
+            form = ArticleForm(instance=article)
+            context = {
+                "article": article,
+                "form": form
+            }
+            return render(request, "update_article.html", context)
+    else:
+        raise PermissionDenied
 
 def delete_article(request, article_id):
     Article.objects.get(id = article_id).delete()
