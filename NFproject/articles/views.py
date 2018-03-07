@@ -47,7 +47,7 @@ def article_list(request):
     _articles = Article.objects.all()
     query=request.GET.get('q')
     if query:
-        _articles =_articles.filter(Q(title__icontains=query)| Q(content__icontains=query) | Q(author__full_name__icontains=query)).distinct()
+        _articles =_articles.filter(Q(title__icontains=query)| Q(content__icontains=query) | Q(author_name__icontains=query)).distinct()
     context['articles'] = _articles
     return render(request, "index.html", context=context)
 
