@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect,get_object_or_404
 from django.core.exceptions import PermissionDenied
 from .models import Article, Category
 from .forms import ArticleForm
-
+from django.db.models import Q
 
 
 def add_article(request):
@@ -44,7 +44,11 @@ def delete_article(request, article_id):
 
 def article_list(request):
     context = {}
-    context['articles'] = Article.objects.all()
+    _articles = Article.objects.all()
+    query=request.GET.get('q')
+    if query:
+        _articles =_articles.filter(Q(title__icontains=query)| Q(content__icontains=query) | Q(author__full_name__icontains=query)).distinct()
+    context['articles'] = _articles
     return render(request, "index.html", context=context)
 
 def article(request, article_slug):
