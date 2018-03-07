@@ -5,6 +5,7 @@ from operator import attrgetter
 
 from .models import User, Individual, Organization
 from .forms import CustomUserCreationForm, IndividualSignupForm, OrganizationSignupForm
+from Events.models import Events
 
 
 def profile(request, username):
@@ -15,6 +16,8 @@ def profile(request, username):
         context['profile'] = user.individual
     elif user.is_organization:
         context['profile'] = user.organization
+    #context['user_events']=Events.objects.all().filter(attendees=request.user)
+    context['user_events']=request.user.events.all()
     return render(request, "profile.html", context)
 
 
