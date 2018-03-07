@@ -18,6 +18,7 @@ class Category (models.Model):
 
 class Article(models.Model):
     author =models.ForeignKey(User,on_delete=models.CASCADE,blank=True, null=True,related_name='articlesOfUser')
+    author_name = models.CharField(max_length=225,blank=True)
     title = models.CharField(max_length=30)
     created_at = models.DateTimeField(auto_now_add=True)
     featured = models.BooleanField(default=False)
@@ -38,15 +39,6 @@ class Article(models.Model):
         else:
             return "/static/img.png"
 
-    def author_name(self):
-        author = self.author
-        if author:
-            if author.is_individual:
-                return author.full_name()
-            else:
-                return author.organization.company_name
-        else:
-            return "Staff"
 
 def create_slug (instance,Model,field_name,new_slug=None):
     slug=new_slug or slugify(getattr(instance,field_name), allow_unicode = True)
@@ -66,3 +58,14 @@ def add_slug_to_Category (sender, instance, **kwargs):
 def add_slug_to_Article(sender, instance, **kwargs):
     if not instance.slug:
         instance.slug=create_slug(instance,sender,'title')
+
+@receiver(pre_save, sender = Article)
+def add_author_name_to_article(sender,instance, **kwargs):
+        author_name = "staff"
+        author = instance.author
+        if author:
+            if author.is_individual:
+                author_name =  author.full_name()
+            elif author.is_organization:
+                author_name = author.organization.company_name
+        instance.author_name = author_name
