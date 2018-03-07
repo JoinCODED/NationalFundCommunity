@@ -42,11 +42,9 @@ def delete_article(request, article_id):
     Article.objects.get(id = article_id).delete()
     return redirect('article_list')
 
-def article_list(request,author=None):
+def article_list(request):
     context = {}
     context['articles'] = Article.objects.all()
-    if author is not None:
-        context['articles']=Article.objects.all().filter(author__username=author)
     return render(request, "index.html", context=context)
 
 def article(request, article_slug):

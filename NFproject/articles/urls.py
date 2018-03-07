@@ -4,7 +4,6 @@ from articles import views
 
 urlpatterns = [
     path('', views.article_list, name='article_list'),
-    path('user_articles/<author>',views.article_list,name='user_articles'),
     path('add_article/', views.add_article , name='add_article'),
     path('update_article/<article_slug>', views.update_article, name="update_article"),
     path('delete_article/<int:article_id>', views.delete_article, name= "delete_article"),
