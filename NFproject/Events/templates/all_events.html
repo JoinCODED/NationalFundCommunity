@@ -3,22 +3,22 @@
 {% load event_card %}
 {% block content %}
 <div class="row">
-  <div class="col-md-9">
-
-  </div class="col-md-3">
-  <div class="ml-auto">
-
-
-  <form action="" method="GET">
-  <input type="text" name='q' placeholder="Search">
-  <input type="submit" value="Search">
-  </form>
-  </div>
-  <div>
-  </div>
+        <div class="col-md-9">
+      
+        </div class="col-md-3">
+        <div class="ml-auto">
+      
+      
+        <form action="" method="GET">
+        <input type="text" name='q' placeholder="Search">
+        <input type="submit" value="Search">
+        </form>
+        </div>
+        <div>
+        </div>
   <div class="container">
 
-
+    
         {%if user.is_superuser %}
         <a class="btn btn-primary" href="{% url 'add_event' %}"> Add New Event</a>
         {% endif %}

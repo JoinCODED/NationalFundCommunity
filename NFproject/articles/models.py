@@ -15,6 +15,14 @@ class Category (models.Model):
     def __str__(self):
         return self.name
 
+class ArticleManager(models.Manager):
+    def filter_by_author(self,name):
+        articles=super().get_queryset()
+        filtered_articles = []
+        for article in articles:
+                if name.lower() in article.author_name().lower():
+                    filtered_articles.append(article)
+        return filtered_articles
 
 class Article(models.Model):
     author =models.ForeignKey(User,on_delete=models.CASCADE,blank=True, null=True,related_name='articlesOfUser')
@@ -25,7 +33,7 @@ class Article(models.Model):
     content = models.TextField()
     picture = models.ImageField(upload_to='article_pictures', blank=True)
     slug= models.SlugField(blank=True, allow_unicode=True)
-
+    objects = ArticleManager()
     def __str__(self):
         return self.title
 

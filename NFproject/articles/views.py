@@ -3,7 +3,7 @@ from django.core.exceptions import PermissionDenied
 from .models import Article, Category
 from .forms import ArticleForm
 from django.db.models import Q
-
+from itertools import chain
 
 def add_article(request):
     if request.user.is_authenticated:
@@ -47,7 +47,9 @@ def article_list(request):
     _articles = Article.objects.all()
     query=request.GET.get('q')
     if query:
-        _articles =_articles.filter(Q(title__icontains=query)| Q(content__icontains=query) | Q(author__full_name__icontains=query)).distinct()
+        _articles_authors = Article.objects.filter_by_author(query)
+        _articles_etc =_articles.filter(Q(title__icontains=query)| Q(content__icontains=query)).distinct()
+        _articles = set(chain(_articles_authors, _articles_etc))
     context['articles'] = _articles
     return render(request, "index.html", context=context)
 
