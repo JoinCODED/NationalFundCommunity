@@ -48,7 +48,10 @@ def register_to_event(request,event_slug):
     event.attendees.add(request.user)
     return redirect('events_list')
 
-
+def unregister_to_event(request,event_slug):
+    event = Events.objects.get(slug=event_slug)
+    event.attendees.remove(request.user)
+    return redirect('events_list')
 
 def event(request, event_slug):
     context = {}
