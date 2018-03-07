@@ -12,16 +12,17 @@ from .forms import CustomUserCreationForm, IndividualSignupForm, OrganizationSig
 def profile(request, username):
     context = {}
     user = get_object_or_404(User, username=username)
-    context['current_user'] = request.user.id == user.id
-    if user.is_individual:
-        context['profile'] = user.individual
-    elif user.is_organization:
-        context['profile'] = user.organization
     #context['user_events']=Events.objects.all().filter(attendees=request.user)
     context['user_events']=request.user.events.all()
     context['articles']=user.articlesOfUser.all()
     #context['articles']=Article.objects.all().filter(author__username=username)
-    return render(request, "profile.html", context)
+    context['current_user'] = request.user.id == user.id
+    if user.is_individual:
+        context['profile'] = user.individual
+        return render(request, "indi_profile.html", context)
+    elif user.is_organization:
+        context['profile'] = user.organization
+        return render(request, "orgi_profile.html", context)
 
 
 def profile_list(request):
