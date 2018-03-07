@@ -3,6 +3,7 @@ from datetime import date
 from django.core.exceptions import PermissionDenied
 from .models import Events, Types
 from .forms import EventForm
+from django.db.models import Q
 
 def add_event(request):
     if request.user.is_superuser:
@@ -42,8 +43,15 @@ def delete_event(request, event_id):
 
 def events_list(request):
     context = {}
-    context['past_events'] = Events.objects.all().filter(date__lt=date.today())
-    context['upcoming_events'] = Events.objects.all().filter(date__gte=date.today()).order_by('date')
+    query=request.GET.get('q')
+    all_events=Events.objects.all()
+    if query:
+        all_events=all_events.filter(Q(title__icontains=query)|
+        Q(organizer__icontains=query)|
+        Q(content__icontains=query)).distinct()
+    context['past_events'] = all_events.filter(date__lt=date.today())
+    context['upcoming_events'] = all_events.filter(date__gte=date.today()).order_by('date')
+
     return render(request, "all_events.html", context=context)
 
 def register_to_event(request,event_slug):
