@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load event_card %}
+{%load article_card%}
 {% block content %}
 <div class="container">
     <h1> Hello, {{profile.user.username}}</h1>
@@ -42,11 +43,19 @@
     <hr>
     <p>Bio: </p>
     <p> {{ profile.bio }} </p>
+    <hr>
+    {%if articles%}
+    <h2>{{profile.user.full_name}}'s Articles</h2>
+    <div class="row">
+      {%for article in articles%}
+      {% article_card article %}
+      {%endfor%}
+    </div>
+    {%endif%}
+    <hr>
     {% if  current_user %}
     <h2>My Events</h2>
     <div class="row">
-
-
     {%for event in user_events%}
     {% event_card event %}
     {%endfor%}
@@ -55,7 +64,7 @@
     {% if  current_user %}
       <a href="/" class="btn btn-primary">Edit Profile</a>
     {% endif %}
-    <a href="{%url 'user_articles' profile.user.username %}" class="btn btn-primary">View Articles</a>
+
   </div>
 
 {% endblock %}

@@ -17,7 +17,7 @@ class Category (models.Model):
 
 
 class Article(models.Model):
-    author =models.ForeignKey(User,on_delete=models.CASCADE,blank=True, null=True)
+    author =models.ForeignKey(User,on_delete=models.CASCADE,blank=True, null=True,related_name='articlesOfUser')
     title = models.CharField(max_length=30)
     created_at = models.DateTimeField(auto_now_add=True)
     featured = models.BooleanField(default=False)

@@ -5,7 +5,8 @@ from operator import attrgetter
 
 from .models import User, Individual, Organization
 from .forms import CustomUserCreationForm, IndividualSignupForm, OrganizationSignupForm
-from Events.models import Events
+#from articles.models import Article
+#from Events.models import Events
 
 
 def profile(request, username):
@@ -18,6 +19,8 @@ def profile(request, username):
         context['profile'] = user.organization
     #context['user_events']=Events.objects.all().filter(attendees=request.user)
     context['user_events']=request.user.events.all()
+    context['articles']=user.articlesOfUser.all()
+    #context['articles']=Article.objects.all().filter(author__username=username)
     return render(request, "profile.html", context)
 
 
