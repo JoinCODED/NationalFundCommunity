@@ -1,38 +1,41 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from datetime import date
-
-# Create your views here.
+from django.core.exceptions import PermissionDenied
 from .models import Events, Types
 from .forms import EventForm
 
 def add_event(request):
-    if request.method =='POST':
-        form= EventForm(request.POST,request.FILES)
-        if form.is_valid():
-            new_event= form.save()
-            return redirect(new_event)
+    if request.user.is_superuser:
+        if request.method =='POST':
+            form= EventForm(request.POST,request.FILES)
+            if form.is_valid():
+                new_event= form.save()
+                return redirect(new_event)
+        else:
+
+            form = EventForm()
+            context = {"form": form}
+            return render (request,"add_event.html",context)
     else:
-
-        form = EventForm()
-        context = {"form": form}
-        return render (request,"add_event.html",context)
-
+        raise PermissionDenied
 def update_event(request, event_slug):
-    event = Events.objects.get(slug=event_slug)
+    if request.user.is_superuser:
+        event = Events.objects.get(slug=event_slug)
 
-    if request.method == 'POST':
-        form = EventForm(request.POST,request.FILES , instance=event)
-        if form.is_valid():
-            form.save()
-            return redirect(event)
+        if request.method == 'POST':
+            form = EventForm(request.POST,request.FILES , instance=event)
+            if form.is_valid():
+                form.save()
+                return redirect(event)
+        else:
+            form = EventForm(instance=event)
+            context = {
+                "event": event,
+                "form": form
+            }
+            return render(request, "update_event.html", context)
     else:
-        form = EventForm(instance=event)
-        context = {
-            "event": event,
-            "form": form
-        }
-        return render(request, "update_event.html", context)
-
+        raise PermissionDenied
 def delete_event(request, event_id):
     Events.objects.get(id = event_id).delete()
     return redirect('events_list')
