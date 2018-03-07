@@ -26,7 +26,7 @@ class Events(models.Model):
     location_url = models.URLField()
     location_name= models.CharField(max_length=400)
     picture = models.ImageField(upload_to='event_pictures', blank=True)
-    attendees = models.ManyToManyField(User, related_name="events")
+    attendees = models.ManyToManyField(User, related_name="events",blank=True)
     slug= models.SlugField(blank=True)
 
     def __str__(self):
