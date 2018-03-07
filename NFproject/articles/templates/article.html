@@ -21,7 +21,7 @@
         Author
       </div>
       <div class="row">
-          {{article.author_name}}
+          <a href="{%url 'profile' article.author.username%}">{{article.author_name}}</a>
       </div>
     </div>
     <div class="col-sm-3">
@@ -57,7 +57,7 @@
   <p></p>
   <p>
     {{ article.content|markdown }}
-    
+
       </p>
 </div>
 
