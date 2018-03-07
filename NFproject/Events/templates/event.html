@@ -14,7 +14,11 @@
 {% if event.event_type%}
 <a href="{% url 'type' event.event_type.slug %}"<h3>Type: {{event.event_type.name}}</h3>
   {% endif %}
+  {%if isregistered%}
+  <a class="btn btn-primary" href="{% url 'unregister_to_event' event.slug %}"> Unregister </a>
+  {%else %}
 <a class="btn btn-primary" href="{% url 'register_to_event' event.slug %}"> Register </a>
+{%endif%}
 <a href="{{event.location_url}}">{{event.location_name}}</a>
 <img src={{event.image_url}}>
 </div>

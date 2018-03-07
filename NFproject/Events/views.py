@@ -45,14 +45,20 @@ def events_list(request):
 
 def register_to_event(request,event_slug):
     event = Events.objects.get(slug=event_slug)
-    event.attendees.add(request.user) 
+    event.attendees.add(request.user)
     return redirect('events_list')
 
-
+def unregister_to_event(request,event_slug):
+    event = Events.objects.get(slug=event_slug)
+    event.attendees.remove(request.user)
+    return redirect('events_list')
 
 def event(request, event_slug):
     context = {}
-    context['event'] = get_object_or_404(Events, slug=event_slug)
+    event= get_object_or_404(Events, slug=event_slug)
+    context['event'] = event
+    isregistered= request.user in event.attendees.all()
+    context['isregistered']=isregistered
     return render(request, "event.html", context=context)
 
 
