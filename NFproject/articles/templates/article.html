@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load markdown_deux_tags %}
 {% block stylesheets %}
   <link rel="stylesheet" href="{% static 'articles/css/articles_style.css' %}">
 {% endblock %}
@@ -55,7 +56,8 @@
 <div class="container">
   <p></p>
   <p>
-      {{article.content}}
+    {{ article.content|markdown }}
+    
       </p>
 </div>
 
