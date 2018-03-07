@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'articles.apps.ArticlesConfig',
     'Events.apps.EventsConfig',
     'user_profiles.apps.UserProfilesConfig',
-    'crispy_forms'
+    'crispy_forms',
+    'markdown_deux'
 ]
 
 MIDDLEWARE = [
