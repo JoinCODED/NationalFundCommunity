@@ -43,8 +43,9 @@
     <hr>
     <p>Bio: </p>
     <p> {{ profile.bio }} </p>
-    <hr>
+    
     {%if articles%}
+    <hr>
     <h2>{{profile.user.full_name}}'s Articles</h2>
     <div class="row">
       {%for article in articles%}
@@ -52,14 +53,19 @@
       {%endfor%}
     </div>
     {%endif%}
-    <hr>
+    
     {% if  current_user %}
+    <hr>
     <h2>My Events</h2>
+    {% if user_events%}
     <div class="row">
     {%for event in user_events%}
     {% event_card event %}
     {%endfor%}
     </div>
+    {%else%}
+    <h3>you didn't register for an event</h3>
+    {% endif %}
     {%endif%}
     {% if  current_user %}
       <a href="/" class="btn btn-primary">Edit Profile</a>
