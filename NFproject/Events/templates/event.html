@@ -1,25 +1,34 @@
 {% extends 'base.html' %}
-{% block content %}
-<div class="container">
-  <h1> {{event.title}}</h1>
-  <p>
-{{event.content}}
-</p>
 
-<h3>{{event.organizer}}</h3>
-<h4>{{event.date}}</h4>
-{%if user.is_superuser %}
-<a class="btn btn-primary" href="{% url 'update_event' event.slug %}">Edit</a>
-{%endif%}
-{% if event.event_type%}
-<a href="{% url 'type' event.event_type.slug %}"<h3>Type: {{event.event_type.name}}</h3>
-  {% endif %}
-  {%if isregistered%}
-  <a class="btn btn-primary" href="{% url 'unregister_to_event' event.slug %}"> Unregister </a>
-  {%else %}
-<a class="btn btn-primary" href="{% url 'register_to_event' event.slug %}"> Register </a>
-{%endif%}
-<a href="{{event.location_url}}">{{event.location_name}}</a>
-<img src={{event.image_url}}>
-</div>
+{% block content %}
+  <div class="container">
+    <h1>{{event.title}}</h1>
+    <p>{{event.content}}</p>
+
+    <h3>{{event.organizer}}</h3>
+    <h4>{{event.date}}</h4>
+
+    {%if user.is_superuser %}
+      <a class="btn btn-primary" href="{% url 'update_event' event.slug %}">Edit</a>
+    {%endif%}
+
+    {% if event.event_type%}
+      <a href="{% url 'type' event.event_type.slug %}">
+        <h3>Type: {{event.event_type.name}}</h3>
+      </a>
+    {% endif %}
+    {%if not user.is_organization%}
+      {%if isregistered%}
+      <a class="btn btn-primary" href="{% url 'unregister_to_event' event.slug %}">
+        Unregister</a>
+      {%else %}
+      <a class="btn btn-primary" href="{% url 'register_to_event' event.slug %}">
+      Register
+    </a>
+    {%endif%}
+    {%endif%}
+
+    <a href="{{event.location_url}}">{{event.location_name}}</a>
+    <img src={{event.image_url}}>
+  </div>
 {% endblock %}
