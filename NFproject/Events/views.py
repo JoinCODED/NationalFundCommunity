@@ -65,12 +65,13 @@ def events_list(request):
 
 
 def register_to_event(request, event_slug):
+    if not request.user.is_authenticated:
+        return redirect('signup')
     if request.user.is_organization:
         raise PermissionDenied
-    else:
-        event = Events.objects.get(slug=event_slug)
-        event.attendees.add(request.user)
-        return redirect('events_list')
+    event = Events.objects.get(slug=event_slug)
+    event.attendees.add(request.user)
+    return redirect('events_list')
 
 
 def unregister_to_event(request, event_slug):
