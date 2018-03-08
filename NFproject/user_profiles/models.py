@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.text import slugify
-from django.db.models.signals import pre_save
+from django.db.models.signals import pre_save, post_save
 from django.dispatch import receiver
 from django.urls import reverse
 
@@ -10,8 +10,15 @@ class User(AbstractUser):
     is_individual = models.BooleanField('individual status', default=False)
     is_organization = models.BooleanField('organization status', default=False)
 
-    def full_name(self):
-        return f'{self.first_name} {self.last_name}'
+    def name (self):
+        if self.is_individual:
+            return self.individual.full_name()
+        elif self.is_organization:
+            return self.organization.company_name
+        else:
+            return 'Staff'
+
+
 
 
 class Profile(models.Model):
@@ -19,6 +26,7 @@ class Profile(models.Model):
     bio = models.TextField(blank=True)
     slug = models.SlugField(blank=True)
     website = models.URLField(blank=True)
+
 
     def get_absolute_url(self):
         return reverse('profile', args=[self.user.username])
@@ -30,10 +38,16 @@ class Profile(models.Model):
         abstract = True
 
 
+
+
 class Individual(Profile):
     age = models.IntegerField()  # individual
     interest = models.CharField(max_length=200)  # individual
+    first_name = models.CharField(max_length=200)
+    last_name = models.CharField(max_length=200)
 
+    def full_name(self):
+        return f'{self.first_name} {self.last_name}'
 
 class Organization(Profile):
     company_name = models.CharField(max_length=200)  # organization
@@ -46,3 +60,11 @@ def add_slug_to_profile(sender, instance, **kwargs):
         return
     if not instance.slug:
         instance.slug = slugify(instance.user.username, allow_unicode=True)
+
+@receiver(post_save)
+def update_author_names(sender,instance,**kwargs):
+    if not issubclass(sender, Profile):
+        return
+    article_list = instance.user.articlesOfUser.all()
+    for article in article_list:
+        article.save()

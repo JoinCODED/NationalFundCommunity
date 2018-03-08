@@ -10,8 +10,6 @@ class CustomUserCreationForm(UserCreationForm):
 
 
 class IndividualProfileForm(forms.ModelForm):
-    first_name = forms.CharField(required=True)
-    last_name = forms.CharField(required=True)
 
     class Meta:
         model = Individual

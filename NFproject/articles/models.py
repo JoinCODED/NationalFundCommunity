@@ -64,8 +64,5 @@ def add_author_name_to_article(sender,instance, **kwargs):
         author_name = "staff"
         author = instance.author
         if author:
-            if author.is_individual:
-                author_name =  author.full_name()
-            elif author.is_organization:
-                author_name = author.organization.company_name
+            author_name = author.name()
         instance.author_name = author_name
