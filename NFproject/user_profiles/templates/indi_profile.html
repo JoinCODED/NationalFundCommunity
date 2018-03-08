@@ -43,7 +43,7 @@
     <hr>
     <p>Bio: </p>
     <p> {{ profile.bio }} </p>
-    
+
     {%if articles%}
     <hr>
     <h2>{{profile.user.full_name}}'s Articles</h2>
@@ -53,7 +53,7 @@
       {%endfor%}
     </div>
     {%endif%}
-    
+
     {% if  current_user %}
     <hr>
     <h2>My Events</h2>
@@ -68,7 +68,7 @@
     {% endif %}
     {%endif%}
     {% if  current_user %}
-      <a href="/" class="btn btn-primary">Edit Profile</a>
+      <a href="{%url 'update_profile' user.username%}" class="btn btn-primary">Edit Profile</a>
     {% endif %}
 
   </div>

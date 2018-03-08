@@ -76,9 +76,9 @@ def update_profile(request, username):
         user = User.objects.get(username=username)
         if user == request.user:
             if user.is_individual:
-                form=IndividualProfileForm(request.POST,instance=user.individual)
+                form=IndividualProfileForm(request.POST or None,instance=user.individual)
             else:
-                form=OrganizationProfileForm(request.POST,instance=user.organization)
+                form=OrganizationProfileForm(request.POST or None,instance=user.organization)
             if form.is_valid():
                 profile=form.save()
                 return redirect(profile)
