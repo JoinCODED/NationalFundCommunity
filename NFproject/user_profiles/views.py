@@ -4,7 +4,7 @@ from django.contrib.auth import login, authenticate
 from operator import attrgetter
 
 from .models import User, Individual, Organization
-from .forms import CustomUserCreationForm, IndividualSignupForm, OrganizationSignupForm
+from .forms import CustomUserCreationForm, IndividualProfileForm, OrganizationProfileForm
 #from articles.models import Article
 #from Events.models import Events
 
@@ -72,14 +72,30 @@ def create_profile(request, profile_form_class, type):
         context = {"user_form": user_form, "profile_form": profile_form}
         return render(request, 'signup_profile.html', context)
 
+def update_profile(request, username):
+        user = User.objects.get(username=username)
+        if user == request.user:
+            if user.is_individual:
+                form=IndividualProfileForm(request.POST,instance=user.individual)
+            else:
+                form=OrganizationProfileForm(request.POST,instance=user.organization)
+            if form.is_valid():
+                profile=form.save()
+                return redirect(profile)
+            else:
+                context= {'form':form}
+                return render (request,'update_profile.html',context)
+        else:
+            raise PermissionDenied
+
 
 def signup(request):
     return render(request, 'signup.html')
 
 
 def individual_signup(request):
-    return create_profile(request, IndividualSignupForm, 'individual')
+    return create_profile(request, IndividualProfileForm, 'individual')
 
 
 def organization_signup(request):
-    return create_profile(request, OrganizationSignupForm, 'organization')
+    return create_profile(request, OrganizationProfileForm, 'organization')
