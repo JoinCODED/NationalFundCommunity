@@ -10,7 +10,7 @@ class User(AbstractUser):
     is_individual = models.BooleanField('individual status', default=False)
     is_organization = models.BooleanField('organization status', default=False)
 
-    def name (self):
+    def name(self):
         if self.is_individual:
             return self.individual.full_name()
         elif self.is_organization:
@@ -19,14 +19,11 @@ class User(AbstractUser):
             return 'Staff'
 
 
-
-
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(blank=True)
     slug = models.SlugField(blank=True)
     website = models.URLField(blank=True)
-
 
     def get_absolute_url(self):
         return reverse('profile', args=[self.user.username])
@@ -38,8 +35,6 @@ class Profile(models.Model):
         abstract = True
 
 
-
-
 class Individual(Profile):
     age = models.IntegerField()  # individual
     interest = models.CharField(max_length=200)  # individual
@@ -48,6 +43,7 @@ class Individual(Profile):
 
     def full_name(self):
         return f'{self.first_name} {self.last_name}'
+
 
 class Organization(Profile):
     company_name = models.CharField(max_length=200)  # organization
@@ -61,8 +57,9 @@ def add_slug_to_profile(sender, instance, **kwargs):
     if not instance.slug:
         instance.slug = slugify(instance.user.username, allow_unicode=True)
 
+
 @receiver(post_save)
-def update_author_names(sender,instance,**kwargs):
+def update_author_names(sender, instance, **kwargs):
     if not issubclass(sender, Profile):
         return
     article_list = instance.user.articlesOfUser.all()
