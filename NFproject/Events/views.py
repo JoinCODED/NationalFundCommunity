@@ -75,9 +75,12 @@ def register_to_event(request, event_slug):
 
 
 def unregister_to_event(request, event_slug):
-    event = Events.objects.get(slug=event_slug)
-    event.attendees.remove(request.user)
-    return redirect('events_list')
+    if request.user.is_authenticated and request.user.is_individual:
+        event = Events.objects.get(slug=event_slug)
+        if request.user in event.attendees.all():
+            event.attendees.remove(request.user)
+            return redirect('events_list')
+    raise PermissionDenied
 
 
 def event(request, event_slug):
