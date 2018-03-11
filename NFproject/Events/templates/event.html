@@ -9,20 +9,20 @@
     <h4>{{event.date}}</h4>
 
     {%if user.is_superuser %}
-      <a class="btn btn-primary" href="{% url 'update_event' event.slug %}">Edit</a>
+      <a class="btn btn-primary" href="{% url 'events:update' event.slug %}">Edit</a>
     {%endif%}
 
     {% if event.event_type%}
-      <a href="{% url 'type' event.event_type.slug %}">
+      <a href="{% url 'events:type' event.event_type.slug %}">
         <h3>Type: {{event.event_type.name}}</h3>
       </a>
     {% endif %}
     {%if not user.is_organization%}
       {%if isregistered%}
-      <a class="btn btn-primary" href="{% url 'unregister_to_event' event.slug %}">
+      <a class="btn btn-primary" href="{% url 'events:unregister' event.slug %}">
         Unregister</a>
       {%else %}
-      <a class="btn btn-primary" href="{% url 'register_to_event' event.slug %}">
+      <a class="btn btn-primary" href="{% url 'events:register' event.slug %}">
       Register
     </a>
     {%endif%}

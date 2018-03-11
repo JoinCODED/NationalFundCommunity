@@ -8,7 +8,7 @@ from .models import Events, Types
 from .forms import EventForm
 
 
-def add_event(request):
+def add(request):
     if request.user.is_superuser:
         if request.method == 'POST':
             form = EventForm(request.POST, request.FILES)
@@ -24,7 +24,7 @@ def add_event(request):
         raise PermissionDenied
 
 
-def update_event(request, event_slug):
+def update(request, event_slug):
     if request.user.is_superuser:
         event = Events.objects.get(slug=event_slug)
 
@@ -44,12 +44,12 @@ def update_event(request, event_slug):
         raise PermissionDenied
 
 
-def delete_event(request, event_id):
+def delete(request, event_id):
     Events.objects.get(id=event_id).delete()
-    return redirect('events_list')
+    return redirect('events:index')
 
 
-def events_list(request):
+def index(request):
     context = {}
     query = request.GET.get('q')
     all_events = Events.objects.all()
@@ -64,22 +64,22 @@ def events_list(request):
     return render(request, "all_events.html", context=context)
 
 
-def register_to_event(request, event_slug):
+def register(request, event_slug):
     if not request.user.is_authenticated:
         return redirect('signup')
     if request.user.is_organization:
         raise PermissionDenied
     event = Events.objects.get(slug=event_slug)
     event.attendees.add(request.user)
-    return redirect('events_list')
+    return redirect(event)
 
 
-def unregister_to_event(request, event_slug):
+def unregister(request, event_slug):
     if request.user.is_authenticated and request.user.is_individual:
         event = Events.objects.get(slug=event_slug)
         if request.user in event.attendees.all():
             event.attendees.remove(request.user)
-            return redirect('events_list')
+            return redirect(event)
     raise PermissionDenied
 
 

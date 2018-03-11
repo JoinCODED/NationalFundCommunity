@@ -42,14 +42,14 @@
               Events
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{% url "events_list" %}">All</a>
+                <a class="dropdown-item" href="{% url 'events:index' %}">All</a>
               {%for type in types %}
-                <a class="dropdown-item" href="{%url 'type' type.slug%}">{{type.name}}</a>
+                <a class="dropdown-item" href="{%url 'events:type' type.slug%}">{{type.name}}</a>
               {%endfor%}
             </div>
           </li>
            <li class="nav-item active">
-           <a class="nav-link" href="{% url "profile_list" %}">Profiles<span class="sr-only"></span></a>
+           <a class="nav-link" href="{% url 'profiles:index' %}">Profiles<span class="sr-only"></span></a>
            </li>
         </ul>
           <ul class="navbar-nav  ml-auto">
@@ -59,7 +59,7 @@
               {{user.username}}
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="{%url 'profile' user.username%}">My Profile</a>
+              <a class="dropdown-item" href="{%url 'profiles:profile' user.username%}">My Profile</a>
                 <a class="dropdown-item" href="{% url "logout" %}">Logout</a>
             </div>
           </li>

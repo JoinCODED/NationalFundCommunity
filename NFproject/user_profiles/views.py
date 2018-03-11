@@ -27,7 +27,7 @@ def profile(request, username):
         return render(request, "orgi_profile.html", context)
 
 
-def profile_list(request):
+def index(request):
     users = User.objects.all()
 
     type = request.GET.get('type')
@@ -75,7 +75,7 @@ def create_profile(request, profile_form_class, type):
         return render(request, 'signup_profile.html', context)
 
 
-def update_profile(request, username):
+def update(request, username):
     user = User.objects.get(username=username)
     if user == request.user:
         if user.is_individual:

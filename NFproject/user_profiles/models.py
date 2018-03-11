@@ -26,7 +26,7 @@ class Profile(models.Model):
     website = models.URLField(blank=True)
 
     def get_absolute_url(self):
-        return reverse('profile', args=[self.user.username])
+        return reverse('profiles:profile', args=[self.user.username])
 
     def __str__(self):
         return self.user.username

@@ -6,7 +6,7 @@
 
     <h1> Hello, {{profile.user.username}}</h1>
     {% if  current_user %}
-      <a href="{%url 'update_profile' user.username%}" class="btn btn-primary float-right">Edit Profile</a>
+      <a href="{%url 'profiles:update' user.username%}" class="btn btn-primary float-right">Edit Profile</a>
     {% endif %}
 
 

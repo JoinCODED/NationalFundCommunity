@@ -9,7 +9,7 @@
       <div class="card">
         <h4 class="card-header">{% block card_header %}Add an Event{% endblock %}</h4>
         <div class="card-body">
-          <form action="{% block form_action %}{% url 'add_event' %}{% endblock %}"method="POST" enctype="multipart/form-data">
+          <form action="{% block form_action %}{% url 'events:add' %}{% endblock %}"method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{form|crispy}}
             <input class="btn btn-primary" type="submit" name="" value="{% block button_text %}Add Event{% endblock %}">
