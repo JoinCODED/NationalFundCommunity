@@ -1,7 +1,8 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth import login, authenticate
-
 from operator import attrgetter
+
+from django.shortcuts import render, get_object_or_404, redirect 
+from django.http import Http404
+from django.contrib.auth import login, authenticate
 
 from .models import User, Individual, Organization
 from .forms import (CustomUserCreationForm, IndividualProfileForm,
@@ -25,6 +26,8 @@ def profile(request, username):
     elif user.is_organization:
         context['profile'] = user.organization
         return render(request, "orgi_profile.html", context)
+    else:
+        raise Http404
 
 
 def index(request):
