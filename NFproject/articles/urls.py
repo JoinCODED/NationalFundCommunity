@@ -2,12 +2,14 @@ from django.urls import path
 
 from articles import views
 
+
+app_name = 'articles'
 urlpatterns = [
-    path('', views.article_list, name='article_list'),
-    path('add_article/', views.add_article, name='add_article'),
-    path('update_article/<article_slug>',
-         views.update_article, name="update_article"),
-    path('delete_article/<int:article_id>',
-         views.delete_article, name="delete_article"),
+    path('', views.index, name='index'),
+    path('add/', views.add, name='add'),
+    path('<article_slug>/update/',
+         views.update, name="update"),
+    path('<int:article_id>/delete/',
+         views.delete, name="delete"),
     path('<article_slug>', views.article, name='article'),
     path('categories/<category_slug>', views.category, name='category')]

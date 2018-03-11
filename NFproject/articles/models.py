@@ -35,7 +35,7 @@ class Article(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('article', args=[self.slug])
+        return reverse('articles:article', args=[self.slug])
 
     def image_url(self):
         if self.picture and hasattr(self.picture, 'url'):

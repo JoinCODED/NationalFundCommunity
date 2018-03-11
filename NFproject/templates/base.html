@@ -31,9 +31,9 @@
               Articles
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{% url 'article_list' %}">All</a>
+                <a class="dropdown-item" href="{% url 'articles:index' %}">All</a>
               {%for category in categories %}
-                <a class="dropdown-item" href="{%url 'category' category.slug%}">{{category.name}}</a>
+                <a class="dropdown-item" href="{%url 'articles:category' category.slug%}">{{category.name}}</a>
               {%endfor%}
             </div>
           </li>
