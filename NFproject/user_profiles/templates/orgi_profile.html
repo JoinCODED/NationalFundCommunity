@@ -1,61 +1,17 @@
-{% extends 'base.html' %}
-{% load event_card %}
-{%load article_card%}
-{% block content %}
-<div class="container">
-    <h1> Hello, {{profile.user.username}}</h1>
-
-
-    <table>
-        <tr>
-            <td>Name:</td>
-            <td>
-                {{profile.company_name}}
-
-            </td>
-        </tr>
-        <tr>
-            <td>Type: </td>
-            <td>
-                organization
-            </td>
-        </tr>
-        <tr>
-            <td>Website: </td>
-            <td><a href="{{profile.website}}">{{profile.website}}</a></td>
-        </tr>
-    </table>
-    <hr>
-    <p>Bio: </p>
-    <p> {{ profile.bio }} </p>
-
-    {%if articles%}
-    <hr>
-    <h2>{{profile.company_name}}'s Articles</h2>
-    <div class="row">
-      {%for article in articles%}
-      {% article_card article %}
-      {%endfor%}
-    </div>
-    {%endif%}
-
-    {% if  current_user %}
-    <hr>
-    <h2>My Events</h2>
-    {% if user_events%}
-    <div class="row">
-    {%for event in user_events%}
-    {% event_card event %}
-    {%endfor%}
-    </div>
-    {%else%}
-    <h3>you didn't register for an event</h3>
-    {% endif %}
-    {%endif%}
-    {% if  current_user %}
-      <a href="{%url 'profiles:update' user.username%}" class="btn btn-primary">Edit Profile</a>
-    {% endif %}
-
-  </div>
-
-{% endblock %}
+{% extends 'profile_base.html'%}
+{%block profile_name%} 
+{{profile.company_name}}
+{%endblock%}
+{%block diff%} 
+<table>
+    <tr>
+        <td>Company location</td>
+        <td>
+           <a href="{{profile.location_URL}}">{{profile.location_URL}}</a> 
+        </td>
+    </tr>
+</table>
+{%endblock%}
+{%block author_name%}
+{{profile.company_name}}
+{% endblock %} 

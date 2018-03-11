@@ -1,20 +1,8 @@
-{% extends "base.html" %}
+{% extends "form_base.html" %}
+
 {% load crispy_forms_tags %}
 
-{% block content %}
-  <div class="container d-flex justify-content-center">
-    <div class="col-6">
-      <div class="card">
-        <h4 class="card-header">{% block card_header %}Add an Article{% endblock %}</h4>
-        <div class="card-body">
-          <form action="{% block form_action %}{% url 'articles:add' %}{% endblock %}" method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{form|crispy}}
-            <input class="btn btn-primary" type="submit" name="" value="{% block button_text %}Add Article{% endblock %}">
-            {% block delete_btn%} {% endblock%}
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-{% endblock %}
+{% block form_header %} Add Article {% endblock %}
+{% block buttons%}
+  <input class="btn btn-primary" type="submit" name="" value="Add Article">
+{% endblock%}

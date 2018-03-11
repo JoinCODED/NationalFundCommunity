@@ -1,62 +1,28 @@
-{% extends 'base.html' %}
+{% extends 'profile_base.html'%}
 {% load event_card %}
-{%load article_card%}
-{% block content %}
-<div class="container">
-
-    <h1> Hello, {{profile.user.username}}</h1>
-    {% if  current_user %}
-      <a href="{%url 'profiles:update' user.username%}" class="btn btn-primary float-right">Edit Profile</a>
-    {% endif %}
-
-
-    <table>
-        <tr>
-            <td>Name:</td>
+{%block profile_name%} 
+{{profile.full_name}}
+{%endblock%}
+{%block diff%} 
+<table>
+    <tr>
+        <td>Age:  </td>
+        <td>
+          {{profile.age}} 
+        </td>
+    </tr>
+    <tr>
+            <td>Interests:  </td>
             <td>
-
-                {{profile.full_name}}
-
-
+              {{profile.interest}} 
             </td>
         </tr>
-        <tr>
-            <td>Email:</td>
-            <td><a href="mailto:{{profile.user.email}}">{{profile.user.email}}</a></td>
-        </tr>
-        <tr>
-            <td>Age:</td>
-            <td>{{profile.age}}</td>
-        </tr>
-        <tr>
-            <td>Type: </td>
-            <td>
-              {% if profile.user.is_individual %}
-                individual
-              {% else %}
-                organization
-              {% endif %}
-            </td>
-        </tr>
-        <tr>
-            <td>Website: </td>
-            <td><a href="{{profile.website}}">{{profile.website}}</a></td>
-        </tr>
-    </table>
-    <hr>
-    <p>Bio: </p>
-    <p> {{ profile.bio }} </p>
-
-    {%if articles%}
-    <hr>
-    <h2>{{profile.full_name}}'s Articles</h2>
-    <div class="row">
-      {%for article in articles%}
-      {% article_card article %}
-      {%endfor%}
-    </div>
-    {%endif%}
-
+</table>
+{%endblock%}
+{%block author_name%}
+{{profile.full_name}}
+{% endblock %} 
+{% block events%}
     {% if  current_user %}
     <hr>
     <h2>My Events</h2>
@@ -70,7 +36,5 @@
     <h3>you didn't register for an event</h3>
     {% endif %}
     {%endif%}
+    {% endblock%}
 
-  </div>
-
-{% endblock %}

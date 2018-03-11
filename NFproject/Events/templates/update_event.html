@@ -1,8 +1,10 @@
-{% extends "add_event.html" %}
 
-{% block card_header %}Update Event{% endblock %}</h4>
-{% block form_action %}{% url 'events:update' event.slug %}{% endblock %}
-{% block button_text %}Save{% endblock %}
-{% block delete_btn %}        
-<a class="btn btn-danger" href="{% url 'events:delete' event.id %}">Delete</a>
-{% endblock %}
+{% extends "form_base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block form_header %} Update Event {% endblock %}
+{% block buttons%}
+  <input class="btn btn-primary" type="submit" name="" value="Save">
+  <a class="btn btn-danger" href="{% url 'events:delete' event.id %}">Delete</a>
+{% endblock%}
