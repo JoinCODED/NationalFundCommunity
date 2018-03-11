@@ -5,7 +5,7 @@ from .forms import ArticleForm
 from django.db.models import Q
 
 
-def add_article(request):
+def add(request):
     if request.user.is_authenticated:
         if request.method == "POST":
             form = ArticleForm(request.POST, request.FILES)
@@ -21,7 +21,7 @@ def add_article(request):
         raise PermissionDenied
 
 
-def update_article(request, article_slug):
+def update(request, article_slug):
     article = Article.objects.get(slug=article_slug)
     if article.author == request.user:
 
@@ -41,12 +41,12 @@ def update_article(request, article_slug):
         raise PermissionDenied
 
 
-def delete_article(request, article_id):
+def delete(request, article_id):
     Article.objects.get(id=article_id).delete()
-    return redirect('article_list')
+    return redirect('articles:index')
 
 
-def article_list(request):
+def index(request):
     context = {}
     _articles = Article.objects.all()
     query = request.GET.get('q')

@@ -2,8 +2,8 @@
 {% extends "add_article.html" %}
 
 {% block card_header %}Update Article{% endblock %}</h4>
-{% block form_action %}{% url 'update_article' article.slug %}{% endblock %}
+{% block form_action %}{% url 'articles:update' article.slug %}{% endblock %}
 {% block button_text %}Save{% endblock %}
 {% block delete_btn %}        
-<a class="btn btn-danger" href="{% url 'delete_article' article.id %}">Delete</a>
+<a class="btn btn-danger" href="{% url 'articles:delete' article.id %}">Delete</a>
 {% endblock %}

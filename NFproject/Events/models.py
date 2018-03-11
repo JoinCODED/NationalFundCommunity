@@ -35,7 +35,7 @@ class Events(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('event', args=[self.slug])
+        return reverse('events:event', args=[self.slug])
 
     def image_url(self):
         if self.picture and hasattr(self.picture, 'url'):
