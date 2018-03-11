@@ -1,32 +1,24 @@
-{% extends "base.html" %}
+{% extends "form_base.html" %}
+
 {% load crispy_forms_tags %}
 
-{% block content %}
-  <div class="container d-flex justify-content-center">
-    <div class="col-6">
-      <div class="card">
-        <h4 class="card-header">Signup</h4>
-        <div class="card-body">
-          <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            {% if user_form.errors%}
-              <div class="form-group has-error">
-                <span class="help-block">{{user_form.text.errors}}</span>
-              </div>
-            {% endif %}
-            {% if profile_form.errors%}
-              <div class="form-group has-error">
-                <span class="help-block">{{profile_form.text.errors}}</span>
-              </div>
-            {% endif %}
-
-             {{user_form|crispy}}
-             {{profile_form|crispy}}
-
-            <input class="btn btn-primary" type="submit" name="" value="Signup">
-          </form>
-        </div>
-      </div>
-    </div>
+{% block form_header %} Signup {% endblock %}
+{% block forms_errors%} 
+{% if user_form.errors%}
+  <div class="form-group has-error">
+    <span class="help-block">{{user_form.text.errors}}</span>
   </div>
+  {% endif %}
+  {% if profile_form.errors%}
+  <div class="form-group has-error">
+    <span class="help-block">{{profile_form.text.errors}}</span>
+  </div>
+  {% endif %}
+{% endblock %}
+{% block forms%}
+  {{user_form|crispy}}
+  {{profile_form|crispy}}
+{% endblock %}
+{% block buttons%}
+  <input class="btn btn-primary" type="submit" name="" value="Signup">
 {% endblock %}
