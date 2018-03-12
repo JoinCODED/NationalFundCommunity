@@ -29,9 +29,11 @@ class Events(models.Model):
     location_name = models.CharField(max_length=400)
     picture = models.ImageField(upload_to='event_pictures', blank=True)
     attendees = models.ManyToManyField(User, related_name="events", blank=True)
-    slug = models.SlugField(blank=True)
     maximum_attendees = models.PositiveIntegerField()
     seats_remaining = models.PositiveIntegerField(default=0)
+    registration_deadline =models.DateTimeField(blank=True, null=True)
+    slug = models.SlugField(blank=True)
+
 
     def __str__(self):
         return self.title
@@ -82,3 +84,8 @@ def calculate_remaining_seats(sender, instance, **kwargs):
         print("From the spre ignal")
     else:
         instance.seats_remaining = instance.maximum_attendees
+
+@receiver(pre_save,sender=Events)
+def set_regisration_deadline(sender, instance, **kwargs):
+    if instance.registration_deadline is None:
+        instance.registration_deadline = instance.date

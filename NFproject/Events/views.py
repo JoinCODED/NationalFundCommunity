@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.http import JsonResponse
-from datetime import date
+from django.utils import timezone
 
 from .models import Events, Types
 from .forms import EventForm
@@ -57,8 +57,8 @@ def index(request):
         all_events = all_events.filter(Q(title__icontains=query) |
                                        Q(organizer__icontains=query) |
                                        Q(content__icontains=query)).distinct()
-    context['past_events'] = all_events.filter(date__lt=date.today())
-    context['upcoming_events'] = all_events.filter(date__gte=date.today()) \
+    context['past_events'] = all_events.filter(date__lt=timezone.now())
+    context['upcoming_events'] = all_events.filter(date__gte=timezone.now()) \
                                            .order_by('date')
 
     return render(request, "all_events.html", context=context)
@@ -92,10 +92,15 @@ def register(request, event_slug):
 
 def event(request, event_slug):
     context = {}
+    context['registration_closed']= False
     event = get_object_or_404(Events, slug=event_slug)
     context['event'] = event
     isregistered = request.user in event.attendees.all()
     context['isregistered'] = isregistered
+    registration_deadline = event.registration_deadline
+    event_date = event.date
+    if registration_deadline < timezone.now() or event_date < timezone.now():
+        context['registration_closed'] = True  
     return render(request, "event.html", context=context)
 
 
