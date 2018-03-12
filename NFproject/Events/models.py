@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
-from django.db.models.signals import pre_save, m2m_changed
+from django.db.models.signals import pre_save, m2m_changed, post_save
 from django.dispatch import receiver
 from django.urls import reverse
 from django.contrib.auth import get_user_model
@@ -31,7 +31,7 @@ class Events(models.Model):
     attendees = models.ManyToManyField(User, related_name="events", blank=True)
     slug = models.SlugField(blank=True)
     maximum_attendees = models.PositiveIntegerField()
-    seats_taken = models.PositiveIntegerField(default=0)
+    seats_remaining = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.title
@@ -73,3 +73,12 @@ def add_slug_to_Types(sender, instance, **kwargs):
 def add_slug_to_Events(sender, instance, **kwargs):
     if not instance.slug:
         instance.slug = create_slug(instance, sender, 'title')
+
+
+@receiver(pre_save, sender=Events)
+def calculate_remaining_seats(sender, instance, **kwargs):
+    if instance.id:
+        instance.seats_remaining = instance.maximum_attendees - instance.attendees.all().count()
+        print("From the spre ignal")
+    else:
+        instance.seats_remaining = instance.maximum_attendees
