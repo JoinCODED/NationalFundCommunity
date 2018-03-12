@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
-from django.db.models.signals import pre_save
+from django.db.models.signals import pre_save, m2m_changed, post_save
 from django.dispatch import receiver
 from django.urls import reverse
 from django.contrib.auth import get_user_model
@@ -30,6 +30,8 @@ class Events(models.Model):
     picture = models.ImageField(upload_to='event_pictures', blank=True)
     attendees = models.ManyToManyField(User, related_name="events", blank=True)
     slug = models.SlugField(blank=True)
+    maximum_attendees = models.PositiveIntegerField()
+    seats_remaining = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.title
@@ -56,6 +58,10 @@ def create_slug(instance, Model, field_name, new_slug=None):
         return create_slug(instance, Model, field_name, new_slug=new_slug)
     return slug
 
+@receiver(m2m_changed, sender=Events.attendees.through)
+def update_seats_taken(sender, instance, **kwargs):
+    instance.seats_taken = instance.attendees.all().count()
+    instance.save()
 
 @receiver(pre_save, sender=Types)
 def add_slug_to_Types(sender, instance, **kwargs):
@@ -67,3 +73,12 @@ def add_slug_to_Types(sender, instance, **kwargs):
 def add_slug_to_Events(sender, instance, **kwargs):
     if not instance.slug:
         instance.slug = create_slug(instance, sender, 'title')
+
+
+@receiver(pre_save, sender=Events)
+def calculate_remaining_seats(sender, instance, **kwargs):
+    if instance.id:
+        instance.seats_remaining = instance.maximum_attendees - instance.attendees.all().count()
+        print("From the spre ignal")
+    else:
+        instance.seats_remaining = instance.maximum_attendees

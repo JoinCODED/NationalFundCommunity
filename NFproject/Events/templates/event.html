@@ -22,11 +22,17 @@
       </a>
     {% endif %}
     {%if not user.is_organization%}
+    {%if event.seats_remaining or  isregistered %}
     <button class="btn btn-primary" id="button_text" onclick="register('{% url 'events:register' event.slug %}')">
         {%if isregistered%}Unregister{%else %}Register{%endif%}
       </button>
-    {%endif%}
 
+    {%else%}
+    <button class="btn btn-primary" id="button_text" disabled>Sorry</button>
+    {% endif %}
+    {%endif%}
+      <h1>Maximum attendees: {{event.maximum_attendees}}</h1><br>
+      <h1>Remaining seats: <span id="remaining_seats">{{event.seats_remaining}}</span></h1>
     <a href="{{event.location_url}}">{{event.location_name}}</a>
     <img src={{event.image_url}}>
   </div>

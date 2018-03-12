@@ -73,10 +73,20 @@ def register(request, event_slug):
     if request.user in event.attendees.all():
         event.attendees.remove(request.user)
         is_registerd = False
+        
     else:
-        event.attendees.add(request.user)
-        is_registerd = True
-    return JsonResponse({'is_registerd': is_registerd})
+        if event.seats_remaining:
+            event.attendees.add(request.user)
+            is_registerd = True
+        else:
+            raise PermissionDenied
+   
+
+    data = {
+        'is_registerd': is_registerd,
+        'remaining_seats': event.seats_remaining
+    }
+    return JsonResponse(data)
 
 
 
