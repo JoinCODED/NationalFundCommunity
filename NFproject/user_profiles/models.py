@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.core.exceptions import ValidationError
 from django.utils.text import slugify
 from django.db.models.signals import pre_save, post_save
 from django.dispatch import receiver
@@ -24,6 +25,13 @@ class Profile(models.Model):
     bio = models.TextField(blank=True)
     slug = models.SlugField(blank=True)
     website = models.URLField(blank=True)
+
+    def save(self,*args , **kwargs):
+        print("Before if")
+        if self.user.is_individual != self.user.is_organization:
+            print("inside if")
+            raise ValidationError("Must be either individual or organization")
+        super(Profile,self).save(*args , **kwargs)
 
     def get_absolute_url(self):
         return reverse('profiles:profile', args=[self.user.username])
@@ -65,3 +73,13 @@ def update_author_names(sender, instance, **kwargs):
     article_list = instance.user.articlesOfUser.all()
     for article in article_list:
         article.save()
+
+@receiver(post_save)
+def set_user_type(sender,instance , **kwargs):
+    if not issubclass(sender, Profile):
+        return
+    if isinstance(instance,Individual):
+        instance.user.is_individual = True
+    else:
+        instance.user.is_organization= True
+    instance.user.save()
