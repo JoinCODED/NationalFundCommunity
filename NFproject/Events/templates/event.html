@@ -26,7 +26,8 @@
         {%if isregistered%}Unregister{%else %}Register{%endif%}
       </button>
     {%endif%}
-
+      <h1>Maximum attendees: {{event.maximum_attendees}}</h1><br>
+      <h1>Remaining seats: <span id="remaining_seats">{{remaining_seats}}</span></h1>
     <a href="{{event.location_url}}">{{event.location_name}}</a>
     <img src={{event.image_url}}>
   </div>

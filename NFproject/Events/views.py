@@ -73,10 +73,16 @@ def register(request, event_slug):
     if request.user in event.attendees.all():
         event.attendees.remove(request.user)
         is_registerd = False
+        
     else:
         event.attendees.add(request.user)
         is_registerd = True
-    return JsonResponse({'is_registerd': is_registerd})
+    remaining_seats = event.maximum_attendees - event.seats_taken
+    data = {
+        'is_registerd': is_registerd,
+        'remaining_seats': remaining_seats
+    }
+    return JsonResponse(data)
 
 
 
@@ -86,6 +92,7 @@ def event(request, event_slug):
     context['event'] = event
     isregistered = request.user in event.attendees.all()
     context['isregistered'] = isregistered
+    context['remaining_seats']= event.maximum_attendees - event.seats_taken
     return render(request, "event.html", context=context)
 
 
