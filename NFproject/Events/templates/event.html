@@ -1,4 +1,8 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block stylesheets %}
+  <script type="text/javascript" src="{% static 'Events/js/register.js' %}"></script>
+{% endblock %}
 
 {% block content %}
   <div class="container">
@@ -18,14 +22,9 @@
       </a>
     {% endif %}
     {%if not user.is_organization%}
-      {%if isregistered%}
-      <a class="btn btn-primary" href="{% url 'events:unregister' event.slug %}">
-        Unregister</a>
-      {%else %}
-      <a class="btn btn-primary" href="{% url 'events:register' event.slug %}">
-      Register
-    </a>
-    {%endif%}
+    <button class="btn btn-primary" id="button_text" onclick="register('{% url 'events:register' event.slug %}')">
+        {%if isregistered%}Unregister{%else %}Register{%endif%}
+      </button>
     {%endif%}
 
     <a href="{{event.location_url}}">{{event.location_name}}</a>

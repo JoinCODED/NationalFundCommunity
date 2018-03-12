@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
-
+from django.http import JsonResponse
 from datetime import date
 
 from .models import Events, Types
@@ -69,18 +69,15 @@ def register(request, event_slug):
         return redirect('signup')
     if request.user.is_organization:
         raise PermissionDenied
-    event = Events.objects.get(slug=event_slug)
-    event.attendees.add(request.user)
-    return redirect(event)
+    event = get_object_or_404(Events, slug=event_slug)
+    if request.user in event.attendees.all():
+        event.attendees.remove(request.user)
+        is_registerd = False
+    else:
+        event.attendees.add(request.user)
+        is_registerd = True
+    return JsonResponse({'is_registerd': is_registerd})
 
-
-def unregister(request, event_slug):
-    if request.user.is_authenticated and request.user.is_individual:
-        event = Events.objects.get(slug=event_slug)
-        if request.user in event.attendees.all():
-            event.attendees.remove(request.user)
-            return redirect(event)
-    raise PermissionDenied
 
 
 def event(request, event_slug):

@@ -11,6 +11,4 @@ urlpatterns = [
     path('<event_slug>', views.event, name='event'),
     path('<event_slug>/register/',
          views.register, name='register'),
-    path('<event_slug>/unregister',
-         views.unregister, name='unregister'),
     path('types/<type_slug>', views.types, name='type')]
