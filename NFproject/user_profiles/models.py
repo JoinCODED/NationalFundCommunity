@@ -27,9 +27,7 @@ class Profile(models.Model):
     website = models.URLField(blank=True)
 
     def save(self,*args , **kwargs):
-        print("Before if")
-        if self.user.is_individual != self.user.is_organization:
-            print("inside if")
+        if not self.id and (self.user.is_individual != self.user.is_organization):
             raise ValidationError("Must be either individual or organization")
         super(Profile,self).save(*args , **kwargs)
 
