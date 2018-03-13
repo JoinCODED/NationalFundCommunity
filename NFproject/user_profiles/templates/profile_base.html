@@ -10,17 +10,17 @@
             <tr>
                 <td>Name:</td>
                 <td>{%block profile_name%}
-                    
+
                     {%endblock%}
                 </td>
             </tr>
-            
+
             <tr>
                 <td>Website: </td>
                 <td><a href="{{profile.website}}">{{profile.website}}</a></td>
             </tr>
         </table>
-        
+
         <p>Bio: </p>
         <p> {{ profile.bio }} </p>
         <hr>
@@ -34,10 +34,17 @@
           {%endfor%}
         </div>
         {%endif%}
+        {%if fav_articles%}
+        <hr>
+        <h2>{%block fav_articles%}{% endblock %}'s Favorite Articles</h2>
+        <div class="row">
+          {%for article in fav_articles%}
+          {% article_card article %}
+          {%endfor%}
+        </div>
+        {%endif%}
         {% block events%}{% endblock%}
 
     </div>
 
     {% endblock %}
-    
-    

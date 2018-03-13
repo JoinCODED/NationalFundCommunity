@@ -1,17 +1,20 @@
 {% extends 'profile_base.html'%}
-{%block profile_name%} 
+{%block profile_name%}
 {{profile.company_name}}
 {%endblock%}
-{%block diff%} 
+{%block diff%}
 <table>
     <tr>
         <td>Company location</td>
         <td>
-           <a href="{{profile.location_URL}}">{{profile.location_URL}}</a> 
+           <a href="{{profile.location_URL}}">{{profile.location_URL}}</a>
         </td>
     </tr>
 </table>
 {%endblock%}
 {%block author_name%}
 {{profile.company_name}}
-{% endblock %} 
+{% endblock %}
+{%block fav_articles%}
+{{profile.company_name}}
+{% endblock %}

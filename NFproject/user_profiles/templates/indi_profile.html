@@ -1,27 +1,30 @@
 {% extends 'profile_base.html'%}
 {% load event_card %}
-{%block profile_name%} 
+{%block profile_name%}
 {{profile.full_name}}
 {%endblock%}
-{%block diff%} 
+{%block diff%}
 <table>
     <tr>
         <td>Age:  </td>
         <td>
-          {{profile.age}} 
+          {{profile.age}}
         </td>
     </tr>
     <tr>
             <td>Interests:  </td>
             <td>
-              {{profile.interest}} 
+              {{profile.interest}}
             </td>
         </tr>
 </table>
 {%endblock%}
 {%block author_name%}
 {{profile.full_name}}
-{% endblock %} 
+{% endblock %}
+{%block fav_articles%}
+{{profile.full_name}}
+{% endblock %}
 {% block events%}
     {% if  current_user %}
     <hr>
@@ -37,4 +40,3 @@
     {% endif %}
     {%endif%}
     {% endblock%}
-

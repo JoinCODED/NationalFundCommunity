@@ -1,6 +1,6 @@
 from operator import attrgetter
 
-from django.shortcuts import render, get_object_or_404, redirect 
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import Http404
 from django.contrib.auth import login, authenticate
 
@@ -16,6 +16,7 @@ def profile(request, username):
     user = get_object_or_404(User, username=username)
     # context['user_events']=Events.objects.all().filter(attendees=request.user)
     context['articles'] = user.articlesOfUser.all()
+    context['fav_articles'] = user.fav_articles.all()
     if request.user.id == user.id:
         context['user_events'] = request.user.events.all()
     # context['articles']=Article.objects.all().filter(author__username=username)
