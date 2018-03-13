@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
-from django.db.models.signals import pre_save
+from django.db.models.signals import pre_save, m2m_changed
 from django.dispatch import receiver
 from django.urls import reverse
 from django.contrib.auth import get_user_model
@@ -30,6 +30,8 @@ class Article(models.Model):
     content = models.TextField()
     picture = models.ImageField(upload_to='article_pictures', blank=True)
     slug = models.SlugField(blank=True, allow_unicode=True)
+    fans = models.ManyToManyField(User, related_name='fav_articles')
+    fans_number = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.title
@@ -53,6 +55,11 @@ def create_slug(instance, Model, field_name, new_slug=None):
         return create_slug(instance, Model, field_name, new_slug=new_slug)
     return slug
 
+
+@receiver(m2m_changed, sender=Article.fans.through)
+def update_fans_number(sender, instance, **kwargs):
+    instance.fans_number = instance.fans.all().count()
+    instance.save()
 
 @receiver(pre_save, sender=Category)
 def add_slug_to_Category(sender, instance, **kwargs):

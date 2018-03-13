@@ -7,10 +7,11 @@ from django.dispatch import receiver
 from django.urls import reverse
 
 
+
 class User(AbstractUser):
     is_individual = models.BooleanField('individual status', default=False)
     is_organization = models.BooleanField('organization status', default=False)
-
+    
     def name(self):
         if self.is_individual:
             return self.individual.full_name()
@@ -25,8 +26,9 @@ class Profile(models.Model):
     bio = models.TextField(blank=True)
     slug = models.SlugField(blank=True)
     website = models.URLField(blank=True)
+    # fav_articles = models.ManyToManyField(Article, related_name='fans')
 
-    def save(self,*args , **kwargs):
+    def save(self, *args, **kwargs):
         if not self.id and (self.user.is_individual != self.user.is_organization):
             raise ValidationError("Must be either individual or organization")
         super(Profile,self).save(*args , **kwargs)

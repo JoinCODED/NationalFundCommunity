@@ -3,6 +3,7 @@ from django.core.exceptions import PermissionDenied
 from .models import Article, Category
 from .forms import ArticleForm
 from django.db.models import Q
+from django.http import JsonResponse
 
 
 def add(request):
@@ -54,7 +55,7 @@ def index(request):
         _articles = _articles.filter(Q(title__icontains=query) |
                                      Q(content__icontains=query) |
                                      Q(author_name__icontains=query)) \
-                                     .distinct()
+            .distinct()
     context['articles'] = _articles
     return render(request, "index.html", context=context)
 
@@ -64,8 +65,22 @@ def article(request, article_slug):
     context = {}
     context['showUpdateBtn'] = _article.author == request.user
     context['article'] = _article
+    is_fan = request.user in _article.fans.all()
+    context['is_fan'] = is_fan
     context['article_categories'] = _article.category.all()
     return render(request, "article.html", context=context)
+
+
+def favorite(request, article_slug):
+    if not request.user.is_authenticated:
+        return redirect('signup')
+    _article = get_object_or_404(Article, slug=article_slug)
+    if request.user in _article.fans.all():
+        _article.fans.remove(request.user)
+    else:
+        _article.fans.add(request.user)
+
+    return JsonResponse({'fans_number': _article.fans_number})
 
 
 def category(request, category_slug):
