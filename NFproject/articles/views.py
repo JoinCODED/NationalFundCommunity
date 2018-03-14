@@ -5,6 +5,7 @@ from .forms import ArticleForm
 from django.db.models import Q
 from django.http import JsonResponse
 
+from urllib.parse import quote
 
 def add(request):
     if request.user.is_authenticated:
@@ -68,6 +69,7 @@ def article(request, article_slug):
     is_fan = request.user in _article.fans.all()
     context['is_fan'] = is_fan
     context['article_categories'] = _article.category.all()
+    context["share_string"]= quote(_article.title)
     return render(request, "article.html", context=context)
 
 
