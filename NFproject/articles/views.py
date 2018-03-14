@@ -1,76 +1,120 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import PermissionDenied
+from django.urls import reverse_lazy
 from .models import Article, Category
 from .forms import ArticleForm
 from django.db.models import Q
 from django.http import JsonResponse
+from django.views.generic import (ListView,
+                                  CreateView,
+                                  DetailView,
+                                  UpdateView,
+                                  DeleteView)
+from django.contrib.auth.mixins import (LoginRequiredMixin,
+                                        UserPassesTestMixin)
 
 from urllib.parse import quote
 
-def add(request):
-    if request.user.is_authenticated:
-        if request.method == "POST":
-            form = ArticleForm(request.POST, request.FILES)
-            if form.is_valid():
-                new_article = form.save()
-                new_article.author = request.user
-                new_article.save()
-                return redirect(new_article)
-        form = ArticleForm()
-        context = {"form": form}
-        return render(request, "add_article.html", context)
-    else:
-        raise PermissionDenied
+# def add(request):
+#     if request.user.is_authenticated:
+#         if request.method == "POST":
+#             form = ArticleForm(request.POST, request.FILES)
+#             if form.is_valid():
+#                 new_article = form.save()
+#                 new_article.author = request.user
+#                 new_article.save()
+#                 return redirect(new_article)
+#         form = ArticleForm()
+#         context = {"form": form}
+#         return render(request, "add_article.html", context)
+#     else:
+#         raise PermissionDenied
+
+class AddArticle (LoginRequiredMixin,CreateView):
+    model = Article
+    form_class = ArticleForm
+
+    def form_valid(self,form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
 
-def update(request, article_slug):
-    article = Article.objects.get(slug=article_slug)
-    if article.author == request.user:
-
-        if request.method == 'POST':
-            form = ArticleForm(request.POST, request.FILES, instance=article)
-            if form.is_valid():
-                form.save()
-                return redirect(article)
-        else:
-            form = ArticleForm(instance=article)
-            context = {
-                "article": article,
-                "form": form
-            }
-            return render(request, "update_article.html", context)
-    else:
-        raise PermissionDenied
-
-
-def delete(request, article_id):
-    Article.objects.get(id=article_id).delete()
-    return redirect('articles:index')
+# def update(request, article_slug):
+#     article = Article.objects.get(slug=article_slug)
+#     if article.author == request.user:
+#
+#         if request.method == 'POST':
+#             form = ArticleForm(request.POST, request.FILES, instance=article)
+#             if form.is_valid():
+#                 form.save()
+#                 return redirect(article)
+#         else:
+#             form = ArticleForm(instance=article)
+#             context = {
+#                 "article": article,
+#                 "form": form
+#             }
+#             return render(request, "update_article.html", context)
+#     else:
+#         raise PermissionDenied
 
 
-def index(request):
-    context = {}
-    _articles = Article.objects.all()
-    query = request.GET.get('q')
-    if query:
-        _articles = _articles.filter(Q(title__icontains=query) |
-                                     Q(content__icontains=query) |
-                                     Q(author_name__icontains=query)) \
-            .distinct()
-    context['articles'] = _articles
-    return render(request, "index.html", context=context)
+class UpdateArticle(UserPassesTestMixin, UpdateView):
+    model = Article
+    form_class = ArticleForm
+    raise_exception = True
+
+    def test_func(self):
+        return self.request.user == self.get_object().author
 
 
-def article(request, article_slug):
-    _article = get_object_or_404(Article, slug=article_slug)
-    context = {}
-    context['showUpdateBtn'] = _article.author == request.user
-    context['article'] = _article
-    is_fan = request.user in _article.fans.all()
-    context['is_fan'] = is_fan
-    context['article_categories'] = _article.category.all()
-    context["share_string"]= quote(_article.title)
-    return render(request, "article.html", context=context)
+class DeleteArticle(UserPassesTestMixin, DeleteView):
+    model = Article
+    success_url = reverse_lazy('articles:index')
+    raise_exception = True
+
+    def test_func(self):
+        return self.request.user == self.get_object().author
+
+
+class ArticleView(ListView):
+    model = Article
+    context_object_name = 'articles'
+
+    def get_queryset(self):
+        article_list = super().get_queryset()
+        query = self.request.GET.get('q')
+        if query:
+            article_list = article_list.filter(Q(title__icontains=query) |
+                                         Q(content__icontains=query) |
+                                         Q(author_name__icontains=query)).distinct()
+        return article_list
+
+
+
+# def article(request, article_slug):
+#     _article = get_object_or_404(Article, slug=article_slug)
+#     context = {}
+#     context['showUpdateBtn'] = _article.author == request.user
+#     context['article'] = _article
+#     is_fan = request.user in _article.fans.all()
+#     context['is_fan'] = is_fan
+#     context['article_categories'] = _article.category.all()
+#     context["share_string"]= quote(_article.title)
+#     return render(request, "article.html", context=context)
+
+class ArticleDetail(DetailView):
+    model = Article
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        _article = context.get('article')
+        context['showUpdateBtn'] = _article.author == self.request.user
+        is_fan = self.request.user in _article.fans.all()
+        context['is_fan'] = is_fan
+        context['article_categories'] = _article.category.all()
+        context["share_string"]= quote(_article.title)
+        return context
 
 
 def favorite(request, article_slug):
