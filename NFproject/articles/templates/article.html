@@ -4,6 +4,22 @@
 {% block stylesheets %}
   <link rel="stylesheet" href="{% static 'articles/css/articles_style.css' %}">
   <script type="text/javascript" src="{% static 'articles/js/fav.js' %}"></script>
+
+
+<title> {{article.title}}</title>
+<meta name="description" content= "{{article.title}}" />
+
+<meta itemprop="name" content= "{{article.title}}">
+<meta itemprop="image" content="{{article.image_url}}">
+
+<meta name="twitter:card" content="{{article.image_url}}">
+<meta name="twitter:title" content="{{article.title}}">
+<meta name="twitter:creator" content="{{article.author_name}}">
+
+<meta property="og:title" content="{{article.title}}" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="{{request.build_absolute_uri}}" />
+<meta property="og:image" content="{{article.image_url}}" />
 {% endblock %}
 {% block content %}
 
@@ -73,7 +89,12 @@
     {{ article.content|markdown }}
 
       </p>
-
+      <a href="https://www.facebook.com/sharer/sharer.php?u={{request.build_absolute_uri}}">
+        Share on Facebook
+        </a>
+        <a href="https://twitter.com/home?status={{share_string}}%20{{request.build_absolute_uri}}">
+          Share on Twitter
+      </a>
 </div>
 
 {% endblock %}
