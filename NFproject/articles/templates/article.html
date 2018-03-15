@@ -97,6 +97,16 @@
           Share on Twitter
       </a>
       <div class="container">
+        <h3>Comments</h3>
+<div class="row">
+        {%for comment in comments%}
+        <div class="col-sm-4">user: {{comment.user.username}}</div>
+        <div class="col-sm-4">date:{{comment.date}}</div>
+        <div class="col-sm-4">Text:{{comment.text}}</div>
+        {%endfor%}
+      </div>
+      </div>
+      <div class="container">
           <form  method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{form|crispy}}

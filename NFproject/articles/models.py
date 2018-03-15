@@ -53,6 +53,9 @@ class Comments(models.Model):
     text = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f'commenter: {self.user.username} / article: {self.article.title}'
+
 
 
 def create_slug(instance, Model, field_name, new_slug=None):

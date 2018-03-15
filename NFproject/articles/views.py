@@ -120,15 +120,21 @@ def article(request, article_slug):
     context["share_string"]= quote(_article.title)
 
     if request.method == "POST":
-        form = CommentsForm(request.POST, request.FILES)
-        if form.is_valid():
-            new_comment = form.save(commit=False)
-            new_comment.user = request.user
-            new_comment.article = _article
-            new_comment.save()
-            return redirect('articles:article',article_slug)
+        if request.user.is_authenticated:
+            form = CommentsForm(request.POST, request.FILES)
+            if form.is_valid():
+                new_comment = form.save(commit=False)
+                new_comment.user = request.user
+                new_comment.article = _article
+                new_comment.save()
+                return redirect('articles:article',article_slug)
+        else:
+            return redirect('login')
     form = CommentsForm()
     context["form"]= form
+
+    context['comments'] = _article.comments_set.all()
+
     return render(request, "article.html", context=context)
 
 # class ArticleDetail(DetailView):
