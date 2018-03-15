@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'Events.apps.EventsConfig',
     'user_profiles.apps.UserProfilesConfig',
     'crispy_forms',
+    'rest_framework',
     'markdown_deux'
 ]
 

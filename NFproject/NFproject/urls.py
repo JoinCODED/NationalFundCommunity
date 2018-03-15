@@ -20,8 +20,18 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from .views import home
+from rest_framework import routers
+
 import user_profiles.views as profile_views  # from user_profile import views
 import django.contrib.auth.views as auth_views
+import api.views as api_views
+
+router = routers.DefaultRouter()
+router.register(r'articles', api_views.ArticleViewSet)
+router.register(r'events',api_views.EventViewSet)
+router.register(r'individuals', api_views.IndividualProfileViewSet)
+router.register(r'organizations', api_views.OrganizationProfileViewSet)
+
 
 urlpatterns = [
     path('', home, name='home'),
@@ -47,4 +57,5 @@ urlpatterns = [
     }, name='logout'),
 
     path('admin/', admin.site.urls),
+    path('api/', include(router.urls))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
