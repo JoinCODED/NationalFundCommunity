@@ -32,6 +32,7 @@ class Article(models.Model):
     slug = models.SlugField(blank=True, allow_unicode=True)
     fans = models.ManyToManyField(User, related_name='fav_articles')
     fans_number = models.PositiveIntegerField(default=0)
+    commenters = models.ManyToManyField(User, through='Comments')
 
     def __str__(self):
         return self.title
@@ -44,6 +45,14 @@ class Article(models.Model):
             return self.picture.url
         else:
             return "/static/img.png"
+
+
+class Comments(models.Model):
+    article = models.ForeignKey(Article,on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    text = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)
+
 
 
 def create_slug(instance, Model, field_name, new_slug=None):

@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import PermissionDenied
 from django.urls import reverse_lazy
-from .models import Article, Category
-from .forms import ArticleForm
+from .models import Article, Category, Comments
+from .forms import ArticleForm, CommentsForm
 from django.db.models import Q
-from django.http import JsonResponse
+from django.http import JsonResponse ,HttpResponseRedirect
 from django.views.generic import (ListView,
                                   CreateView,
                                   DetailView,
@@ -38,6 +38,23 @@ class AddArticle (LoginRequiredMixin,CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
+
+# def add_comment(request,article_slug):
+#     if request.user.is_authenticated:
+#         if request.method == "POST":
+#             _article =Article.objects.get(slug=article_slug)
+#             form = CommentsForm(request.POST, request.FILES)
+#             if form.is_valid():
+#                 new_comment = form.save()
+#                 new_comment.user = request.user
+#                 new_comment.article = _article
+#                 new_comment.save()
+#                 return HttpResponseRedirect('')
+#         # form = CommentsForm()
+#         # context = {"form": form}
+#         # return render(request, "home.html", context)
+#     else:
+#         raise PermissionDenied
 
 # def update(request, article_slug):
 #     article = Article.objects.get(slug=article_slug)
@@ -92,29 +109,42 @@ class ArticleView(ListView):
 
 
 
-# def article(request, article_slug):
-#     _article = get_object_or_404(Article, slug=article_slug)
-#     context = {}
-#     context['showUpdateBtn'] = _article.author == request.user
-#     context['article'] = _article
-#     is_fan = request.user in _article.fans.all()
-#     context['is_fan'] = is_fan
-#     context['article_categories'] = _article.category.all()
-#     context["share_string"]= quote(_article.title)
-#     return render(request, "article.html", context=context)
+def article(request, article_slug):
+    _article = get_object_or_404(Article, slug=article_slug)
+    context = {}
+    context['showUpdateBtn'] = _article.author == request.user
+    context['article'] = _article
+    is_fan = request.user in _article.fans.all()
+    context['is_fan'] = is_fan
+    context['article_categories'] = _article.category.all()
+    context["share_string"]= quote(_article.title)
 
-class ArticleDetail(DetailView):
-    model = Article
+    if request.method == "POST":
+        form = CommentsForm(request.POST, request.FILES)
+        if form.is_valid():
+            new_comment = form.save(commit=False)
+            new_comment.user = request.user
+            new_comment.article = _article
+            new_comment.save()
+            return redirect('articles:article',article_slug)
+    form = CommentsForm()
+    context["form"]= form
+    return render(request, "article.html", context=context)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        _article = context.get('article')
-        context['showUpdateBtn'] = _article.author == self.request.user
-        is_fan = self.request.user in _article.fans.all()
-        context['is_fan'] = is_fan
-        context['article_categories'] = _article.category.all()
-        context["share_string"]= quote(_article.title)
-        return context
+# class ArticleDetail(DetailView):
+#     model = Article
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         _article = context.get('article')
+#         context['showUpdateBtn'] = _article.author == self.request.user
+#         is_fan = self.request.user in _article.fans.all()
+#         context['is_fan'] = is_fan
+#         context['article_categories'] = _article.category.all()
+#         context["share_string"]= quote(_article.title)
+#         form = CommentsForm()
+#         context['form']=form
+#         return context
 
 
 def favorite(request, article_slug):

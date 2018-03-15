@@ -11,6 +11,6 @@ urlpatterns = [
          views.UpdateArticle.as_view(), name="update"),
     path('<int:pk>/delete/',
          views.DeleteArticle.as_view(), name="delete"),
-    path('<slug>', views.ArticleDetail.as_view(), name='article'),
+    path('<article_slug>', views.article, name='article'),
     path('<article_slug>/favorite/', views.favorite, name='favorite'),
     path('categories/<category_slug>', views.category, name='category')]

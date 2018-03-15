@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load markdown_deux_tags %}
+{% load crispy_forms_tags %}
 {% block stylesheets %}
   <link rel="stylesheet" href="{% static 'articles/css/articles_style.css' %}">
   <script type="text/javascript" src="{% static 'articles/js/fav.js' %}"></script>
@@ -95,6 +96,14 @@
         <a href="https://twitter.com/home?status={{share_string}}%20{{request.build_absolute_uri}}">
           Share on Twitter
       </a>
+      <div class="container">
+          <form  method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form|crispy}}
+        <input class="btn btn-primary" type="submit" name="" value="Save">
+
+</form>
+      </div>
 </div>
 
 {% endblock %}
