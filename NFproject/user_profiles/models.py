@@ -20,6 +20,11 @@ class User(AbstractUser):
         else:
             return 'Staff'
 
+    def get_profile_url(self):
+        if self.is_individual:
+            return reverse('individual-detail',args=[self.individual.id])
+        elif self.is_organization:
+            return reverse('organization-detail', args=[self.organization.id])
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
