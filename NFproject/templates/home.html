@@ -1,24 +1,55 @@
 
 {% extends 'base.html' %}
 {% load article_card %}
+{% load static%}
+{% block stylesheets %}
+
+  <link rel="stylesheet" href="{% static 'articles/css/articles_style.css' %}">
+{% endblock %}
 {% block content %}
 
 
    <!-- Top Container -->
-   <section class="top-container">
+   <section class="top-container"> 
 
-    <header class="featured" style="background: url({{featured_articles.0.image_url}})">
-            <h1>{{featured_articles.0.title}}</h1>
-      </div>
-    </header>
-    <div class="top-box top-box-a" style="background: url({{featured_articles.1.image_url}})">
-      <h4>{{featured_articles.1.title}}</h4>
-    </div>
-    <div class="top-box top-box-b" style="background: url({{featured_articles.2.image_url}})">
-      <h4>{{featured_articles.2.title}}</h4>
+ 
+ 
 
-    </div>
-  </section>
+      <div class="featured" style="background-image:url({{featured_articles.0.image_url}}) ">
+             
+        <div class="overlay d-flex align-self-end">
+              <div class="container">
+                <h1> {{featured_articles.0.title}}</h1>
+                
+             </div>
+            </div> 
+         
+          </div> 
+       
+      
+      <div class="top-box top-box-a" style="background-image: url({{featured_articles.1.image_url}})"> 
+          <div class="overlay d-flex align-self-end">
+              <div class="container"><div class="span-holder">
+                <h3> <span class="span-align">{{featured_articles.1.title}}</span></h3></div>
+             </div>
+            </div> 
+      
+      </div> 
+      
+      <div class="top-box top-box-b" style="background-image: url({{featured_articles.2.image_url}})"> 
+      
+          <div class="overlay d-flex text-algin-center">
+              <div class="container"><div class="span-holder"></div>
+                <h3><span class="span-align">{{featured_articles.2.title}}</span></h3></div>
+             </div>
+            </div> 
+      
+       
+       
+      
+      </div> 
+      
+      </section> 
 
 
 
@@ -32,7 +63,7 @@
           {% for article in articles %} {% article_card article %} {% endfor %}
       </div>
     </div>
-      <div class="col-3">
+      <div class="col-3 bg-g">
         <h3>Upcoming Events</h3>
         <div class="row">
         {% for event in upcoming_events %}
@@ -45,9 +76,5 @@
       </div>
     </div>
   </div>
-
-
 </div>
-
-
 {% endblock %}

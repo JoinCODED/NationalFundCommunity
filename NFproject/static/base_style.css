@@ -36,10 +36,10 @@ a.navbar-brand img {
   /* Top Container */
   .top-container {
     display: grid;
-    grid-gap: 2px;
+    grid-gap: 0px;
     grid-template-areas:
-      'featured featured top-box-a'
-      'featured featured top-box-b';
+      'featured featured featured featured top-box-a'
+      'featured featured featured featured top-box-b';
     border-bottom:#febb36 10px solid;
   }
 
@@ -48,15 +48,16 @@ a.navbar-brand img {
     grid-area: featured;
     min-height: 400px;
     background-size: 100%;
-    padding: 3rem;
+    padding: 0;
     display: flex;
+    margin: 0;
     flex-direction: column;
-    align-items: start;
-    justify-content: left;
+    align-items: flex-end;
+    justify-content: flex-end;
     box-shadow: var(--shadow);
-    object-fit: cover;
+    background-color: rgba(0,0,0,0.5) !important;
   }
-
+ 
   .featured h1 {
     font-size: 4rem;
     margin-bottom: 0;
@@ -77,6 +78,20 @@ a.navbar-brand img {
     border: none;
 }
 
+  
+  .overlay {
+      background-color: rgba(0,0,0,0.5);
+      height: 100%;
+      width: 100%;
+  }
+.row-header {
+    margin: 0;
+    padding: 0;
+  }
+.header{
+    margin: 0;
+    padding: 0;
+  }
 .rounded-img{
     border-radius: 50%;
     height: 50px;
@@ -93,12 +108,29 @@ a.navbar-brand img {
   .top-box-a {
     grid-area: top-box-a;
     color: var(--light);
+    background-size: 100%;
   }
 
   .top-box-b {
     grid-area: top-box-b;
     color: var(--light);
-
+    background-size: 100%;
+    margin: 0;
+    padding: 0;
+    
+  }
+  .bg-g {
+    background-color: #eee;
+    margin: 0;
+    padding: 0
+  }
+  .span-holder {
+    justify-content: flex-end;
+    display: flex;
+  }
+  .span-align {
+    float: right;
+    vertical-align: bottom !important;
   }
   .events_advertisments{
     background-size: cover;
