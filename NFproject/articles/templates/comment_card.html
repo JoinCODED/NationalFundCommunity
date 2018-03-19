@@ -1,0 +1,22 @@
+{% load static %}
+<section>
+        <div class="container py-0">
+          <div class="card">
+              <div class="card-header"> <h6><a href="{%url 'profiles:profile' comment.user.username%}">{{comment.user.username}}</a><span> &nbsp {{comment.date.date}}</span></h6></div>
+
+            <div class="row">
+              <div class="col-md-1">
+                  <img class="rounded-img" src="{% static 'no.jpg' %}" class="w-100">
+                </div>
+                <div class="col-md-10 px-4">
+                  <div class="card-block px-3">
+                    <p class="card-text text-truncate"> {{comment.text}} </p>
+                  </div>
+                </div>
+       
+              </div>
+            </div>
+          </div>
+        <hr>
+       </section>
+       

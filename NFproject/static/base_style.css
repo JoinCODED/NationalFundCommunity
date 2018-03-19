@@ -62,7 +62,25 @@ a.navbar-brand img {
     color: var(--light);
   }
 
+.btn-color-y {
+  color: rgb(0, 57, 99);
+    background-color:  #febb36;
+    border: solid;
+    border-color: #febb36;
+    border-radius: 0%;
 
+}
+.btn-color-b{
+  color: white;
+    background-color:  rgb(0, 57, 99);
+    border: none;
+}
+
+.rounded-img{
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+}
   /* Top Box */
   .top-box {
     display: grid;
@@ -91,4 +109,21 @@ a.navbar-brand img {
   }
   .events_advertisments a{
     text-decoration: none;
+  }
+
+  .footer_styling {
+    background-color: rgb(0, 57, 99);
+    color : white;
+    bottom: 0;
+    margin: 0;
+    height: 300px !important;
+    border-radius: 0;
+  }
+
+  #btn-footer{
+    color: rgb(0, 57, 99);
+    background-color:  #febb36;
+    border: solid;
+    border-color: #febb36;
+    border-radius: 0%;
   }

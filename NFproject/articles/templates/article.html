@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load comment_card %}
 {% load markdown_deux_tags %}
 {% load crispy_forms_tags %}
 {% block stylesheets %}
+
   <link rel="stylesheet" href="{% static 'articles/css/articles_style.css' %}">
   <script type="text/javascript" src="{% static 'articles/js/fav.js' %}"></script>
 
@@ -85,34 +87,43 @@
   </div>
 </div>
 <div class="container">
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5aaf7d6b67f564f0"></script>
+
   <p></p>
   <p>
     {{ article.content|markdown }}
 
       </p>
-      <a href="https://www.facebook.com/sharer/sharer.php?u={{request.build_absolute_uri}}">
-        Share on Facebook
-        </a>
-        <a href="https://twitter.com/home?status={{share_string}}%20{{request.build_absolute_uri}}">
-          Share on Twitter
-      </a>
+
       <div class="container">
+        <hr>
         <h3>Comments</h3>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-10">
+            <form  method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{form|crispy}}
+          <input class="btn btn-color-b" type="submit" name="" value="Post">
+  
+  </form>
+  </div>
+  <div class="col-sm-1"></div>
+  </div>
+  </div>
+  <hr>
 <div class="row">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-10">
         {%for comment in comments%}
-        <div class="col-sm-4">user: {{comment.user.username}}</div>
-        <div class="col-sm-4">date:{{comment.date}}</div>
-        <div class="col-sm-4">Text:{{comment.text}}</div>
+        {% comment_card comment %}
         {%endfor%}
       </div>
+        <div class="col-sm-1"></div>
       </div>
-      <div class="container">
-          <form  method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{form|crispy}}
-        <input class="btn btn-primary" type="submit" name="" value="Save">
-
-</form>
+      </div>
+      
       </div>
 </div>
 
