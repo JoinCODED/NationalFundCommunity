@@ -1,43 +1,130 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block stylesheets %}
+<link rel="stylesheet" href="{% static 'Events/css/event_style.css' %}">
+
   <script type="text/javascript" src="{% static 'Events/js/register.js' %}"></script>
-{% endblock %}
+  <title> {{event.title}}</title>
+  <meta name="description" content= "{{event.title}}" />
+
+<meta itemprop="name" content= "{{event.title}}">
+<meta itemprop="image" content="{{event.image_url}}">
+
+<meta name="twitter:card" content="{{event.image_url}}">
+<meta name="twitter:title" content="{{event.title}}">
+<meta name="twitter:creator" content="{{event.organizer}}">
+
+<meta property="og:title" content="{{event.title}}" />
+<meta property="og:type" content="event" />
+<meta property="og:url" content="{{request.build_absolute_uri}}" />
+<meta property="og:image" content="{{event.image_url}}" />
+  {% endblock %}
 
 {% block content %}
-  <div class="container">
-    <h1>{{event.title}}</h1>
-    <p>{{event.content}}</p>
-
-    <h3>{{event.organizer}}</h3>
-    <h4>{{event.date}}</h4>
-
-    {%if user.is_superuser %}
-      <a class="btn btn-primary" href="{% url 'events:update' event.slug %}">Edit</a>
-    {%endif%}
-
-    {% if event.event_type%}
-      <a href="{% url 'events:type' event.event_type.slug %}">
-        <h3>Type: {{event.event_type.name}}</h3>
-      </a>
-    {% endif %}
-    {%if not user.is_organization%}
-      {% if not registration_closed%}
-        {%if event.seats_remaining or  isregistered %}
-        <button class="btn btn-primary" id="button_text" onclick="register('{% url 'events:register' event.slug %}')">
-            {%if isregistered%}Unregister{%else %}Register{%endif%}
-          </button>
-
-        {%else%}
-        <h2>Sorry, registration is now closed. We have reached full capacity for the event</h2>
-        {% endif %}
-      {% else %}
-      <h2>Sorry, registration is now closed.</h2>
-      {% endif %}
-    {%endif%}
-      <h1>Maximum attendees: {{event.maximum_attendees}}</h1><br>
-      <h1>Remaining seats: <span id="remaining_seats">{{event.seats_remaining}}</span></h1>
-    <a href="{{event.location_url}}">{{event.location_name}}</a>
-    <img src={{event.image_url}}>
+<div class="jumbotron" style="background-image:url({{event.image_url}}) ">
+    <div class="overlay   d-flex align-items-end">
+    <div class="container">
+      <h1> {{event.title}}</h1>
+   </div>
   </div>
+  </div>
+  <div class="container-fluid">
+  <div class='row pl-5 py-2' style="background-color: gainsboro">
+    <div class="col-sm-3">
+      <div class="row">
+        Organizer
+      </div>
+      <div class="row">
+          <h4>{{event.organizer}}</h4>
+      </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="row">
+          Event Date 
+        </div>
+        <div class="row">
+            {{event.date.date}}
+        </div>
+      </div>
+      <div class="col-sm-3">
+          <div class="row">
+            Type
+          </div>
+          <div class="row">
+              {% if event.event_type%}
+                <a href="{% url 'events:type' event.event_type.slug %}">
+                  <h3>{{event.event_type.name}}</h3>
+                </a>
+              {% endif %}
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class= "align-middle">
+            <div class = "row">
+               
+          </div>
+          </div>
+        </div>
+        <div class="col-sm-1">
+          <div class= "align-middle">
+              {%if user.is_superuser %}
+                 <a class="btn btn-color-b" href="{% url 'events:update' event.slug %}">Edit</a>
+              {%endif%}
+          </div>
+          </div>
+  </div>
+</div>
+<div class="container">
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5aaf7d6b67f564f0"></script>
+
+  <p></p>
+  <div class="container">
+  
+    <div class="event-info">ABOUT THE EVENT </div>
+      <div class="card">
+          <div class="card-body card-styling">
+            <table>
+              <tr>
+                <td>
+                  <div class="event-row">ORGANIZER</div>
+                </td><td></td>
+                <td>
+                    <div class="event-row-desc"> {{event.organizer}}</div>
+                </td>
+              </tr>
+              <tr>
+                <td><div class="event-row">TYPE</div></td><td></td> <td><div class="event-row-desc"> <a href="{% url 'events:type' event.event_type.slug %}">
+                    {{event.event_type.name}}
+                  </a></div></td>
+              </tr>
+              <tr>
+                <td><div class="event-row">DATE</div></td> <td></td><td><div class="event-row-desc"> {{event.date.date}}</div></td>
+              </tr>
+              <tr> <td><div class="event-row">LOCATION</div></td> <td></td><td><div class="event-row-desc">  <a href="{{event.location_url}}">{{event.location_name}}</a></div></td></tr>
+              <tr><td><div class="event-row"># OF SEATS</div></td><td></td><td><div class="event-row-desc"> {{event.maximum_attendees}}</div></td></tr>
+              <tr><td><div class="event-row">REMAINING SEATS</div></td><td></td><td><div class="event-row-desc"> <span id="remaining_seats">{{event.seats_remaining}}</span></div></td></tr>
+            </table>
+            <hr>
+            {%if not user.is_organization%}
+            {% if not registration_closed%}
+              {%if event.seats_remaining or  isregistered %}
+              <button class="btn btn-color-y" id="button_text" onclick="register('{% url 'events:register' event.slug %}')">
+                  {%if isregistered%}Unregister{%else %}Register{%endif%}
+                </button>
+      
+              {%else%}
+              <h2>Sorry, registration is now closed. We have reached full capacity for the event</h2>
+              {% endif %}
+            {% else %}
+            <h2>Sorry, registration is now closed.</h2>
+            {% endif %}
+          {%endif%}
+          </div>
+        </div>
+  </div>
+
+  <div class="event-conntent">
+    {{event.content}}
+  </div>
+</div>
 {% endblock %}

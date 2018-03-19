@@ -1,7 +1,12 @@
 
 {% extends 'base.html' %}
 {% load event_card %}
+{% load static %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{% static 'Events/css/event_style.css' %}">
+{% endblock %}
 {% block content %}
+
 <div class="row">
         <div class="col-md-8">
       
@@ -30,13 +35,17 @@
     <h1>Up Coming Events</h1>
     <div class="row">
         {% for event in upcoming_events %}
+        <a class="a-card" href="{% url 'events:event' event.slug %}">
             {% event_card event %}
+        </a>
         {% endfor %}
     </div>
     <h1>Past Events</h1>
     <div class="row">
           {% for event in past_events %}
-              {% event_card event %}
+          <a class="a-card" href="{% url 'events:event' event.slug %}">
+                {% event_card event %}
+            </a>
           {% endfor %}
       </div>
 
