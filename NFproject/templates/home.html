@@ -64,12 +64,12 @@
       </div>
     </div>
       <div class="col-3 bg-g">
-        <h3>Upcoming Events</h3>
+      <div class="event-header">  Upcoming Events  </div>
         <div class="row">
         {% for event in upcoming_events %}
         <a href="{% url 'events:event' event.slug %}" class="col-12 pb-2">
           <div class="events_advertisments" style="background-image:url({{event.image_url}})">
-            <h6>{{event.date.date}}</h6>
+           <span class="event-date"> <span class="event-date-span"> {{event.date.day}}</span> <span class="event-date-span"> {{event.date.month}}</span></span>
           </div>
         </a>
         {% endfor %}

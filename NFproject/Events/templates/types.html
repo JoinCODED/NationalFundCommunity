@@ -1,12 +1,18 @@
 
 {% extends 'base.html' %}
 {% load event_card %}
+{% load static %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{% static 'Events/css/event_style.css' %}">
+{% endblock %}
 {% block content %}
 <h1 class="btn-color-y"> {{type.name}}</h1>
   <div class="container">
     <div class="row">
       {% for event in belongs_to %}
-      {% event_card event %}
+      <a class="a-card" href="{% url 'events:event' event.slug %}">
+          {% event_card event %}
+      </a>
      {% endfor %}
     </div>
   </div>
