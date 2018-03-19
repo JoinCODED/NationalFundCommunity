@@ -1,10 +1,22 @@
 {% extends 'base.html' %}
 {%load article_card%}
+{% load static %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{% static 'profile.css' %}">
+{% endblock %}
 {% block content %}
-<div class="container">
+
+<div class="d-flex justify-content-end">
+
     {% if  current_user %}
-      <a href="{%url 'profiles:update' user.username%}" class="btn btn-primary">Edit Profile</a>
+      <a href="{%url 'profiles:update' user.username%}" class="btn btn-primary" >Edit Profile</a>
     {% endif %}
+</div>
+
+<div class="container">
+<div class="profileBlock">
+
+
     <table>
             <tr>
                 <td>Name:</td>
@@ -22,10 +34,10 @@
 
         <p>Bio: </p>
         <p> {{ profile.bio }} </p>
-        <hr>
         {% block diff %} {% endblock%}
         {%if articles%}
-        <hr>
+        </div>
+          <hr>
         <h2>{%block author_name%}{% endblock %}'s Articles</h2>
         <div class="row">
           {%for article in articles%}
@@ -45,5 +57,4 @@
         {% block events%}{% endblock%}
 
     </div>
-
     {% endblock %}
