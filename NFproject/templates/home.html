@@ -8,10 +8,7 @@
    <section class="top-container">
 
     <header class="featured" style="background: url({{featured_articles.0.image_url}})">
-      <div class="d-flex align-items-end">
-          <div class="container">
             <h1>{{featured_articles.0.title}}</h1>
-         </div>
       </div>
     </header>
     <div class="top-box top-box-a" style="background: url({{featured_articles.1.image_url}})">
@@ -30,7 +27,7 @@
 
   <div class="row">
       <div class="col-9">
-        <h3>All Articles</h3>
+        <p></p>
         <div class="row">
           {% for article in articles %} {% article_card article %} {% endfor %}
       </div>

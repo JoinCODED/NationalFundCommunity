@@ -54,6 +54,7 @@ a.navbar-brand img {
     align-items: start;
     justify-content: left;
     box-shadow: var(--shadow);
+    object-fit: cover;
   }
 
   .featured h1 {
@@ -87,7 +88,6 @@ a.navbar-brand img {
     align-items: left;
     justify-items: left;
     box-shadow: var(--shadow);
-    padding: 1.5rem;
   }
 
   .top-box-a {
