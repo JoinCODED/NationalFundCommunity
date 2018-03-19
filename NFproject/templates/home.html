@@ -63,13 +63,15 @@
           {% for article in articles %} {% article_card article %} {% endfor %}
       </div>
     </div>
+    
       <div class="col-3 bg-g">
       <div class="event-header">  Upcoming Events  </div>
         <div class="row">
         {% for event in upcoming_events %}
         <a href="{% url 'events:event' event.slug %}" class="col-12 pb-2">
           <div class="events_advertisments" style="background-image:url({{event.image_url}})">
-           <span class="event-date"> <span class="event-date-span"> {{event.date.day}}</span> <span class="event-date-span"> {{event.date.month}}</span></span>
+           <span class="event-date"> <span class="event-date-span"> {{event.date.day}}</span> 
+           <span class="event-date-span"> {{ event.date|date:"M" }}</span></span>
           </div>
         </a>
         {% endfor %}
