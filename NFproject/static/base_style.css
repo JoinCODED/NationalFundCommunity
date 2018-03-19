@@ -65,7 +65,9 @@ a.navbar-brand img {
 .btn-color-y {
   color: rgb(0, 57, 99);
     background-color:  #febb36;
-    border: none;
+    border: solid;
+    border-color: #febb36;
+    border-radius: 0%;
 
 }
 .btn-color-b{
@@ -121,5 +123,7 @@ a.navbar-brand img {
   #btn-footer{
     color: rgb(0, 57, 99);
     background-color:  #febb36;
-    border: none;
+    border: solid;
+    border-color: #febb36;
+    border-radius: 0%;
   }
