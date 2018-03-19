@@ -2,7 +2,7 @@
 {%load article_card%}
 {% block content %}
 <div class="container">
-    <h1> Hello, {{profile.user.username}}</h1>
+    <h1 class="btn-color-y"> Hello, {{profile.user.username}}</h1>
     {% if  current_user %}
       <a href="{%url 'profiles:update' user.username%}" class="btn btn-primary">Edit Profile</a>
     {% endif %}

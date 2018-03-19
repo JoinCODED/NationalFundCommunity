@@ -2,7 +2,7 @@
 {% load static %}
 <html>
 <header>
-  <title> NF HomePage </title>
+  <title> Nuwait</title>
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -82,38 +82,43 @@
   {% block content %} {% endblock %}
 
   <!--Footer-->
-  <footer class="page-footer font-small jumbotron pt-4 mt-4">
+  <footer class="page-footer font-small jumbotron pt-4 mt-4 mb-0 footer_styling">
 
     <!--Footer Links-->
     <div class="container-fluid text-center text-md-left">
       <div class="row">
 
         <!--First column-->
-        <div class="col-md-6">
-          <h5 class="text-uppercase">Footer Content</h5>
-          <p>Our Django Footer</p>
+        <div class="col-md-4">
+          <h5 class="text-uppercase">Brought to you by</h5>
+          <p><a href="http://nationalfund.gov.kw"><img src="{% static 'nf.png' %}" alt="" width="200px" height="=200px"></a></p>
         </div>
         <!--/.First column-->
 
         <!--Second column-->
-        <div class="col-md-6">
-          <h5 class="text-uppercase">Links</h5>
+        <div class="col-md-4">
+          <h5 class="text-uppercase">Follow us</h5>
           <ul class="list-unstyled">
             <li><a href="#!">Link 1</a></li>
             <li><a href="#!">Link 2</a></li>
-            <li><a href="#!">Link 3</a></li>
-            <li><a href="#!">Link 4</a></li>
           </ul>
         </div>
         <!--/.Second column-->
+        <div class="col-md-4">
+            <h5 class="text-uppercase">Subscribe to receive updates</h5>
+            <p>
+              <input type="text" name="textbox" placeholder="mail@mail.com">
+              <input type="submit" id= "btn-footer" name="btn" value="Subscribe">
+          </p>
+          </div>
       </div>
     </div>
     <!--/.Footer Links-->
 
     <!--Copyright-->
-    <div class="footer-copyright py-3 text-center">
+    <div class="footer-copyright pb-0 mb-0 text-center">
       <div class="container-fluid">
-        © 2018 Copyright: <a href=""> Django Course </a>
+        © 2018 Copyright: <a href=""> National Fund - IT Center </a>
 
       </div>
     </div>

@@ -3,24 +3,29 @@
 {% load event_card %}
 {% block content %}
 <div class="row">
-  <div class="col-md-9">
-
-  </div class="col-md-3">
-  <div class="ml-auto">
-
-
-  <form action="" method="GET">
-  <input type="text" name='q' placeholder="Search">
-  <input type="submit" value="Search">
-  </form>
-  </div>
-  <div>
-  </div>
+        <div class="col-md-8">
+      
+        </div>
+        <div  class="col-md-4 mr-0 pr-0">
+      
+      
+        <form action="" method="GET">
+      
+        <div class="col-lg-10">
+                <div class="input-group">
+                  <input type="text" class="form-control" name='q' placeholder="Search">
+                  <span class="input-group-btn">
+                    <button class="btn btn-color-y" type="submit">Search</button>
+                  </span>
+                </div>
+              </div>
+        </form>
+        </div>
   <div class="container">
 
 
         {%if user.is_superuser %}
-        <a class="btn btn-primary" href="{% url 'events:add' %}"> Add New Event</a>
+        <a class="btn btn-color-y" href="{% url 'events:add' %}"> Add New Event</a>
         {% endif %}
     <h1>Up Coming Events</h1>
     <div class="row">
@@ -36,4 +41,5 @@
       </div>
 
   </div>
+</div>
 {% endblock %}
