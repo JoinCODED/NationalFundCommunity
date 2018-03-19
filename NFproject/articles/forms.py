@@ -12,3 +12,6 @@ class CommentsForm(forms.ModelForm):
     class Meta:
         model = Comments
         fields = ['text']
+        labels = {
+            'text': 'Add a comment',
+        }

@@ -73,6 +73,12 @@ a.navbar-brand img {
     background-color:  rgb(0, 57, 99);
     border: none;
 }
+
+.rounded-img{
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+}
   /* Top Box */
   .top-box {
     display: grid;
