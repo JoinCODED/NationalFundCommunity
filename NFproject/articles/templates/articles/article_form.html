@@ -11,9 +11,9 @@ Update Article
   {% endblock %}
 {% block buttons%}
  {% if object %}
- <input class="btn btn-primary" type="submit" name="" value="Save">
+ <input class="btn btn-color-b" type="submit" name="" value="Save">
  <a class="btn btn-danger" href="{% url 'articles:delete' article.id %}">Delete</a>
  {%else%}
-  <input class="btn btn-primary" type="submit" name="" value="Add Article">
+  <input class="btn btn-color-b" type="submit" name="" value="Add Article">
   {%endif%}
 {% endblock%}

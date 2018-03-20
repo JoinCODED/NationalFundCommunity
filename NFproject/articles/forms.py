@@ -1,5 +1,4 @@
 from django import forms
-
 from .models import Article, Comments
 
 
@@ -14,4 +13,7 @@ class CommentsForm(forms.ModelForm):
         fields = ['text']
         labels = {
             'text': 'Add a comment',
+        }
+        widgets={
+            'text': forms.Textarea(attrs= {'style': 'height: 75px;'},),
         }

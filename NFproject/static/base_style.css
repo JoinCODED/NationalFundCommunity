@@ -38,8 +38,8 @@ a.navbar-brand img {
     display: grid;
     grid-gap: 2px;
     grid-template-areas:
-      'featured featured top-box-a'
-      'featured featured top-box-b';
+      'featured featured featured featured top-box-a'
+      'featured featured featured featured top-box-b';
     border-bottom:#febb36 10px solid;
   }
 
@@ -48,14 +48,16 @@ a.navbar-brand img {
     grid-area: featured;
     min-height: 400px;
     background-size: 100%;
-    padding: 3rem;
+    padding: 0;
     display: flex;
+    margin: 0;
     flex-direction: column;
-    align-items: start;
-    justify-content: left;
+    align-items: flex-end;
+    justify-content: flex-end;
     box-shadow: var(--shadow);
+    background-color: rgba(0,0,0,0.5) !important;
   }
-
+ 
   .featured h1 {
     font-size: 4rem;
     margin-bottom: 0;
@@ -76,6 +78,20 @@ a.navbar-brand img {
     border: none;
 }
 
+  
+  .overlay {
+      background-color: rgba(0,0,0,0.5);
+      height: 100%;
+      width: 100%;
+  }
+.row-header {
+    margin: 0;
+    padding: 0;
+  }
+.header{
+    margin: 0;
+    padding: 0;
+  }
 .rounded-img{
     border-radius: 50%;
     height: 50px;
@@ -87,25 +103,71 @@ a.navbar-brand img {
     align-items: left;
     justify-items: left;
     box-shadow: var(--shadow);
-    padding: 1.5rem;
   }
 
   .top-box-a {
     grid-area: top-box-a;
     color: var(--light);
+    background-size: 100%;
   }
 
   .top-box-b {
     grid-area: top-box-b;
     color: var(--light);
+    background-size: 100%;
+    margin: 0;
+    padding: 0;
+    
+  }
+  .bg-g {
+    background-color: #eee;
+    margin: 0;
+    padding: 10px;
+  }
 
+  .span-holder {
+    justify-content: flex-end;
+    display: flex;
+  }
+  .span-align {
+    float: right;
+    vertical-align: bottom !important;
   }
   .events_advertisments{
-    background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    position: relative;
     height: 80px;
+    margin-bottom: 1em;
+    background-size: cover;
+    cursor: pointer;
 
+  }
+  .event-header{
+    color: #525252;
+    font-weight: 500;
+    padding-bottom: .5em;
+    margin-bottom: 1em;
+    text-align: center;
+    border-bottom: 1px solid #aaa;
+  }
+  .event-date {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 75px;
+    text-align: center;
+    text-transform: uppercase;
+    background: rgba(0,57,99,.75);
+    color: #fff;
+    line-height: 1.3;
+    padding-top: 12px;
+  }
+  .event-date-span{
+    display: block;
+    font-size: 1.5em;
+    font-weight: 700;
   }
   .events_advertisments a{
     text-decoration: none;
