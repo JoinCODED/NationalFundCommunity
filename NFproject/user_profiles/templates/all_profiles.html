@@ -10,24 +10,29 @@
 <div class="row">
 
 
-<div class="wrapper col-2">
-      <nav id="sidebar">
-          <ul class="list-unstyled components">
-              <li class="active"><a href="{%url 'profiles:index' %}">All</a></li>
-              <li><a href="{%url 'profiles:index' %}?type=organization">Organization</a></li>
-              <li><a href="{%url 'profiles:index' %}?type=individual">Individuals</a></li>
-          </ul>
-      </nav>
+  <div class="wrapper col-3">
+        <nav id="sidebar">
+            <ul class="list-unstyled components">
+                <li><a href="{%url 'profiles:index' %}">All</a></li>
+                <li><a href="{%url 'profiles:index' %}?type=organization">Organization</a></li>
+                <li><a href="{%url 'profiles:index' %}?type=individual">Individuals</a></li>
+            </ul>
+        </nav>
+  </div>
+<div class="verticalLine">
+
 </div>
 
-
-
-  <div class="container col-10">
+  <div class="container-fluid col-6 rowspace">
       <div>
           {% for profile in profiles %}
               {% profile_card profile %}
           {% endfor %}
       </div>
   </div>
+  <div class="container-fluid col-2">
+
+  </div>
+
   </div>
 {% endblock %}

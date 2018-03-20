@@ -1,19 +1,63 @@
 {% extends 'base.html' %}
 {%load article_card%}
+{% load static %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{% static 'profile.css' %}">
+<script type="text/javascript" src="{% static 'user_profile/js/profile.js' %}"></script>
+{% endblock %}
 {% block content %}
-<div class="container">
+
+<div class="d-flex justify-content-end">
+
     {% if  current_user %}
-      <a href="{%url 'profiles:update' user.username%}" class="btn btn-primary">Edit Profile</a>
+      <a href="{%url 'profiles:update' user.username%}" class="btn btn-primary" >Edit Profile</a>
     {% endif %}
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+  <img src="https://cdn.vox-cdn.com/thumbor/VkpZk_WQSQvGe9T7YYOZscGsOwI=/0x86:706x557/1200x800/filters:focal(0x86:706x557)/cdn.vox-cdn.com/assets/738480/stevejobs.png" width="300px" height="300px">
+  </div>
+  <div class="col-6 name">
+
+    {%block profile_name%}
+
+        {%endblock%}
+  </div>
+</div>
+</div>
+<div class="container-fluid">
+<div class='row pl-5 py-2' style="background-color: #febb36">
+
+  <div class="col-sm-3">
+    <div class="row">
+    <button class="button" type="button" id="overview" onclick="show_hide(event)">overview</button>
+</div>
+</div>
+<div class="col-sm-3">
+  <div class="row">
+  <button class="button" type="button" id="Articles" onclick="show_hide(event)">Articles</button>
+</div>
+</div>
+<div class="col-sm-3">
+  <div class="row">
+  <button class="button" type="button" id="Favorite_Articles"onclick="show_hide(event)">Favorite Articles</button>
+</div>
+</div>
+{% if  current_user %}
+<div class="col-sm-3">
+  <div class="row">
+  {% block events_button%}{% endblock%}
+</div>
+</div>
+{%endif%}
+</div>
+</div>
+
+
+<div class="container">
+<div id ="profileBlock" class="profileBlock">
     <table>
-            <tr>
-                <td>Name:</td>
-                <td>{%block profile_name%}
-
-                    {%endblock%}
-                </td>
-            </tr>
-
             <tr>
                 <td>Website: </td>
                 <td><a href="{{profile.website}}">{{profile.website}}</a></td>
@@ -22,28 +66,37 @@
 
         <p>Bio: </p>
         <p> {{ profile.bio }} </p>
-        <hr>
+
         {% block diff %} {% endblock%}
-        {%if articles%}
-        <hr>
+        </div>
+
+          <div id="articles">
+
         <h2>{%block author_name%}{% endblock %}'s Articles</h2>
+        {%if articles%}
         <div class="row">
           {%for article in articles%}
           {% article_card article %}
           {%endfor%}
         </div>
+        {%else%}
+        <h3>No Articles</h3>
         {%endif%}
+        </div>
+
+        <div id="fav-articles">
         {%if fav_articles%}
-        <hr>
         <h2>{%block fav_articles%}{% endblock %}'s Favorite Articles</h2>
         <div class="row">
           {%for article in fav_articles%}
           {% article_card article %}
           {%endfor%}
         </div>
+        {%else%}
+        <h3>No Favorite Articles</h3>
         {%endif%}
-        {% block events%}{% endblock%}
+      </div>
+      {% block events%}{% endblock%}
 
     </div>
-
     {% endblock %}

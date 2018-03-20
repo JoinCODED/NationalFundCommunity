@@ -1,5 +1,6 @@
 {% extends 'profile_base.html'%}
 {% load event_card %}
+
 {%block profile_name%}
 {{profile.full_name}}
 {%endblock%}
@@ -25,9 +26,13 @@
 {%block fav_articles%}
 {{profile.full_name}}
 {% endblock %}
-{% block events%}
-    {% if  current_user %}
-    <hr>
+
+  {% block events_button%}
+  <button class="button" type="button" id="Events" onclick="show_hide(event)">Events</button>
+  {% endblock%}
+
+  {% block events%}
+  <div id="events">
     <h2>My Events</h2>
     {% if user_events%}
     <div class="row">
@@ -38,5 +43,5 @@
     {%else%}
     <h3>you didn't register for an event</h3>
     {% endif %}
-    {%endif%}
+    </div>
     {% endblock%}
