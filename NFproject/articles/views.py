@@ -15,6 +15,7 @@ from django.contrib.auth.mixins import (LoginRequiredMixin,
 
 from urllib.parse import quote
 
+
 # def add(request):
 #     if request.user.is_authenticated:
 #         if request.method == "POST":
