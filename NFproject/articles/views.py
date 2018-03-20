@@ -138,6 +138,24 @@ def article(request, article_slug):
 
     return render(request, "article.html", context=context)
 
+def comment(request,article_slug):
+    _article = get_object_or_404(Article, slug=article_slug)
+    data = dict()
+    if request.method == "POST":
+        if request.user.is_authenticated:
+            form = CommentsForm(request.POST)
+            print("before")
+            if form.is_valid():
+                print("here")
+                new_comment = form.save(commit=False)
+                new_comment.user = request.user
+                new_comment.article = _article
+                new_comment.save()
+                data['form_is_valid'] = True
+            else:
+                data['form_is_valid'] = False
+            return JsonResponse(data)
+
 # class ArticleDetail(DetailView):
 #     model = Article
 #

@@ -12,6 +12,6 @@ urlpatterns = [
     path('<int:pk>/delete/',
          views.DeleteArticle.as_view(), name="delete"),
     path('<article_slug>', views.article, name='article'),
-    path('<article_slug>/comment/'),views.comment, name='comment'),
+    path('<article_slug>/comment/',views.comment , name='comment'),
     path('<article_slug>/favorite/', views.favorite, name='favorite'),
     path('categories/<category_slug>', views.category, name='category')]
