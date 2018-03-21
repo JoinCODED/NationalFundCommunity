@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import PermissionDenied
+from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from .models import Article, Category, Comments
 from .forms import ArticleForm, CommentsForm
@@ -134,7 +135,7 @@ def article(request, article_slug):
     form = CommentsForm()
     context["form"]= form
 
-    context['comments'] = _article.comments_set.all()
+    context['comments'] = _article.comments_set.all().order_by('-date')
 
     return render(request, "article.html", context=context)
 
@@ -144,14 +145,18 @@ def comment(request,article_slug):
     if request.method == "POST":
         if request.user.is_authenticated:
             form = CommentsForm(request.POST)
-            print("before")
+            
             if form.is_valid():
-                print("here")
+               
                 new_comment = form.save(commit=False)
                 new_comment.user = request.user
                 new_comment.article = _article
                 new_comment.save()
                 data['form_is_valid'] = True
+                comments = _article.comments_set.all().order_by('-date')
+                data['html_comment_list'] = render_to_string('show_comments.html', {
+                'comments': comments
+            })
             else:
                 data['form_is_valid'] = False
             return JsonResponse(data)
