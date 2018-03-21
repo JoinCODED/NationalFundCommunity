@@ -107,11 +107,17 @@
         </div>
         <!--/.Second column-->
         <div class="col-md-4">
-            <h5 class="text-uppercase">Subscribe to receive updates</h5>
-            <p>
-              <input type="text" name="textbox" placeholder="mail@mail.com">
-              <input type="submit" id= "btn-footer" name="btn" value="Subscribe">
-          </p>
+            <h5 class="text-uppercase"> {% load crispy_forms_tags %}
+                <form id="subscribe" method="POST">
+                {% csrf_token %}
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="your-email@gmail.com" aria-label="Recipient's username" aria-describedby="basic-addon2" name="email">
+                    <div class="input-group-append">
+                      <input class="btn btn-color-y" type="submit" value="Subscribe">
+                    </div>
+                  </div>
+                </form></h5>
+           
           </div>
       </div>
     </div>
