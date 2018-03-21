@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'articles.apps.ArticlesConfig',
     'Events.apps.EventsConfig',
+    'mailing.apps.MailingConfig',
     'user_profiles.apps.UserProfilesConfig',
     'crispy_forms',
     'rest_framework',

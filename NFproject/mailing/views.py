@@ -1,9 +1,17 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .models import Subscriber
 from .forms import SubscribeForm
-from django.views.generic import (CreateView)
 # Create your views here.
 
-class Subscribe(CreateView):
-    model = Subscriber
-    form_class = SubscribeForm
+def add(request):
+    if request.method == 'POST':
+                form = SubscribeForm(request.POST)
+                if form.is_valid():
+                    form.save()
+                    print("here")
+                    return redirect('home')
+    else:
+        form = SubscribeForm()
+        context = {"form": form}
+        return render(request, "mailing/subscriber_form.html", context)
+
