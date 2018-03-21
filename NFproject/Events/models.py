@@ -81,7 +81,7 @@ def add_slug_to_Events(sender, instance, **kwargs):
 def calculate_remaining_seats(sender, instance, **kwargs):
     if instance.id:
         instance.seats_remaining = instance.maximum_attendees - instance.attendees.all().count()
-        print("From the spre ignal")
+       
     else:
         instance.seats_remaining = instance.maximum_attendees
 

@@ -7,6 +7,7 @@
 
   <link rel="stylesheet" href="{% static 'articles/css/articles_style.css' %}">
   <script type="text/javascript" src="{% static 'articles/js/fav.js' %}"></script>
+  <script type="text/javascript" src="{% static 'articles/js/comments.js' %}"></script>
 
 
 <title> {{article.title}}</title>
@@ -65,8 +66,7 @@
         <div class="col-sm-2">
           <div class= "align-middle">
             <div class = "row">
-
-              <button class="btn" onclick="fav('{% url "articles:favorite" article.slug %}')">
+      <button class="btn" onclick="fav('{% url "articles:favorite" article.slug %}')">
       <span id="fans_number">{{article.fans_number}}</span>
       <span id="heart" class="fas fa-heart {% if is_fan %}text-danger{% else %}text-muted{% endif %}"
       ></span>
@@ -102,10 +102,10 @@
             <div class="row">
                 <div class="col-sm-1"></div>
                 <div class="col-sm-10">
-            <form  method="POST" enctype="multipart/form-data">
+            <form id="comment-form">
           {% csrf_token %}
           {{form|crispy}}
-          <input class="btn btn-color-b" type="submit" name="" value="Post">
+          <input class="btn btn-color-b" name="" value="Post" id="add_comment" onclick="comment('{% url "articles:comment" article.slug %}')">
   
   </form>
   </div>
@@ -116,9 +116,9 @@
 <div class="row">
   <div class="col-sm-1"></div>
   <div class="col-sm-10">
-        {%for comment in comments%}
-        {% comment_card comment %}
-        {%endfor%}
+        <div id='comments_list'>
+        {% include 'show_comments.html' %}
+      </div>
       </div>
         <div class="col-sm-1"></div>
       </div>
