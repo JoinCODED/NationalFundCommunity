@@ -12,6 +12,7 @@ function comment(url) {
             
           if (data.form_is_valid) {
             $("#comments_list").html(data.html_comment_list);
+            $("#comment-form")[0].reset();
           }
           else {
             alert("Try Again!");
