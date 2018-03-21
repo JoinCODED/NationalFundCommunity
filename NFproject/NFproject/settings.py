@@ -136,7 +136,7 @@ EMAIL_HOST = 'smtp.mail.yahoo.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = "copy4ever@yahoo.com"
 DEFAULT_FROM_EMAIL = "copy4ever@yahoo.com"
-EMAIL_HOST_PASSWORD = 'lvd,lhgpg,i'
+EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_LOCALTIME = True
 
 # Static files (CSS, JavaScript, Images)
