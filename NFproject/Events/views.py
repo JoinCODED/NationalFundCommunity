@@ -101,6 +101,11 @@ def event(request, event_slug):
     event_date = event.date
     if registration_deadline < timezone.now() or event_date < timezone.now():
         context['registration_closed'] = True  
+    location = event.location_url.split('/')[6]
+    lat = location.split(',')[0][1:]
+    lng = location.split(',')[1]
+    context['lat']= lat
+    context['lng']= lng
     return render(request, "event.html", context=context)
 
 

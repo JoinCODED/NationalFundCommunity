@@ -79,3 +79,8 @@
 .a-card-title {
     color: #0f6dac !important;
 }
+
+#map {
+    height: 250px;
+    width: 100%;
+   }
