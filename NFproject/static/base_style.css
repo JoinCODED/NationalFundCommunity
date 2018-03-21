@@ -32,7 +32,13 @@ a.navbar-brand img {
   height: 50px;
 }
 
-
+.featured_block{
+  text-decoration: none !important;
+  color:white;
+}
+.featured_block:hover{
+  color: white;
+}
   /* Top Container */
   .top-container {
     display: grid;
