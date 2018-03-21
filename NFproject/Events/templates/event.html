@@ -79,31 +79,63 @@
 
   <p></p>
   <div class="container">
-  
+      
     <div class="event-info">ABOUT THE EVENT </div>
       <div class="card">
           <div class="card-body card-styling">
-            <table>
-              <tr>
-                <td>
-                  <div class="event-row">ORGANIZER</div>
-                </td><td></td>
-                <td>
-                    <div class="event-row-desc"> {{event.organizer}}</div>
-                </td>
-              </tr>
-              <tr>
-                <td><div class="event-row">TYPE</div></td><td></td> <td><div class="event-row-desc"> <a href="{% url 'events:type' event.event_type.slug %}">
-                    {{event.event_type.name}}
-                  </a></div></td>
-              </tr>
-              <tr>
-                <td><div class="event-row">DATE</div></td> <td></td><td><div class="event-row-desc"> {{event.date.date}}</div></td>
-              </tr>
-              <tr> <td><div class="event-row">LOCATION</div></td> <td></td><td><div class="event-row-desc">  <a href="{{event.location_url}}">{{event.location_name}}</a></div></td></tr>
-              <tr><td><div class="event-row"># OF SEATS</div></td><td></td><td><div class="event-row-desc"> {{event.maximum_attendees}}</div></td></tr>
-              <tr><td><div class="event-row">REMAINING SEATS</div></td><td></td><td><div class="event-row-desc"> <span id="remaining_seats">{{event.seats_remaining}}</span></div></td></tr>
-            </table>
+            <div class="row">
+              <div class="col-md-6">
+              <table>
+                <tr>
+                  <td>
+                    <div class="event-row">ORGANIZER</div>
+                  </td><td></td>
+                  <td>
+                      <div class="event-row-desc"> {{event.organizer}}</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><div class="event-row">TYPE</div></td><td></td> <td><div class="event-row-desc"> <a href="{% url 'events:type' event.event_type.slug %}">
+                      {{event.event_type.name}}
+                    </a></div></td>
+                </tr>
+                <tr>
+                  <td><div class="event-row">DATE</div></td> <td></td><td><div class="event-row-desc"> {{event.date.date}}</div></td>
+                </tr>
+                <tr> <td><div class="event-row">LOCATION</div></td> <td></td><td><div class="event-row-desc">  <a href="{{event.location_url}}">{{event.location_name}}</a></div></td></tr>
+                <tr><td><div class="event-row"># OF SEATS</div></td><td></td><td><div class="event-row-desc"> {{event.maximum_attendees}}</div></td></tr>
+                <tr><td><div class="event-row">REMAINING SEATS</div></td><td></td><td><div class="event-row-desc"> <span id="remaining_seats">{{event.seats_remaining}}</span></div></td></tr>
+              </table>
+          </div>
+          <div class="col-md-6">
+              <div id="map"></div>
+              
+              <script>
+
+function initMap() {
+  var var1 = parseFloat("{{lat}}");
+  console.log(var1);
+  console.log(var2);
+  var var2 = parseFloat("{{lng}}");
+  var uluru =  {lat: var1, lng: var2 };
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 15,
+    center: uluru
+  });
+  var marker = new google.maps.Marker({
+    position: uluru,
+    map: map
+  });
+}
+              </script>
+              <script  defer
+              src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1dYpZ4vFliSpi0WXnJ7gR9zECty48Q8c&callback=initMap">
+
+              </script>
+             
+          </div>
+          </div>
+          
             <hr>
             {%if not user.is_organization%}
             {% if not registration_closed%}
