@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load tz %}
+{% load markdown_deux_tags %}
 {% block stylesheets %}
 <link rel="stylesheet" href="{% static 'Events/css/event_style.css' %}">
 
@@ -21,6 +23,7 @@
   {% endblock %}
 
 {% block content %}
+
 <div class="jumbotron" style="background-image:url({{event.image_url}}) ">
     <div class="overlay   d-flex align-items-end">
     <div class="container">
@@ -43,7 +46,7 @@
           Event Date 
         </div>
         <div class="row">
-            {{event.date.date}}
+            {{event.date|date:"F d, Y"}}
         </div>
       </div>
       <div class="col-sm-3">
@@ -100,7 +103,7 @@
                     </a></div></td>
                 </tr>
                 <tr>
-                  <td><div class="event-row">DATE</div></td> <td></td><td><div class="event-row-desc"> {{event.date.date}}</div></td>
+                  <td><div class="event-row">DATE</div></td> <td></td><td><div class="event-row-desc"> {{event.date|date:"F d, Y"}}</div></td>
                 </tr>
                 <tr> <td><div class="event-row">LOCATION</div></td> <td></td><td><div class="event-row-desc">  <a href="{{event.location_url}}">{{event.location_name}}</a></div></td></tr>
                 <tr><td><div class="event-row"># OF SEATS</div></td><td></td><td><div class="event-row-desc"> {{event.maximum_attendees}}</div></td></tr>
@@ -156,7 +159,8 @@ function initMap() {
   </div>
 
   <div class="event-conntent">
-    {{event.content}}
+    {{event.content|markdown}}
   </div>
 </div>
+
 {% endblock %}
