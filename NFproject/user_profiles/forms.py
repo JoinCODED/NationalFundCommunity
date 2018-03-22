@@ -13,10 +13,10 @@ class IndividualProfileForm(forms.ModelForm):
 
     class Meta:
         model = Individual
-        fields = ['first_name', 'last_name', 'age', 'interest', 'bio', 'website']
+        fields = ['first_name', 'last_name', 'age', 'interest', 'bio', 'website','industry']
 
 
 class OrganizationProfileForm(forms.ModelForm):
     class Meta:
         model = Organization
-        fields = ['company_name', 'location_URL', 'bio', 'website']
+        fields = ['company_name', 'location_URL', 'bio', 'website', 'industry']

@@ -7,11 +7,18 @@ from django.dispatch import receiver
 from django.urls import reverse
 
 
+class Industries(models.Model):
+    name = models.CharField(max_length=30)
+    slug = models.SlugField(blank=True)
+
+    def __str__(self):
+        return self.name
+
 
 class User(AbstractUser):
     is_individual = models.BooleanField('individual status', default=False)
     is_organization = models.BooleanField('organization status', default=False)
-    
+
     def name(self):
         if self.is_individual:
             return self.individual.full_name()
@@ -31,6 +38,8 @@ class Profile(models.Model):
     bio = models.TextField(blank=True)
     slug = models.SlugField(blank=True)
     website = models.URLField(blank=True)
+    industry = models.ForeignKey(Industries, blank=True, null=True,
+                                 on_delete=models.SET_NULL)
     # fav_articles = models.ManyToManyField(Article, related_name='fans')
 
     def save(self, *args, **kwargs):
@@ -88,3 +97,8 @@ def set_user_type(sender,instance , **kwargs):
     else:
         instance.user.is_organization= True
     instance.user.save()
+
+@receiver(pre_save, sender=Industries)
+def add_slug_to_Industries(sender, instance, **kwargs):
+    if not instance.slug:
+        instance.slug = slugify(instance.name, allow_unicode=True)

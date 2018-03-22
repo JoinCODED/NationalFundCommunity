@@ -13,9 +13,21 @@
   <div class="wrapper col-3">
         <nav id="sidebar">
             <ul class="list-unstyled components">
-                <li><a href="{%url 'profiles:index' %}"><i class="far fa-square"></i> &nbsp All</a></li>
+
+                <li>
+                  <form action="" method="GET">
+                  <div class="input-group searchbar">
+                    <input type="text" class="form-control" name='q' placeholder="name or industry">
+                    <span class="input-group-btn">
+                      <button class="btn btn-color-y" type="submit">Search</button>
+                    </span>
+                  </div>
+                  </form>
+                </li>
+                <li><a href="{%url 'profiles:index' %}"> <i class="far fa-square"></i> &nbsp All</a></li>
                 <li><a href="{%url 'profiles:index' %}?type=organization"> <i class="far fa-square"></i> &nbsp Organization</a></li>
                 <li><a href="{%url 'profiles:index' %}?type=individual"> <i class="far fa-square"></i> &nbsp Individuals</a></li>
+
             </ul>
         </nav>
   </div>

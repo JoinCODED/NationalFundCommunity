@@ -9,6 +9,7 @@
         <div class="col-md-8 px-3">
           <div class="card-block px-3">
             <h4 class="card-title">{{profile.user.name}}</h4>
+            <h4 class="card-title">{{profile.industry}}</h4>
             <p class="card-text"> {{profile.website}} </p>
             <p class="card-text text-truncate"> {{profile.bio}} </p>
             <a href="{%url 'profiles:profile' profile.user.username%}" class="btn btn-color-y">View Profile</a>

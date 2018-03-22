@@ -3,8 +3,9 @@ from operator import attrgetter
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import Http404
 from django.contrib.auth import login, authenticate
+from django.db.models import Q
 
-from .models import User, Individual, Organization
+from .models import User, Individual, Organization, Profile
 from .forms import (CustomUserCreationForm, IndividualProfileForm,
                     OrganizationProfileForm)
 # from articles.models import Article
@@ -35,9 +36,17 @@ def index(request):
     users = User.objects.all()
 
     type = request.GET.get('type')
+    query = request.GET.get('q')
+    if query:
+        users = users.filter(Q(individual__industry__name__icontains=query) |
+                             Q(organization__industry__name__icontains=query) |
+                             Q(individual__first_name__icontains=query) |
+                             Q(individual__last_name__icontains=query) |
+                             Q(organization__company_name__icontains=query)).distinct()
     if type is not None:
-        filter_dictionary = {f'is_{type}': True}
+        filter_dictionary = {f'is_{type}':True}
         users = users.filter(**filter_dictionary)
+
 
     profiles = []
 
@@ -105,3 +114,14 @@ def individual_signup(request):
 
 def organization_signup(request):
     return create_profile(request, OrganizationProfileForm, 'organization')
+
+
+def search(request):
+    context = {}
+    query = request.GET.get('q')
+    profiles = Profile.objects.all()
+    if query:
+        profiles = profiles.filter(Q(user_name__icontains=query) |
+                                   Q(industry__icontains=query)).distinct()
+    context['profiles'] = profiles
+    return render(request, "all_profiles.html", context=context)
