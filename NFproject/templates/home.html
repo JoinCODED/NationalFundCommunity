@@ -14,8 +14,8 @@
 
  
  
-
-      <div class="featured" style="background-image:url({{featured_articles.0.image_url}}) ">
+    
+      <a class="featured featured_block" href="{% url 'articles:article' featured_articles.0.slug %}"style="background-image:url({{featured_articles.0.image_url}}) ">
              
         <div class="overlay d-flex align-self-end">
               <div class="container">
@@ -24,25 +24,25 @@
              </div>
             </div> 
          
-          </div> 
+          </a> 
        
-      
-      <div class="top-box top-box-a" style="background-image: url({{featured_articles.1.image_url}})"> 
+        
+      <a class="top-box top-box-a featured_block" href="{% url 'articles:article' featured_articles.1.slug %}" style="background-image: url({{featured_articles.1.image_url}})"> 
           <div class="overlay d-flex align-self-end">
               <div class="container"><div class="span-holder">
                 <h3> <span class="span-align">{{featured_articles.1.title}}</span></h3></div>
              </div>
             </div> 
       
-      </div> 
+      </a> 
       
-      <div class="top-box top-box-b" style="background-image: url({{featured_articles.2.image_url}})"> 
+      <a class="top-box top-box-b featured_block" href="{% url 'articles:article' featured_articles.2.slug %}" style="background-image: url({{featured_articles.2.image_url}})"> 
       
           <div class="overlay d-flex text-algin-center">
               <div class="container"><div class="span-holder"></div>
                 <h3><span class="span-align">{{featured_articles.2.title}}</span></h3></div>
              </div>
-            </div> 
+            </a> 
       
        
        

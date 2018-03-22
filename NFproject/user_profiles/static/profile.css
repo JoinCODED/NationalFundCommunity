@@ -1,16 +1,18 @@
 
 
 #sidebar {
-        background-color: #E6E6FA;
-        width: 222px;
+
+        background-color: #aaa;
+        width: 199px;
         height: 250px;
-        margin: 30px;
+        margin: 50px;
+
 
 }
 
 #sidebar .sidebar-header {
     padding: 50px;
-    background: #6d7fcc;
+    background: #080808;
 }
 
 #sidebar ul.components {
@@ -27,22 +29,29 @@
     padding: 10px;
     font-size: 1.1em;
     display: block;
-    color: #778899;
+    color: #050505;
 }
 #sidebar ul li a:hover {
-    color: #7386D5;
+    color:  rgb(0, 57, 99);
     background: #fff;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 #sidebar ul li.active > a, a[aria-expanded="true"] {
     color: #fff;
-    background: #6d7fcc;
+    background: #070707;
 }
 
 .verticalLine {
   border-left: solid #D3D3D3;
   border-width: 1pt;
   margin: 30px;
+}
+.profile-imge{
+    margin-top: 5px;
+    padding: 5px;
+    border: solid black;
 }
 
 .rowspace {
@@ -58,13 +67,18 @@
 
 .button{
   background-color: #febb36;
-  font-size: 12px;
+  font-size: 16px;
+  border: none;
 }
 
 .button:hover {
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
-    background-color: #F39010
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: rgb(0, 57, 99);
+  
 }
+
 .name{
     margin-top: 100px;
     font-size: 20px;

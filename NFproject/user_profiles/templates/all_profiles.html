@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+    {% extends 'base.html' %}
 {% load profile_card %}
 {% load static %}
 
@@ -13,6 +13,7 @@
   <div class="wrapper col-3">
         <nav id="sidebar">
             <ul class="list-unstyled components">
+
                 <li>
                   <form action="{% url 'profiles:index' %}?type={{request.GET.type}}" method="GET">
                   <div class="input-group searchbar">
@@ -24,9 +25,11 @@
                   </div>
                   </form>
                 </li>
-                <li><a href="{%url 'profiles:index' %}?q={{request.GET.q}}">All</a></li>
-                <li><a href="{%url 'profiles:index' %}?type=organization&q={{request.GET.q}}">Organization</a></li>
-                <li><a href="{%url 'profiles:index' %}?type=individual&q={{request.GET.q}}">Individuals</a></li>
+
+                <li><a href="{%url 'profiles:index' %}?q={{request.GET.q}}"> <i class="far fa-square"></i> &nbsp All</a></li>
+                <li><a href="{%url 'profiles:index' %}?type=organization&q={{request.GET.q}}"><i class="far fa-square"></i> &nbsp Organization</a></li>
+                <li><a href="{%url 'profiles:index' %}?type=individual&q={{request.GET.q}}"><i class="far fa-square"></i> &nbsp Individuals</a></li>
+
             </ul>
         </nav>
   </div>

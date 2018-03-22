@@ -32,7 +32,13 @@ a.navbar-brand img {
   height: 50px;
 }
 
-
+.featured_block{
+  text-decoration: none !important;
+  color:white;
+}
+.featured_block:hover{
+  color: white;
+}
   /* Top Container */
   .top-container {
     display: grid;
@@ -191,4 +197,16 @@ a.navbar-brand img {
   }
 .social-follow-button{
   padding: 5px;
+}
+
+.social-follow-button:hover {
+text-decoration: none;
+}
+
+.social-follow-button {
+  color: white !important;
+}
+
+.copyright{
+  color: white !important;
 }

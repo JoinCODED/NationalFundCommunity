@@ -1,5 +1,6 @@
-from django.shortcuts import render
-
+from django.shortcuts import render,redirect
+from mailing.models import Subscriber
+from mailing.forms import SubscribeForm
 from articles.models import Article
 from Events.models import Events
 from datetime import date
@@ -12,4 +13,13 @@ def home(request):
     context['upcoming_events'] = Events.objects.all() \
                                        .filter(date__gte=date.today()) \
                                        .order_by('date')
-    return render(request, "home.html", context=context)
+    if request.method == 'POST':
+        form = SubscribeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            print("here")
+            return redirect('home')
+    else:
+        form = SubscribeForm()
+        context['form'] = form
+        return render(request, "home.html", context=context)
