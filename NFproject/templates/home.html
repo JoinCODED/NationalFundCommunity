@@ -70,7 +70,7 @@
         {% for event in upcoming_events %}
         <a href="{% url 'events:event' event.slug %}" class="col-12 pb-2">
           <div class="events_advertisments" style="background-image:url({{event.image_url}})">
-           <span class="event-date"> <span class="event-date-span"> {{event.date.day}}</span> 
+           <span class="event-date"> <span class="event-date-span"> {{event.date|date:"d"}}</span> 
            <span class="event-date-span"> {{ event.date|date:"M" }}</span></span>
           </div>
         </a>
