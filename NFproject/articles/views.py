@@ -144,6 +144,7 @@ def comment(request,article_slug):
     data = dict()
     if request.method == "POST":
         if request.user.is_authenticated:
+            data['is_authenticated'] = True
             form = CommentsForm(request.POST)
             
             if form.is_valid():
@@ -159,7 +160,9 @@ def comment(request,article_slug):
             })
             else:
                 data['form_is_valid'] = False
-            return JsonResponse(data)
+        else:
+            data['is_authenticated'] = False
+        return JsonResponse(data)
 
 # class ArticleDetail(DetailView):
 #     model = Article
@@ -178,15 +181,18 @@ def comment(request,article_slug):
 
 
 def favorite(request, article_slug):
+    data = dict()
+    data['is_authenticated'] = True
     if not request.user.is_authenticated:
-        return redirect('signup')
+        data['is_authenticated'] = False
+        return redirect('login')
     _article = get_object_or_404(Article, slug=article_slug)
     if request.user in _article.fans.all():
         _article.fans.remove(request.user)
     else:
         _article.fans.add(request.user)
-
-    return JsonResponse({'fans_number': _article.fans_number})
+    data['fans_number'] = _article.fans_number
+    return JsonResponse(data)
 
 
 def category(request, category_slug):

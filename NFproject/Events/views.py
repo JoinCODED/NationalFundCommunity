@@ -65,8 +65,11 @@ def index(request):
 
 
 def register(request, event_slug):
+    data = dict()
+    data['is_authenticated'] = True
     if not request.user.is_authenticated:
-        return redirect('signup')
+        data['is_authenticated'] = False
+        return redirect('login')
     if request.user.is_organization:
         raise PermissionDenied
     event = get_object_or_404(Events, slug=event_slug)
@@ -82,10 +85,9 @@ def register(request, event_slug):
             raise PermissionDenied
    
 
-    data = {
-        'is_registerd': is_registerd,
-        'remaining_seats': event.seats_remaining
-    }
+    data['is_registerd']= is_registerd
+    data['remaining_seats']= event.seats_remaining
+    
     return JsonResponse(data)
 
 
