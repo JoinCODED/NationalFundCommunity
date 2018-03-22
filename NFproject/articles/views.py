@@ -162,6 +162,7 @@ def comment(request,article_slug):
                 data['form_is_valid'] = False
         else:
             data['is_authenticated'] = False
+            return redirect('login')
         return JsonResponse(data)
 
 # class ArticleDetail(DetailView):

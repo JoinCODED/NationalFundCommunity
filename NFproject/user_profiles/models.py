@@ -40,7 +40,6 @@ class Profile(models.Model):
     website = models.URLField(blank=True)
     industry = models.ForeignKey(Industries, blank=True, null=True,
                                  on_delete=models.SET_NULL)
-    # fav_articles = models.ManyToManyField(Article, related_name='fans')
 
     def save(self, *args, **kwargs):
         if not self.id and (self.user.is_individual != self.user.is_organization):

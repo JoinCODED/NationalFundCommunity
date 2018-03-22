@@ -15,8 +15,12 @@ function comment(url) {
             $("#comment-form")[0].reset();
           }
           else {
-            alert("Try Again!");
+            window.location.href = "/login/";
           }
-        }
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown)
+        {
+          window.location.href = "/login/"
+      }
       });
 }
