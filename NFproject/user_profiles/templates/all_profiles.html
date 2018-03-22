@@ -14,9 +14,9 @@
         <nav id="sidebar">
             <ul class="list-unstyled components">
                 <li>
-                  <form action="" method="GET">
+                  <form action="{% url 'profiles:index' %}?type={{request.GET.type}}" method="GET">
                   <div class="input-group searchbar">
-                    <input type="text" class="form-control" name='q' placeholder="name or industry">
+                    <input type="text" class="form-control" name='q' placeholder="name or industry" value="{{request.GET.q}}">
                     <span class="input-group-btn">
                       <button class="btn btn-color-y" type="submit">Search</button>
                     </span>
@@ -24,8 +24,8 @@
                   </form>
                 </li>
                 <li><a href="{%url 'profiles:index' %}">All</a></li>
-                <li><a href="{%url 'profiles:index' %}?type=organization">Organization</a></li>
-                <li><a href="{%url 'profiles:index' %}?type=individual">Individuals</a></li>
+                <li><a href="{%url 'profiles:index' %}?type=organization&q={{request.GET.q}}">Organization</a></li>
+                <li><a href="{%url 'profiles:index' %}?type=individual&q={{request.GET.q}}">Individuals</a></li>
             </ul>
         </nav>
   </div>
