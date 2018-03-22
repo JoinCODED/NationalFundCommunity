@@ -35,15 +35,16 @@ def profile(request, username):
 def index(request):
     users = User.objects.all()
 
-    type = request.GET.get('type')
+    type = request.GET.get('type', None)
     query = request.GET.get('q')
+    print(request.GET)
     if query:
         users = users.filter(Q(individual__industry__name__icontains=query) |
                              Q(organization__industry__name__icontains=query) |
                              Q(individual__first_name__icontains=query) |
                              Q(individual__last_name__icontains=query) |
                              Q(organization__company_name__icontains=query)).distinct()
-    if type is not None:
+    if type:
         filter_dictionary = {f'is_{type}':True}
         users = users.filter(**filter_dictionary)
 
