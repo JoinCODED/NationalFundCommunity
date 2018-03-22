@@ -17,13 +17,14 @@
                   <form action="{% url 'profiles:index' %}?type={{request.GET.type}}" method="GET">
                   <div class="input-group searchbar">
                     <input type="text" class="form-control" name='q' placeholder="name or industry" value="{{request.GET.q}}">
+                    <input type="hidden" name="type" value="{{request.GET.type}}">
                     <span class="input-group-btn">
                       <button class="btn btn-color-y" type="submit">Search</button>
                     </span>
                   </div>
                   </form>
                 </li>
-                <li><a href="{%url 'profiles:index' %}">All</a></li>
+                <li><a href="{%url 'profiles:index' %}?q={{request.GET.q}}">All</a></li>
                 <li><a href="{%url 'profiles:index' %}?type=organization&q={{request.GET.q}}">Organization</a></li>
                 <li><a href="{%url 'profiles:index' %}?type=individual&q={{request.GET.q}}">Individuals</a></li>
             </ul>
