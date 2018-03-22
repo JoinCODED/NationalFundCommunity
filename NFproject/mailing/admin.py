@@ -9,7 +9,7 @@ def send_email(modeladmin, request, queryset):
     
     send_mail(
     'Subscribers',
-    'Check our latest articles and events go to our website',
+    'Check our latest articles and events on our website',
     'copy4ever@yahoo.com',
      email_list,
     

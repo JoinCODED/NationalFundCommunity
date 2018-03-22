@@ -198,3 +198,15 @@ a.navbar-brand img {
 .social-follow-button{
   padding: 5px;
 }
+
+.social-follow-button:hover {
+text-decoration: none;
+}
+
+.social-follow-button {
+  color: white !important;
+}
+
+.copyright{
+  color: white !important;
+}
