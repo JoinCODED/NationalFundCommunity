@@ -10,14 +10,15 @@
 <div class="d-flex justify-content-end">
 
     {% if  current_user %}
-      <a href="{%url 'profiles:update' user.username%}" class="btn btn-primary" >Edit Profile</a>
+      <a href="{%url 'profiles:update' user.username%}" class="btn btn-color-b" >Edit Profile</a>
     {% endif %}
 </div>
 <div class="container">
   <div class="row">
     <div class="col-6">
-  <img src="https://cdn.vox-cdn.com/thumbor/VkpZk_WQSQvGe9T7YYOZscGsOwI=/0x86:706x557/1200x800/filters:focal(0x86:706x557)/cdn.vox-cdn.com/assets/738480/stevejobs.png" width="300px" height="300px">
-  </div>
+  <img src="https://cdn.vox-cdn.com/thumbor/VkpZk_WQSQvGe9T7YYOZscGsOwI=/0x86:706x557/1200x800/filters:focal(0x86:706x557)/cdn.vox-cdn.com/assets/738480/stevejobs.png" width="300px" height="300px" class="profile-imge">
+  <br class="br-color">
+ </div>
   <div class="col-6 name">
 
     {%block profile_name%}
